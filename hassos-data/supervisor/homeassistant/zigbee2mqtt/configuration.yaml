@@ -1,0 +1,53 @@
+version: 4
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://core-mosquitto:1883
+  user: addons
+  password: xag5nie0eiDie8Yohz6aitohbeeyae3He6saeB9eicha2Tho5Ahsaazoosiex2no
+serial:
+  port: /dev/ttyUSB0
+  adapter: zstack
+  baudrate: 115200
+  rtscts: false
+advanced:
+  log_level: info
+  channel: 11
+  network_key:
+    - 27
+    - 212
+    - 253
+    - 55
+    - 221
+    - 228
+    - 56
+    - 189
+    - 150
+    - 153
+    - 24
+    - 224
+    - 237
+    - 49
+    - 15
+    - 118
+  pan_id: 15532
+  ext_pan_id:
+    - 176
+    - 13
+    - 79
+    - 41
+    - 168
+    - 240
+    - 190
+    - 100
+frontend:
+  enabled: true
+  port: 8099
+homeassistant:
+  enabled: true
+devices:
+  '0x001788010f5d31a9':
+    friendly_name: LR LED Stripes
+  '0x08ddebfffeda418c':
+    friendly_name: LR Motion Sensor
+  '0xb43522fffec77125':
+    friendly_name: BR Motion Sensor

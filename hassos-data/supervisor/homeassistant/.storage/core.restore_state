@@ -1,0 +1,682 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "core.restore_state",
+  "data": [
+    {
+      "state": {"entity_id":"update.home_assistant_supervisor_update","state":"off","attributes":{"auto_update":true,"display_precision":0,"installed_version":"2025.11.5","in_progress":false,"latest_version":"2025.11.5","release_summary":null,"release_url":"https://github.com/home-assistant/supervisor/releases/tag/2025.11.5","skipped_version":null,"title":"Home Assistant Supervisor","update_percentage":null,"entity_picture":"https://brands.home-assistant.io/hassio/icon.png","friendly_name":"Home Assistant Supervisor Update","supported_features":1},"last_changed":"2025-12-02T08:34:43.032210+00:00","last_reported":"2025-12-02T08:34:43.032210+00:00","last_updated":"2025-12-02T08:34:43.032210+00:00","context":{"id":"01KBF3676RH616STGFGMGTNDEW","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.home_assistant_core_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"2025.11.3","in_progress":false,"latest_version":"2025.11.3","release_summary":null,"release_url":"https://www.home-assistant.io/latest-release-notes/","skipped_version":null,"title":"Home Assistant Core","update_percentage":null,"entity_picture":"https://brands.home-assistant.io/homeassistant/icon.png","friendly_name":"Home Assistant Core Update","supported_features":15},"last_changed":"2025-12-02T08:34:43.032910+00:00","last_reported":"2025-12-02T08:34:43.032910+00:00","last_updated":"2025-12-02T08:34:43.032910+00:00","context":{"id":"01KBF3676RK5SNKTTJEGECXZSW","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.mosquitto_broker_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"6.5.2","in_progress":false,"latest_version":"6.5.2","release_summary":null,"release_url":null,"skipped_version":null,"title":"Mosquitto broker","update_percentage":null,"entity_picture":"/api/hassio/addons/core_mosquitto/icon","friendly_name":"Mosquitto broker Update","supported_features":29},"last_changed":"2025-12-02T08:34:43.033139+00:00","last_reported":"2025-12-02T08:34:43.033139+00:00","last_updated":"2025-12-02T08:34:43.033139+00:00","context":{"id":"01KBF3676ST6MPKNBJZN182EGC","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.zigbee2mqtt_update","state":"on","attributes":{"auto_update":false,"display_precision":0,"installed_version":"2.6.3-1","in_progress":false,"latest_version":"2.7.0-1","release_summary":null,"release_url":null,"skipped_version":null,"title":"Zigbee2MQTT","update_percentage":null,"entity_picture":"/api/hassio/addons/45df7312_zigbee2mqtt/icon","friendly_name":"Zigbee2MQTT Update","supported_features":29},"last_changed":"2025-12-02T08:34:43.033380+00:00","last_reported":"2025-12-02T08:34:43.033380+00:00","last_updated":"2025-12-02T08:34:43.033380+00:00","context":{"id":"01KBF3676S8TA0G460MRV1MHWC","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.file_editor_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"5.8.0","in_progress":false,"latest_version":"5.8.0","release_summary":null,"release_url":null,"skipped_version":null,"title":"File editor","update_percentage":null,"entity_picture":"/api/hassio/addons/core_configurator/icon","friendly_name":"File editor Update","supported_features":29},"last_changed":"2025-12-02T08:34:43.033545+00:00","last_reported":"2025-12-02T08:34:43.033545+00:00","last_updated":"2025-12-02T08:34:43.033545+00:00","context":{"id":"01KBF3676SR7FET3CE8MQT88GQ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.get_hacs_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"1.3.1","in_progress":false,"latest_version":"1.3.1","release_summary":null,"release_url":null,"skipped_version":null,"title":"Get HACS","update_percentage":null,"entity_picture":"/api/hassio/addons/cb646a50_get/icon","friendly_name":"Get HACS Update","supported_features":29},"last_changed":"2025-12-02T08:34:43.033709+00:00","last_reported":"2025-12-02T08:34:43.033709+00:00","last_updated":"2025-12-02T08:34:43.033709+00:00","context":{"id":"01KBF3676SCWM6CX5GKXEM9YHR","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.log_viewer_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"0.17.1","in_progress":false,"latest_version":"0.17.1","release_summary":null,"release_url":null,"skipped_version":null,"title":"Log Viewer","update_percentage":null,"entity_picture":"/api/hassio/addons/a0d7b954_logviewer/icon","friendly_name":"Log Viewer Update","supported_features":29},"last_changed":"2025-12-02T08:34:43.033853+00:00","last_reported":"2025-12-02T08:34:43.033853+00:00","last_updated":"2025-12-02T08:34:43.033853+00:00","context":{"id":"01KBF3676SS3EVPM5BJ58BT7S6","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.log_viewer_update_2","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"dev","in_progress":false,"latest_version":"dev","release_summary":null,"release_url":null,"skipped_version":null,"title":"Log Viewer","update_percentage":null,"entity_picture":"/api/hassio/addons/537d2934_logviewer-ha-log/icon","friendly_name":"Log Viewer Update","supported_features":29},"last_changed":"2025-12-02T08:34:43.033987+00:00","last_reported":"2025-12-02T08:34:43.033987+00:00","last_updated":"2025-12-02T08:34:43.033987+00:00","context":{"id":"01KBF3676SV2KAKWP7CGWEMZ8P","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.home_assistant_operating_system_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"16.3","in_progress":false,"latest_version":"16.3","release_summary":null,"release_url":"https://github.com/home-assistant/operating-system/releases/tag/16.3","skipped_version":null,"title":"Home Assistant Operating System","update_percentage":null,"entity_picture":"https://brands.home-assistant.io/homeassistant/icon.png","friendly_name":"Home Assistant Operating System Update","supported_features":11},"last_changed":"2025-12-02T08:34:43.034184+00:00","last_reported":"2025-12-02T08:34:43.034184+00:00","last_updated":"2025-12-02T08:34:43.034184+00:00","context":{"id":"01KBF3676TQZ78KK2JPGSTN8BB","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2025-12-02T08:34:43.808223+00:00","last_reported":"2025-12-02T08:34:43.808223+00:00","last_updated":"2025-12-02T08:34:43.808223+00:00","context":{"id":"01KBF367Z0QG2RBWB2WCBK6FFG","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"event.backup_automatic_backup","state":"2025-12-02T04:10:41.001+00:00","attributes":{"event_types":["completed","failed","in_progress"],"event_type":"failed","backup_stage":null,"failed_reason":"backup_manager_error","friendly_name":"Backup Automatic backup"},"last_changed":"2025-12-02T08:34:43.897382+00:00","last_reported":"2025-12-02T08:34:43.897382+00:00","last_updated":"2025-12-02T08:34:43.897382+00:00","context":{"id":"01KBF3681SXJMYNBBT07A01K7K","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "last_event_type": "failed",
+        "last_event_attributes": {
+          "backup_stage": null,
+          "failed_reason": "backup_manager_error"
+        }
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.lr_100","state":"2025-11-26T18:21:01.607045+00:00","attributes":{"entity_id":["light.lr_led_stripes"],"id":"1764179555157","icon":"mdi:lightbulb","friendly_name":"LR 100%"},"last_changed":"2025-12-02T08:34:44.067997+00:00","last_reported":"2025-12-02T08:34:44.067997+00:00","last_updated":"2025-12-02T08:34:44.067997+00:00","context":{"id":"01KBF36873X4B7JE6MWAJ8ZWFQ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.lr_50_duplicate","state":"2025-11-27T17:57:27.803841+00:00","attributes":{"entity_id":["light.lr_led_stripes"],"id":"1764179591291","icon":"mdi:lightbulb","friendly_name":"LR Fireplace"},"last_changed":"2025-12-02T08:34:44.069139+00:00","last_reported":"2025-12-02T08:34:44.069139+00:00","last_updated":"2025-12-02T08:34:44.069139+00:00","context":{"id":"01KBF3687502DD5HFJCTA6DESW","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.lr_color","state":"2025-11-26T18:21:04.914285+00:00","attributes":{"entity_id":["light.lr_led_stripes"],"id":"1764179932672","icon":"mdi:lightbulb","friendly_name":"LR Color"},"last_changed":"2025-12-02T08:34:44.069356+00:00","last_reported":"2025-12-02T08:34:44.069356+00:00","last_updated":"2025-12-02T08:34:44.069356+00:00","context":{"id":"01KBF36875JY0WJGJGATYVH87B","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.lr_purple","state":"2025-11-26T18:21:05.898391+00:00","attributes":{"entity_id":["light.lr_led_stripes"],"id":"1764180016013","icon":"mdi:lightbulb","friendly_name":"LR Purple"},"last_changed":"2025-12-02T08:34:44.069550+00:00","last_reported":"2025-12-02T08:34:44.069550+00:00","last_updated":"2025-12-02T08:34:44.069550+00:00","context":{"id":"01KBF36875M40PDP3BQZTNR7G9","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.lr_off","state":"2025-11-27T21:47:16.080326+00:00","attributes":{"entity_id":["light.lr_led_stripes"],"id":"1764180076504","icon":"mdi:lightbulb","friendly_name":"LR Off"},"last_changed":"2025-12-02T08:34:44.069737+00:00","last_reported":"2025-12-02T08:34:44.069737+00:00","last_updated":"2025-12-02T08:34:44.069737+00:00","context":{"id":"01KBF36875BMWPCQG4810BA2H1","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.br_100","state":"2025-11-26T18:24:59.007224+00:00","attributes":{"entity_id":["light.br_led_stripes","number.br_led_stripes_length","number.br_led_stripes_min_brightness","number.br_led_stripes_max_brightness","switch.br_led_stripes_audio","select.br_led_stripes_audio_sensitivity","select.br_led_stripes_audio_effect","number.br_led_stripes_preset","number.br_led_stripes_speed"],"id":"1764180130470","icon":"mdi:lightbulb","friendly_name":"BR 100%"},"last_changed":"2025-12-02T08:34:44.069914+00:00","last_reported":"2025-12-02T08:34:44.069914+00:00","last_updated":"2025-12-02T08:34:44.069914+00:00","context":{"id":"01KBF36875GJMW67MB2TC9FD3P","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.br_50","state":"2025-11-30T23:49:11.617242+00:00","attributes":{"entity_id":["light.br_led_stripes","number.br_led_stripes_length","number.br_led_stripes_min_brightness","number.br_led_stripes_max_brightness","switch.br_led_stripes_audio","select.br_led_stripes_audio_sensitivity","select.br_led_stripes_audio_effect","number.br_led_stripes_preset","number.br_led_stripes_speed"],"id":"1764180143987","icon":"mdi:lightbulb","friendly_name":"BR 50%"},"last_changed":"2025-12-02T08:34:44.070096+00:00","last_reported":"2025-12-02T08:34:44.070096+00:00","last_updated":"2025-12-02T08:34:44.070096+00:00","context":{"id":"01KBF36876886E7YD1CAYC74H4","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.br_10","state":"2025-11-26T18:25:02.145452+00:00","attributes":{"entity_id":["light.br_led_stripes","number.br_led_stripes_length","number.br_led_stripes_min_brightness","number.br_led_stripes_max_brightness","switch.br_led_stripes_audio","select.br_led_stripes_audio_sensitivity","select.br_led_stripes_audio_effect","number.br_led_stripes_preset","number.br_led_stripes_speed"],"id":"1764180194065","icon":"mdi:lightbulb","friendly_name":"BR 10%"},"last_changed":"2025-12-02T08:34:44.070282+00:00","last_reported":"2025-12-02T08:34:44.070282+00:00","last_updated":"2025-12-02T08:34:44.070282+00:00","context":{"id":"01KBF368761C5J03YQW3HTHF1Q","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.br_red","state":"2025-11-30T23:48:41.428361+00:00","attributes":{"entity_id":["light.br_led_stripes","number.br_led_stripes_length","number.br_led_stripes_min_brightness","number.br_led_stripes_max_brightness","switch.br_led_stripes_audio","select.br_led_stripes_audio_sensitivity","select.br_led_stripes_audio_effect","number.br_led_stripes_preset","number.br_led_stripes_speed"],"id":"1764180228491","icon":"mdi:lightbulb","friendly_name":"BR Red"},"last_changed":"2025-12-02T08:34:44.070452+00:00","last_reported":"2025-12-02T08:34:44.070452+00:00","last_updated":"2025-12-02T08:34:44.070452+00:00","context":{"id":"01KBF3687606N906EREJ8HGPJN","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"scene.br_off","state":"2025-12-01T00:10:35.971601+00:00","attributes":{"entity_id":["light.br_led_stripes","number.br_led_stripes_length","number.br_led_stripes_min_brightness","number.br_led_stripes_max_brightness","switch.br_led_stripes_audio","select.br_led_stripes_audio_sensitivity","select.br_led_stripes_audio_effect","number.br_led_stripes_preset","number.br_led_stripes_speed"],"id":"1764180268014","icon":"mdi:lightbulb","friendly_name":"BR Off"},"last_changed":"2025-12-02T08:34:44.070765+00:00","last_reported":"2025-12-02T08:34:44.070765+00:00","last_updated":"2025-12-02T08:34:44.070765+00:00","context":{"id":"01KBF36876J2KRZNYWHG1ATFV3","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"person.anton_kook","state":"not_home","attributes":{"editable":true,"id":"anton_kook","device_trackers":["device_tracker.tosha"],"latitude":52.31163597433035,"longitude":8.049465216366475,"gps_accuracy":19,"source":"device_tracker.tosha","user_id":"192180ddb84245689ec7a6549e465ce5","friendly_name":"Anton Kook"},"last_changed":"2025-12-02T08:34:44.089807+00:00","last_reported":"2025-12-02T08:34:48.159339+00:00","last_updated":"2025-12-02T08:34:48.159339+00:00","context":{"id":"01KBF36C6ZPWHSC9ZVR02VY7B9","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"person.alexandra_shmuylovich","state":"unknown","attributes":{"editable":true,"id":"alexandra_shmuylovich","device_trackers":["device_tracker.sm_s931b"],"user_id":"11efcee56ed74639b8a486b486a06dac","friendly_name":"Alexandra Shmuylovich"},"last_changed":"2025-12-02T08:34:44.090046+00:00","last_reported":"2025-12-02T08:34:48.159499+00:00","last_updated":"2025-12-02T08:34:48.159499+00:00","context":{"id":"01KBF36C6Z51ZWWBXVPRQ9MBAV","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"device_tracker.tosha","state":"not_home","attributes":{"source_type":"gps","battery_level":100,"latitude":52.31163597433035,"longitude":8.049465216366475,"gps_accuracy":19,"altitude":73.8246879317277,"vertical_accuracy":30,"friendly_name":"Tosha"},"last_changed":"2025-12-02T08:34:45.184427+00:00","last_reported":"2025-12-02T08:34:45.184427+00:00","last_updated":"2025-12-02T08:34:45.184427+00:00","context":{"id":"01KBF369A0K2R96TFK9PGV4AQS","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_battery_level","state":"70","attributes":{"unit_of_measurement":"%","device_class":"battery","icon":"mdi:battery-70","friendly_name":"Tosha Battery Level"},"last_changed":"2025-12-02T08:34:45.185096+00:00","last_reported":"2025-12-02T08:34:45.185096+00:00","last_updated":"2025-12-02T08:34:45.185096+00:00","context":{"id":"01KBF369A1183NTS2V5KHY6N75","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": 70,
+        "native_unit_of_measurement": "%"
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_storage","state":"unavailable","attributes":{"unit_of_measurement":"% available","icon":"mdi:dots-square","friendly_name":"Tosha Storage"},"last_changed":"2025-12-02T08:34:45.185273+00:00","last_reported":"2025-12-02T08:34:45.185273+00:00","last_updated":"2025-12-02T08:34:45.185273+00:00","context":{"id":"01KBF369A175E5DPVAAY970FQ1","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": "% available"
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_ssid","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha SSID"},"last_changed":"2025-12-02T08:34:45.185410+00:00","last_reported":"2025-12-02T08:34:45.185410+00:00","last_updated":"2025-12-02T08:34:45.185410+00:00","context":{"id":"01KBF369A12XVB4810FVX4K3A5","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_battery_state","state":"Not Charging","attributes":{"Low Power Mode":false,"icon":"mdi:battery-70","friendly_name":"Tosha Battery State"},"last_changed":"2025-12-02T08:34:45.185567+00:00","last_reported":"2025-12-02T08:34:45.185567+00:00","last_updated":"2025-12-02T08:34:45.185567+00:00","context":{"id":"01KBF369A12R3J6BDZARGYA19R","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "Not Charging",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_bssid","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha BSSID"},"last_changed":"2025-12-02T08:34:45.185702+00:00","last_reported":"2025-12-02T08:34:45.185702+00:00","last_updated":"2025-12-02T08:34:45.185702+00:00","context":{"id":"01KBF369A13ZHXS1719CDX4CX0","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_connection_type","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha Connection Type"},"last_changed":"2025-12-02T08:34:45.185832+00:00","last_reported":"2025-12-02T08:34:45.185832+00:00","last_updated":"2025-12-02T08:34:45.185832+00:00","context":{"id":"01KBF369A1VF4DGPWKZ5KK982J","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_sim_1","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha SIM 1"},"last_changed":"2025-12-02T08:34:45.185953+00:00","last_reported":"2025-12-02T08:34:45.185953+00:00","last_updated":"2025-12-02T08:34:45.185953+00:00","context":{"id":"01KBF369A1YJKH0JY6PF6SHHAZ","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_sim_2","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha SIM 2"},"last_changed":"2025-12-02T08:34:45.186163+00:00","last_reported":"2025-12-02T08:34:45.186163+00:00","last_updated":"2025-12-02T08:34:45.186163+00:00","context":{"id":"01KBF369A2E6WK1D2XMJQEE0GQ","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_geocoded_location","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha Geocoded Location"},"last_changed":"2025-12-02T08:34:45.186346+00:00","last_reported":"2025-12-02T08:34:45.186346+00:00","last_updated":"2025-12-02T08:34:45.186346+00:00","context":{"id":"01KBF369A2RGCTPP7B9DEGZHNY","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_last_update_trigger","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha Last Update Trigger"},"last_changed":"2025-12-02T08:34:45.186533+00:00","last_reported":"2025-12-02T08:34:45.186533+00:00","last_updated":"2025-12-02T08:34:45.186533+00:00","context":{"id":"01KBF369A2BXZVWHVH7X5YN3QZ","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_app_version","state":"2025.11.1","attributes":{"icon":"mdi:cellphone","friendly_name":"Tosha App Version"},"last_changed":"2025-12-02T08:34:45.186679+00:00","last_reported":"2025-12-02T08:34:45.186679+00:00","last_updated":"2025-12-02T08:34:45.186679+00:00","context":{"id":"01KBF369A249WXKFWGS7SEVPD2","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "2025.11.1",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_location_permission","state":"Authorized Always","attributes":{"icon":"mdi:map","friendly_name":"Tosha Location permission"},"last_changed":"2025-12-02T08:34:45.186813+00:00","last_reported":"2025-12-02T08:34:45.186813+00:00","last_updated":"2025-12-02T08:34:45.186813+00:00","context":{"id":"01KBF369A2B4N8P1WYNKS7NDP1","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "Authorized Always",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.tosha_audio_output","state":"unavailable","attributes":{"icon":"mdi:dots-square","friendly_name":"Tosha Audio Output"},"last_changed":"2025-12-02T08:34:45.186945+00:00","last_reported":"2025-12-02T08:34:45.186945+00:00","last_updated":"2025-12-02T08:34:45.186945+00:00","context":{"id":"01KBF369A2RP2R1EBWAJ5YDVM2","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "unavailable",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"device_tracker.sm_s931b","state":"unknown","attributes":{"source_type":"gps","friendly_name":"SM-S931B"},"last_changed":"2025-12-02T08:34:45.187663+00:00","last_reported":"2025-12-02T08:34:45.187663+00:00","last_updated":"2025-12-02T08:34:45.187663+00:00","context":{"id":"01KBF369A3PRV1HCQTQG8EEB9P","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.sm_s931b_battery_level","state":"78","attributes":{"state_class":"measurement","unit_of_measurement":"%","device_class":"battery","icon":"mdi:battery-70","friendly_name":"SM-S931B Battery level"},"last_changed":"2025-12-02T08:34:45.188070+00:00","last_reported":"2025-12-02T08:34:45.188070+00:00","last_updated":"2025-12-02T08:34:45.188070+00:00","context":{"id":"01KBF369A4XQJ4Y3TD0G11Y6PZ","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": 78,
+        "native_unit_of_measurement": "%"
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.sm_s931b_battery_state","state":"discharging","attributes":{"options":["charging","discharging","full","not_charging"],"device_class":"enum","icon":"mdi:battery-minus","friendly_name":"SM-S931B Battery state"},"last_changed":"2025-12-02T08:34:45.188239+00:00","last_reported":"2025-12-02T08:34:45.188239+00:00","last_updated":"2025-12-02T08:34:45.188239+00:00","context":{"id":"01KBF369A4ENEDD372C0BWWGBP","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "discharging",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.sm_s931b_charger_type","state":"none","attributes":{"options":["ac","usb","wireless","dock","none"],"device_class":"enum","icon":"mdi:battery","friendly_name":"SM-S931B Charger type"},"last_changed":"2025-12-02T08:34:45.188799+00:00","last_reported":"2025-12-02T08:34:45.188799+00:00","last_updated":"2025-12-02T08:34:45.188799+00:00","context":{"id":"01KBF369A4EK1CEQZ2YNGER41F","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "none",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.lr_lights","state":"on","attributes":{"id":"1764179193065","last_triggered":"2025-12-02T03:28:58.312622+00:00","mode":"single","current":0,"friendly_name":"LR Lights"},"last_changed":"2025-12-02T08:34:45.194373+00:00","last_reported":"2025-12-02T08:34:45.194373+00:00","last_updated":"2025-12-02T08:34:45.194373+00:00","context":{"id":"01KBF369AARZ66M31D7HX6Q8MC","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.hacs_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"2.0.5","in_progress":false,"latest_version":"2.0.5","release_summary":null,"release_url":"https://github.com/hacs/integration/releases/2.0.5","skipped_version":null,"title":null,"update_percentage":null,"entity_picture":"https://brands.home-assistant.io/_/hacs/icon.png","friendly_name":"HACS update","supported_features":23},"last_changed":"2025-12-02T08:34:45.202293+00:00","last_reported":"2025-12-02T08:34:45.202293+00:00","last_updated":"2025-12-02T08:34:45.202293+00:00","context":{"id":"01KBF369AJAY8W25CCK2WBP3WW","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.frosted_glass_theme_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"v1.3","in_progress":false,"latest_version":"v1.3","release_summary":null,"release_url":"https://github.com/wessamlauf/homeassistant-frosted-glass-themes/releases/v1.3","skipped_version":null,"title":null,"update_percentage":null,"friendly_name":"Frosted Glass Theme update","supported_features":23},"last_changed":"2025-12-02T08:34:45.202490+00:00","last_reported":"2025-12-02T08:34:45.202490+00:00","last_updated":"2025-12-02T08:34:45.202490+00:00","context":{"id":"01KBF369AJ3TSVG36BKS97BKFJ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.card_mod_update","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"v4.0.0","in_progress":false,"latest_version":"v4.0.0","release_summary":null,"release_url":"https://github.com/thomasloven/lovelace-card-mod/releases/v4.0.0","skipped_version":null,"title":null,"update_percentage":null,"friendly_name":"card-mod update","supported_features":23},"last_changed":"2025-12-02T08:34:45.202624+00:00","last_reported":"2025-12-02T08:34:45.202624+00:00","last_updated":"2025-12-02T08:34:45.202624+00:00","context":{"id":"01KBF369AJP110H9PGTH2A83JQ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2025-12-02T08:34:45.278311+00:00","last_reported":"2025-12-02T08:34:45.278311+00:00","last_updated":"2025-12-02T08:34:45.278311+00:00","context":{"id":"01KBF369CYMBH43B5JEJZRG293","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.zigbee2mqtt_bridge_connection_state","state":"on","attributes":{"device_class":"connectivity","friendly_name":"Zigbee2MQTT Bridge Connection state"},"last_changed":"2025-12-02T08:34:46.583484+00:00","last_reported":"2025-12-02T08:34:46.583484+00:00","last_updated":"2025-12-02T08:34:46.583484+00:00","context":{"id":"01KBF36ANQB32XQ0FQP20NH1JD","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.lr_motion_sensor_occupancy","state":"on","attributes":{"device_class":"occupancy","friendly_name":"LR Motion Sensor Occupancy"},"last_changed":"2025-12-02T08:35:23.533255+00:00","last_reported":"2025-12-02T08:35:23.533255+00:00","last_updated":"2025-12-02T08:35:23.533255+00:00","context":{"id":"01KBF37ERD0NYKN81AND2RVS0J","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"button.zigbee2mqtt_bridge_restart","state":"unknown","attributes":{"device_class":"restart","friendly_name":"Zigbee2MQTT Bridge Restart"},"last_changed":"2025-12-02T08:34:46.583592+00:00","last_reported":"2025-12-02T08:34:46.583592+00:00","last_updated":"2025-12-02T08:34:46.583592+00:00","context":{"id":"01KBF36ANQ8FEAGNP211HTJWNJ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"light.lr_led_stripes","state":"on","attributes":{"min_color_temp_kelvin":2000,"max_color_temp_kelvin":6666,"min_mireds":150,"max_mireds":500,"effect_list":["blink","breathe","okay","channel_change","candle","fireplace","colorloop","finish_effect","stop_effect","stop_hue_effect"],"supported_color_modes":["color_temp","xy"],"effect":null,"color_mode":"color_temp","brightness":255,"color_temp_kelvin":3484,"color_temp":287,"hs_color":[27.189,45.123],"rgb_color":[255,192,140],"xy_color":[0.455,0.374],"friendly_name":"LR LED Stripes","supported_features":44},"last_changed":"2025-12-02T08:35:23.527550+00:00","last_reported":"2025-12-02T08:35:23.527550+00:00","last_updated":"2025-12-02T08:35:23.527550+00:00","context":{"id":"01KBF37ER7DWQWM9SJ1JTYKQS3","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"number.lr_motion_sensor_occupancy_timeout","state":"unknown","attributes":{"min":15.0,"max":65535.0,"step":1.0,"mode":"auto","icon":"mdi:timer","friendly_name":"LR Motion Sensor Occupancy timeout"},"last_changed":"2025-12-02T08:34:46.584014+00:00","last_reported":"2025-12-02T08:34:46.584014+00:00","last_updated":"2025-12-02T08:34:46.584014+00:00","context":{"id":"01KBF36ANRSVM3PNDRFGMZ0WBF","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 65535.0,
+        "native_min_value": 15.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"select.zigbee2mqtt_bridge_log_level","state":"info","attributes":{"options":["error","warning","info","debug"],"friendly_name":"Zigbee2MQTT Bridge Log level"},"last_changed":"2025-12-02T08:34:46.585867+00:00","last_reported":"2025-12-02T08:34:46.585867+00:00","last_updated":"2025-12-02T08:34:46.585867+00:00","context":{"id":"01KBF36ANSNWCZMV559Y3DAHPX","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"select.lr_led_stripes_power_on_behavior","state":"unknown","attributes":{"options":["off","on","toggle","previous"],"icon":"mdi:power-settings","friendly_name":"LR LED Stripes Power-on behavior"},"last_changed":"2025-12-02T08:34:46.584048+00:00","last_reported":"2025-12-02T08:34:46.584048+00:00","last_updated":"2025-12-02T08:34:46.584048+00:00","context":{"id":"01KBF36ANRT8HDA6FZ5V568N10","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"select.lr_motion_sensor_occupancy_sensitivity","state":"high","attributes":{"options":["low","medium","high"],"friendly_name":"LR Motion Sensor Occupancy sensitivity"},"last_changed":"2025-12-02T08:35:23.533424+00:00","last_reported":"2025-12-02T08:35:23.533424+00:00","last_updated":"2025-12-02T08:35:23.533424+00:00","context":{"id":"01KBF37ERDT38PART1DWY6GVSV","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.zigbee2mqtt_bridge_version","state":"2.6.3","attributes":{"icon":"mdi:zigbee","friendly_name":"Zigbee2MQTT Bridge Version"},"last_changed":"2025-12-02T08:34:46.585927+00:00","last_reported":"2025-12-02T08:34:46.585927+00:00","last_updated":"2025-12-02T08:34:46.585927+00:00","context":{"id":"01KBF36ANS8XWQ7N0SYEBPEYQ0","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "2.6.3",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.lr_motion_sensor_illumination","state":"dim","attributes":{"friendly_name":"LR Motion Sensor Illumination"},"last_changed":"2025-12-02T08:35:23.533653+00:00","last_reported":"2025-12-02T08:35:23.533653+00:00","last_updated":"2025-12-02T08:35:23.533653+00:00","context":{"id":"01KBF37ERDWFCMRK9KY839S821","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "dim",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"switch.zigbee2mqtt_bridge_permit_join","state":"off","attributes":{"icon":"mdi:human-greeting-proximity","friendly_name":"Zigbee2MQTT Bridge Permit join"},"last_changed":"2025-12-02T08:41:00.242740+00:00","last_reported":"2025-12-02T08:41:00.242740+00:00","last_updated":"2025-12-02T08:41:00.242740+00:00","context":{"id":"01KBF3HQJJK9PTFPDXNVTACHWZ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.lr_led_stripes","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"16786946","in_progress":false,"latest_version":"16786946","release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"LR LED Stripes","supported_features":5},"last_changed":"2025-12-02T08:35:23.527922+00:00","last_reported":"2025-12-02T08:35:23.527922+00:00","last_updated":"2025-12-02T08:35:23.527922+00:00","context":{"id":"01KBF37ER79EA2DWKNVCVNPMYP","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.lr_motion_sensor","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"4102","in_progress":false,"latest_version":"4102","release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"LR Motion Sensor","supported_features":5},"last_changed":"2025-12-02T08:35:23.533531+00:00","last_reported":"2025-12-02T08:35:23.533531+00:00","last_updated":"2025-12-02T08:35:23.533531+00:00","context":{"id":"01KBF37ERDV2EG7FV1VMMF6DDZ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.br_motion_sensor_occupancy","state":"off","attributes":{"device_class":"occupancy","friendly_name":"BR Motion Sensor Occupancy"},"last_changed":"2025-12-02T08:41:26.663727+00:00","last_reported":"2025-12-02T08:41:26.663727+00:00","last_updated":"2025-12-02T08:41:26.663727+00:00","context":{"id":"01KBF3JHC744PMR52WTRW2742B","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"number.br_motion_sensor_motion_timeout","state":"5","attributes":{"min":5.0,"max":60.0,"step":1.0,"mode":"auto","friendly_name":"BR Motion Sensor Motion timeout"},"last_changed":"2025-12-02T08:41:26.663644+00:00","last_reported":"2025-12-02T08:41:26.663644+00:00","last_updated":"2025-12-02T08:41:26.663644+00:00","context":{"id":"01KBF3JHC7QMHV0HVM5BZYS8C5","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 60.0,
+        "native_min_value": 5.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": 5
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.br_motion_sensor_illumination","state":"bright","attributes":{"friendly_name":"BR Motion Sensor Illumination"},"last_changed":"2025-12-02T08:41:26.663434+00:00","last_reported":"2025-12-02T08:41:26.663434+00:00","last_updated":"2025-12-02T08:41:26.663434+00:00","context":{"id":"01KBF3JHC7X6YBEJ2KTFW4V7PY","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "bright",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.br_motion_sensor_battery","state":"100","attributes":{"state_class":"measurement","unit_of_measurement":"%","device_class":"battery","friendly_name":"BR Motion Sensor Battery"},"last_changed":"2025-12-02T08:41:26.663874+00:00","last_reported":"2025-12-02T08:41:26.663874+00:00","last_updated":"2025-12-02T08:41:26.663874+00:00","context":{"id":"01KBF3JHC7NT74MV0AGTY7929R","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "100",
+        "native_unit_of_measurement": "%"
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.br_motion_sensor_voltage","state":"2900","attributes":{"state_class":"measurement","unit_of_measurement":"mV","device_class":"voltage","friendly_name":"BR Motion Sensor Voltage"},"last_changed":"2025-12-02T08:41:26.663811+00:00","last_reported":"2025-12-02T08:41:26.663811+00:00","last_updated":"2025-12-02T08:41:26.663811+00:00","context":{"id":"01KBF3JHC7Z1JWPS0RXMA351PK","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "2900",
+        "native_unit_of_measurement": "mV"
+      },
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"update.br_motion_sensor","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"8705","in_progress":false,"latest_version":"8705","release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"BR Motion Sensor","supported_features":5},"last_changed":"2025-12-02T08:41:26.663985+00:00","last_reported":"2025-12-02T08:41:26.663985+00:00","last_updated":"2025-12-02T08:41:26.663985+00:00","context":{"id":"01KBF3JHC7HW6M4Q48A7RVJB2E","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T10:04:48.160928+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.0xb43522fffec77125_occupancy","state":"off","attributes":{"device_class":"occupancy","friendly_name":"0xb43522fffec77125 Occupancy"},"last_changed":"2025-12-02T08:40:51.059394+00:00","last_reported":"2025-12-02T08:40:51.059394+00:00","last_updated":"2025-12-02T08:40:51.059394+00:00","context":{"id":"01KBF3HEKK5E8XBXPMSZ2ZV7TP","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T08:40:52.737610+00:00"
+    },
+    {
+      "state": {"entity_id":"number.0xb43522fffec77125_motion_timeout","state":"5","attributes":{"min":5.0,"max":60.0,"step":1.0,"mode":"auto","friendly_name":"0xb43522fffec77125 Motion timeout"},"last_changed":"2025-12-02T08:40:00.416907+00:00","last_reported":"2025-12-02T08:40:00.416907+00:00","last_updated":"2025-12-02T08:40:00.416907+00:00","context":{"id":"01KBF3FX50HYJYQSG2MJ45BM9G","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 60.0,
+        "native_min_value": 5.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": 5
+      },
+      "last_seen": "2025-12-02T08:40:52.754295+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.0xb43522fffec77125_illumination","state":"bright","attributes":{"friendly_name":"0xb43522fffec77125 Illumination"},"last_changed":"2025-12-02T08:37:52.103891+00:00","last_reported":"2025-12-02T08:37:52.103891+00:00","last_updated":"2025-12-02T08:37:52.103891+00:00","context":{"id":"01KBF3BZV7G6MECJTSZ6T8R0BB","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "bright",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-12-02T08:40:52.783666+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.0xb43522fffec77125_battery","state":"100","attributes":{"state_class":"measurement","unit_of_measurement":"%","device_class":"battery","friendly_name":"0xb43522fffec77125 Battery"},"last_changed":"2025-12-02T08:37:48.829063+00:00","last_reported":"2025-12-02T08:37:48.829063+00:00","last_updated":"2025-12-02T08:37:48.829063+00:00","context":{"id":"01KBF3BWMXFQ42FG7BJGWKWB1V","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "100",
+        "native_unit_of_measurement": "%"
+      },
+      "last_seen": "2025-12-02T08:40:52.827439+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.0xb43522fffec77125_voltage","state":"2900","attributes":{"state_class":"measurement","unit_of_measurement":"mV","device_class":"voltage","friendly_name":"0xb43522fffec77125 Voltage"},"last_changed":"2025-12-02T08:37:50.622702+00:00","last_reported":"2025-12-02T08:37:50.622702+00:00","last_updated":"2025-12-02T08:37:50.622702+00:00","context":{"id":"01KBF3BYCYKA1XXKMNDGDEAQQ3","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "2900",
+        "native_unit_of_measurement": "mV"
+      },
+      "last_seen": "2025-12-02T08:40:52.871406+00:00"
+    },
+    {
+      "state": {"entity_id":"update.0xb43522fffec77125","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"-1","in_progress":false,"latest_version":"-1","release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"0xb43522fffec77125","supported_features":5},"last_changed":"2025-12-02T08:37:44.589476+00:00","last_reported":"2025-12-02T08:37:44.589476+00:00","last_updated":"2025-12-02T08:37:44.589476+00:00","context":{"id":"01KBF3BRGDNC2N4ZK58QN75W0G","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-02T08:40:52.960256+00:00"
+    },
+    {
+      "state": {"entity_id":"light.br_led_stripes","state":"unknown","attributes":{"min_color_temp_kelvin":2702,"max_color_temp_kelvin":6535,"min_mireds":153,"max_mireds":370,"supported_color_modes":["color_temp","xy"],"color_mode":null,"brightness":null,"color_temp_kelvin":null,"color_temp":null,"hs_color":null,"rgb_color":null,"xy_color":null,"friendly_name":"BR LED Stripes","supported_features":40},"last_changed":"2025-12-01T14:25:25.679516+00:00","last_reported":"2025-12-01T14:25:25.679516+00:00","last_updated":"2025-12-01T14:25:25.679516+00:00","context":{"id":"01KBD4VNNF97DAV0ZB5Q7KT6Q7","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-01T14:26:00.448113+00:00"
+    },
+    {
+      "state": {"entity_id":"number.br_led_stripes_length","state":"unknown","attributes":{"min":1.0,"max":10.0,"step":0.2,"mode":"auto","unit_of_measurement":"m","friendly_name":"BR LED Stripes Length"},"last_changed":"2025-12-01T14:25:25.679571+00:00","last_reported":"2025-12-01T14:25:25.679571+00:00","last_updated":"2025-12-01T14:25:25.679571+00:00","context":{"id":"01KBD4VNNFRAXFNVJPCR1HVPAD","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 10.0,
+        "native_min_value": 1.0,
+        "native_step": 0.2,
+        "native_unit_of_measurement": "m",
+        "native_value": null
+      },
+      "last_seen": "2025-12-01T14:26:00.450716+00:00"
+    },
+    {
+      "state": {"entity_id":"number.br_led_stripes_min_brightness","state":"unknown","attributes":{"min":0.0,"max":99.0,"step":1.0,"mode":"auto","unit_of_measurement":"%","friendly_name":"BR LED Stripes Min brightness"},"last_changed":"2025-12-01T14:25:25.679110+00:00","last_reported":"2025-12-01T14:25:25.679110+00:00","last_updated":"2025-12-01T14:25:25.679110+00:00","context":{"id":"01KBD4VNNFADXN9BP6E3BPVAW0","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 99.0,
+        "native_min_value": 0.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": "%",
+        "native_value": null
+      },
+      "last_seen": "2025-12-01T14:26:00.451831+00:00"
+    },
+    {
+      "state": {"entity_id":"number.br_led_stripes_max_brightness","state":"unknown","attributes":{"min":1.0,"max":100.0,"step":1.0,"mode":"auto","unit_of_measurement":"%","friendly_name":"BR LED Stripes Max brightness"},"last_changed":"2025-12-01T14:25:25.679626+00:00","last_reported":"2025-12-01T14:25:25.679626+00:00","last_updated":"2025-12-01T14:25:25.679626+00:00","context":{"id":"01KBD4VNNFCMQ1383P3AMY2J1W","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 100.0,
+        "native_min_value": 1.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": "%",
+        "native_value": null
+      },
+      "last_seen": "2025-12-01T14:26:00.452493+00:00"
+    },
+    {
+      "state": {"entity_id":"number.br_led_stripes_preset","state":"unknown","attributes":{"min":1.0,"max":32.0,"step":1.0,"mode":"auto","friendly_name":"BR LED Stripes Preset"},"last_changed":"2025-12-01T14:25:25.678891+00:00","last_reported":"2025-12-01T14:25:25.678891+00:00","last_updated":"2025-12-01T14:25:25.678891+00:00","context":{"id":"01KBD4VNNEPCK06T3HYWQ3W327","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 32.0,
+        "native_min_value": 1.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": null
+      },
+      "last_seen": "2025-12-01T14:26:00.453571+00:00"
+    },
+    {
+      "state": {"entity_id":"number.br_led_stripes_speed","state":"unknown","attributes":{"min":1.0,"max":100.0,"step":1.0,"mode":"auto","friendly_name":"BR LED Stripes Speed"},"last_changed":"2025-12-01T14:25:25.678920+00:00","last_reported":"2025-12-01T14:25:25.678920+00:00","last_updated":"2025-12-01T14:25:25.678920+00:00","context":{"id":"01KBD4VNNEB68TNMBPG2RS48YF","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 100.0,
+        "native_min_value": 1.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": null
+      },
+      "last_seen": "2025-12-01T14:26:00.454724+00:00"
+    },
+    {
+      "state": {"entity_id":"select.br_led_stripes_power_on_behavior","state":"unknown","attributes":{"options":["on","previous","off","inverted"],"icon":"mdi:power-settings","friendly_name":"BR LED Stripes Power on behavior"},"last_changed":"2025-12-01T14:25:25.679281+00:00","last_reported":"2025-12-01T14:25:25.679281+00:00","last_updated":"2025-12-01T14:25:25.679281+00:00","context":{"id":"01KBD4VNNFCH63GFXERF747HSC","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-01T14:26:00.429342+00:00"
+    },
+    {
+      "state": {"entity_id":"select.br_led_stripes_audio_sensitivity","state":"unknown","attributes":{"options":["low","medium","high"],"friendly_name":"BR LED Stripes Audio sensitivity"},"last_changed":"2025-12-01T14:25:25.678809+00:00","last_reported":"2025-12-01T14:25:25.678809+00:00","last_updated":"2025-12-01T14:25:25.678809+00:00","context":{"id":"01KBD4VNNE4JK40T0SN6KZA4AZ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-01T14:26:00.444360+00:00"
+    },
+    {
+      "state": {"entity_id":"select.br_led_stripes_audio_effect","state":"unknown","attributes":{"options":["random","blink","rainbow","wave"],"friendly_name":"BR LED Stripes Audio effect"},"last_changed":"2025-12-01T14:25:25.679544+00:00","last_reported":"2025-12-01T14:25:25.679544+00:00","last_updated":"2025-12-01T14:25:25.679544+00:00","context":{"id":"01KBD4VNNFMS2ABEZ8F9DMT6KJ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-01T14:26:00.445734+00:00"
+    },
+    {
+      "state": {"entity_id":"switch.br_led_stripes_audio","state":"unknown","attributes":{"friendly_name":"BR LED Stripes Audio"},"last_changed":"2025-12-01T14:25:25.679650+00:00","last_reported":"2025-12-01T14:25:25.679650+00:00","last_updated":"2025-12-01T14:25:25.679650+00:00","context":{"id":"01KBD4VNNFNJTB8YYW0MKAQBD4","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-01T14:26:00.447379+00:00"
+    },
+    {
+      "state": {"entity_id":"update.br_led_stripes","state":"unknown","attributes":{"auto_update":false,"display_precision":0,"installed_version":null,"in_progress":false,"latest_version":null,"release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"BR LED Stripes","supported_features":5},"last_changed":"2025-12-01T14:25:25.678726+00:00","last_reported":"2025-12-01T14:25:25.678726+00:00","last_updated":"2025-12-01T14:25:25.678726+00:00","context":{"id":"01KBD4VNNE78QYXSE7XZDZGGPT","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-12-01T14:26:00.449959+00:00"
+    },
+    {
+      "state": {"entity_id":"light.0x001788010f5d31a9","state":"unknown","attributes":{"min_color_temp_kelvin":2000,"max_color_temp_kelvin":6666,"min_mireds":150,"max_mireds":500,"effect_list":["blink","breathe","okay","channel_change","candle","fireplace","colorloop","finish_effect","stop_effect","stop_hue_effect"],"supported_color_modes":["color_temp","xy"],"effect":null,"color_mode":null,"brightness":null,"color_temp_kelvin":null,"color_temp":null,"hs_color":null,"rgb_color":null,"xy_color":null,"friendly_name":"0x001788010f5d31a9","supported_features":44},"last_changed":"2025-11-26T17:36:02.623434+00:00","last_reported":"2025-11-26T17:36:02.623434+00:00","last_updated":"2025-11-26T17:36:02.623434+00:00","context":{"id":"01KB0KS3HZZM5VWKVY6RAR8T4E","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:37.078305+00:00"
+    },
+    {
+      "state": {"entity_id":"select.0x001788010f5d31a9_power_on_behavior","state":"unknown","attributes":{"options":["off","on","toggle","previous"],"icon":"mdi:power-settings","friendly_name":"0x001788010f5d31a9 Power-on behavior"},"last_changed":"2025-11-26T17:36:02.622959+00:00","last_reported":"2025-11-26T17:36:02.622959+00:00","last_updated":"2025-11-26T17:36:02.622959+00:00","context":{"id":"01KB0KS3HY93GHH6V85RQSX8CG","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:37.089884+00:00"
+    },
+    {
+      "state": {"entity_id":"update.0x001788010f5d31a9","state":"unknown","attributes":{"auto_update":false,"display_precision":0,"installed_version":null,"in_progress":false,"latest_version":null,"release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"0x001788010f5d31a9","supported_features":5},"last_changed":"2025-11-26T17:36:02.623219+00:00","last_reported":"2025-11-26T17:36:02.623219+00:00","last_updated":"2025-11-26T17:36:02.623219+00:00","context":{"id":"01KB0KS3HZANR8JH4S0VEF1R0Z","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:37.094273+00:00"
+    },
+    {
+      "state": {"entity_id":"light.0x54ef4410011bbfe7","state":"on","attributes":{"min_color_temp_kelvin":2702,"max_color_temp_kelvin":6535,"min_mireds":153,"max_mireds":370,"supported_color_modes":["color_temp","xy"],"color_mode":"unknown","brightness":null,"color_temp_kelvin":null,"color_temp":null,"hs_color":null,"rgb_color":null,"xy_color":null,"friendly_name":"0x54ef4410011bbfe7","supported_features":40},"last_changed":"2025-11-26T17:37:13.350610+00:00","last_reported":"2025-11-26T17:37:13.350610+00:00","last_updated":"2025-11-26T17:37:13.350610+00:00","context":{"id":"01KB0KV8M6055KG0DDF9SNQ0YJ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:47.151950+00:00"
+    },
+    {
+      "state": {"entity_id":"select.0x54ef4410011bbfe7_power_on_behavior","state":"previous","attributes":{"options":["on","previous","off","inverted"],"icon":"mdi:power-settings","friendly_name":"0x54ef4410011bbfe7 Power on behavior"},"last_changed":"2025-11-26T17:37:04.179048+00:00","last_reported":"2025-11-26T17:37:04.179048+00:00","last_updated":"2025-11-26T17:37:04.179048+00:00","context":{"id":"01KB0KTZNKEG1TTZZMJ941XDQ8","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:47.158354+00:00"
+    },
+    {
+      "state": {"entity_id":"number.0x54ef4410011bbfe7_length","state":"2","attributes":{"min":1.0,"max":10.0,"step":0.2,"mode":"auto","unit_of_measurement":"m","friendly_name":"0x54ef4410011bbfe7 Length"},"last_changed":"2025-11-26T17:37:04.179464+00:00","last_reported":"2025-11-26T17:37:04.179464+00:00","last_updated":"2025-11-26T17:37:04.179464+00:00","context":{"id":"01KB0KTZNKHK9N20SR84VFEKWR","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 10.0,
+        "native_min_value": 1.0,
+        "native_step": 0.2,
+        "native_unit_of_measurement": "m",
+        "native_value": 2
+      },
+      "last_seen": "2025-11-26T17:38:47.161394+00:00"
+    },
+    {
+      "state": {"entity_id":"number.0x54ef4410011bbfe7_min_brightness","state":"1","attributes":{"min":0.0,"max":99.0,"step":1.0,"mode":"auto","unit_of_measurement":"%","friendly_name":"0x54ef4410011bbfe7 Min brightness"},"last_changed":"2025-11-26T17:37:04.179415+00:00","last_reported":"2025-11-26T17:37:04.179415+00:00","last_updated":"2025-11-26T17:37:04.179415+00:00","context":{"id":"01KB0KTZNKZ4QJSH4AQ43D4A9Z","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 99.0,
+        "native_min_value": 0.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": "%",
+        "native_value": 1
+      },
+      "last_seen": "2025-11-26T17:38:47.187910+00:00"
+    },
+    {
+      "state": {"entity_id":"number.0x54ef4410011bbfe7_max_brightness","state":"100","attributes":{"min":1.0,"max":100.0,"step":1.0,"mode":"auto","unit_of_measurement":"%","friendly_name":"0x54ef4410011bbfe7 Max brightness"},"last_changed":"2025-11-26T17:37:04.179265+00:00","last_reported":"2025-11-26T17:37:04.179265+00:00","last_updated":"2025-11-26T17:37:04.179265+00:00","context":{"id":"01KB0KTZNKSQDKBRBYDHCWN3QD","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 100.0,
+        "native_min_value": 1.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": "%",
+        "native_value": 100
+      },
+      "last_seen": "2025-11-26T17:38:47.231849+00:00"
+    },
+    {
+      "state": {"entity_id":"switch.0x54ef4410011bbfe7_audio","state":"off","attributes":{"friendly_name":"0x54ef4410011bbfe7 Audio"},"last_changed":"2025-11-26T17:37:04.179370+00:00","last_reported":"2025-11-26T17:37:04.179370+00:00","last_updated":"2025-11-26T17:37:04.179370+00:00","context":{"id":"01KB0KTZNKN37HFPNS01B3H1C5","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:47.276956+00:00"
+    },
+    {
+      "state": {"entity_id":"select.0x54ef4410011bbfe7_audio_sensitivity","state":"high","attributes":{"options":["low","medium","high"],"friendly_name":"0x54ef4410011bbfe7 Audio sensitivity"},"last_changed":"2025-11-26T17:37:04.179211+00:00","last_reported":"2025-11-26T17:37:04.179211+00:00","last_updated":"2025-11-26T17:37:04.179211+00:00","context":{"id":"01KB0KTZNK17GZ5NDDCSW5RK21","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:47.319895+00:00"
+    },
+    {
+      "state": {"entity_id":"select.0x54ef4410011bbfe7_audio_effect","state":"random","attributes":{"options":["random","blink","rainbow","wave"],"friendly_name":"0x54ef4410011bbfe7 Audio effect"},"last_changed":"2025-11-26T17:37:04.178699+00:00","last_reported":"2025-11-26T17:37:04.178699+00:00","last_updated":"2025-11-26T17:37:04.178699+00:00","context":{"id":"01KB0KTZNJ6VZPVQCYTNX0FZ4V","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:47.363773+00:00"
+    },
+    {
+      "state": {"entity_id":"number.0x54ef4410011bbfe7_preset","state":"1","attributes":{"min":1.0,"max":32.0,"step":1.0,"mode":"auto","friendly_name":"0x54ef4410011bbfe7 Preset"},"last_changed":"2025-11-26T17:37:04.179318+00:00","last_reported":"2025-11-26T17:37:04.179318+00:00","last_updated":"2025-11-26T17:37:04.179318+00:00","context":{"id":"01KB0KTZNK9AWX8CPZKZESNYB3","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 32.0,
+        "native_min_value": 1.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": 1
+      },
+      "last_seen": "2025-11-26T17:38:47.407783+00:00"
+    },
+    {
+      "state": {"entity_id":"number.0x54ef4410011bbfe7_speed","state":"60","attributes":{"min":1.0,"max":100.0,"step":1.0,"mode":"auto","friendly_name":"0x54ef4410011bbfe7 Speed"},"last_changed":"2025-11-26T17:37:04.179151+00:00","last_reported":"2025-11-26T17:37:04.179151+00:00","last_updated":"2025-11-26T17:37:04.179151+00:00","context":{"id":"01KB0KTZNKW2JBM929E9J7FFSY","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 100.0,
+        "native_min_value": 1.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": 60
+      },
+      "last_seen": "2025-11-26T17:38:47.451731+00:00"
+    },
+    {
+      "state": {"entity_id":"update.0x54ef4410011bbfe7","state":"off","attributes":{"auto_update":false,"display_precision":0,"installed_version":"-1","in_progress":false,"latest_version":"-1","release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"0x54ef4410011bbfe7","supported_features":5},"last_changed":"2025-11-26T17:37:04.178937+00:00","last_reported":"2025-11-26T17:37:04.178937+00:00","last_updated":"2025-11-26T17:37:04.178937+00:00","context":{"id":"01KB0KTZNJKP7KMK1FDQMAV6K3","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:38:47.539666+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.0x08ddebfffeda418c_occupancy","state":"unknown","attributes":{"device_class":"occupancy","friendly_name":"0x08ddebfffeda418c Occupancy"},"last_changed":"2025-11-27T17:54:41.994401+00:00","last_reported":"2025-11-27T17:54:41.994401+00:00","last_updated":"2025-11-27T17:54:41.994401+00:00","context":{"id":"01KB377ZPAV4XZDAJXQYJ6SJZY","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-27T17:54:56.746373+00:00"
+    },
+    {
+      "state": {"entity_id":"number.0x08ddebfffeda418c_occupancy_timeout","state":"unknown","attributes":{"min":15.0,"max":65535.0,"step":1.0,"mode":"auto","icon":"mdi:timer","friendly_name":"0x08ddebfffeda418c Occupancy timeout"},"last_changed":"2025-11-27T17:54:41.994162+00:00","last_reported":"2025-11-27T17:54:41.994162+00:00","last_updated":"2025-11-27T17:54:41.994162+00:00","context":{"id":"01KB377ZPAF53EKK0V9B0KHQW2","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_max_value": 65535.0,
+        "native_min_value": 15.0,
+        "native_step": 1.0,
+        "native_unit_of_measurement": null,
+        "native_value": null
+      },
+      "last_seen": "2025-11-27T17:54:56.751455+00:00"
+    },
+    {
+      "state": {"entity_id":"select.0x08ddebfffeda418c_occupancy_sensitivity","state":"unknown","attributes":{"options":["low","medium","high"],"friendly_name":"0x08ddebfffeda418c Occupancy sensitivity"},"last_changed":"2025-11-27T17:54:41.993874+00:00","last_reported":"2025-11-27T17:54:41.993874+00:00","last_updated":"2025-11-27T17:54:41.993874+00:00","context":{"id":"01KB377ZP9303GHMP9SH9HD63D","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-27T17:54:56.784311+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.0x08ddebfffeda418c_illumination","state":"unknown","attributes":{"friendly_name":"0x08ddebfffeda418c Illumination"},"last_changed":"2025-11-27T17:54:41.994308+00:00","last_reported":"2025-11-27T17:54:41.994308+00:00","last_updated":"2025-11-27T17:54:41.994308+00:00","context":{"id":"01KB377ZPAZNQR6M0Q54T43KG8","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": null,
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2025-11-27T17:54:57.229332+00:00"
+    },
+    {
+      "state": {"entity_id":"update.0x08ddebfffeda418c","state":"unknown","attributes":{"auto_update":false,"display_precision":0,"installed_version":null,"in_progress":false,"latest_version":null,"release_summary":null,"release_url":null,"skipped_version":null,"title":null,"update_percentage":null,"device_class":"firmware","entity_picture":"https://github.com/Koenkk/zigbee2mqtt/raw/master/images/logo.png","friendly_name":"0x08ddebfffeda418c","supported_features":5},"last_changed":"2025-11-27T17:54:42.118762+00:00","last_reported":"2025-11-27T17:54:42.118762+00:00","last_updated":"2025-11-27T17:54:42.118762+00:00","context":{"id":"01KB377ZT658A7WRWFZ2ZSE1TV","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-27T17:54:57.233218+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.br_turn_lights_on","state":"on","attributes":{"id":"1764178879988","last_triggered":null,"mode":"restart","current":0,"friendly_name":"BR Turn Lights On"},"last_changed":"2025-11-26T17:41:33.112345+00:00","last_reported":"2025-11-26T17:41:33.112549+00:00","last_updated":"2025-11-26T17:41:33.112345+00:00","context":{"id":"01KB0M369RKZGA841XHCY1HS6J","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2025-11-26T17:47:12.930743+00:00"
+    }
+  ]
+}
