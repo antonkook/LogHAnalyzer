@@ -1,4 +1,22 @@
-base {
-    margin: 0;
+html, body {
+    margin: 1;
     font: sans-serif;
+} 
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #280000;
+    padding: 8px;
+}
+
+th {
+    background: #f3effa;
+}
+
+td {
+    text-align: center;
 }

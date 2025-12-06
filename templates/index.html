@@ -2,8 +2,31 @@
 
 
 {% block head %}
+    <title>LogHAnalyzer</title>
 {% endblock %}
 
 {% block body %}
-<h1>TEST</h1>
+    <div class="content">
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" webkitdirectory directory multiple name="logfiles">
+            <input type="submit" value="Upload">
+        </form>
+
+        <table>
+            <tr>
+                <th>Time / Date</th>
+                <th>Device</th>
+                <th>Event</th>
+                <th>Value</th>
+            </tr>
+
+            <tr>
+                <td>bla</td>
+                <td>bla</td>
+                <td>bla</td>
+                <td>bla</td>
+            </tr>
+        </table>
+
+    </div>
 {% endblock %}
