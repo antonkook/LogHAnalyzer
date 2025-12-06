@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block head %}
     <title>LogHAnalyzer</title>
 {% endblock %}
@@ -15,18 +14,18 @@
         <table>
             <tr>
                 <th>Time / Date</th>
-                <th>Device</th>
-                <th>Event</th>
-                <th>Value</th>
+                <th>Filename</th>
+                <th>Processed</th>
+                <th>Path</th>
             </tr>
-
-            <tr>
-                <td>bla</td>
-                <td>bla</td>
-                <td>bla</td>
-                <td>bla</td>
-            </tr>
+            {% for log_file in log_files %}
+                <tr>
+                    <td>{{ log_file.date_uploaded }}</td>
+                    <td>{{ log_file.filename }}</td>
+                    <td>{{ 'Yes' if log_file.processed else 'No' }}</td>
+                    <td>{{ log_file.filepath }}</td>
+                </tr>
+            {% endfor %}
         </table>
-
     </div>
 {% endblock %}
