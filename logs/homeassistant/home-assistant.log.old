@@ -1,0 +1,156 @@
+2025-11-28 06:48:51.539 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 06:50:22.801 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 06:51:53.896 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 06:53:25.084 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 06:54:55.134 ERROR (MainThread) [async_upnp_client.ssdp] Received error: [Errno 101] Network unreachable, transport: <_SelectorDatagramTransport fd=43 read=polling write=<idle, bufsize=0>>, socket: <asyncio.TransportSocket fd=43, family=2, type=2, proto=0, laddr=('0.0.0.0', 47985)>
+2025-11-28 06:54:55.134 ERROR (MainThread) [async_upnp_client.ssdp] Received error: [Errno 101] Network unreachable, transport: <_SelectorDatagramTransport fd=45 read=polling write=<idle, bufsize=0>>, socket: <asyncio.TransportSocket fd=45, family=2, type=2, proto=0, laddr=('0.0.0.0', 35152)>
+2025-11-28 06:54:56.230 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 06:56:27.610 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 06:57:58.845 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 06:59:30.337 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:01:01.641 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:02:33.146 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:04:04.301 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:04:55.134 ERROR (MainThread) [async_upnp_client.ssdp] Received error: [Errno 101] Network unreachable, transport: <_SelectorDatagramTransport fd=43 read=polling write=<idle, bufsize=0>>, socket: <asyncio.TransportSocket fd=43, family=2, type=2, proto=0, laddr=('0.0.0.0', 47985)>
+2025-11-28 07:04:55.134 ERROR (MainThread) [async_upnp_client.ssdp] Received error: [Errno 101] Network unreachable, transport: <_SelectorDatagramTransport fd=45 read=polling write=<idle, bufsize=0>>, socket: <asyncio.TransportSocket fd=45, family=2, type=2, proto=0, laddr=('0.0.0.0', 35152)>
+2025-11-28 07:05:24.503 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:06:44.728 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:08:05.211 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:09:25.516 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:10:45.832 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:12:06.088 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-11-28 07:13:26.217 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+s6-rc: info: service legacy-services: stopping
+[10:19:44] INFO: Home Assistant Core finish process exit code 0
+[10:19:44] INFO: Home Assistant Core service shutdown
+s6-rc: info: service legacy-services successfully stopped
+s6-rc: info: service legacy-cont-init: stopping
+s6-rc: info: service legacy-cont-init successfully stopped
+s6-rc: info: service fix-attrs: stopping
+s6-rc: info: service fix-attrs successfully stopped
+s6-rc: info: service s6rc-oneshot-runner: stopping
+s6-rc: info: service s6rc-oneshot-runner successfully stopped
+s6-rc: info: service s6rc-oneshot-runner: starting
+s6-rc: info: service s6rc-oneshot-runner successfully started
+s6-rc: info: service fix-attrs: starting
+s6-rc: info: service fix-attrs successfully started
+s6-rc: info: service legacy-cont-init: starting
+s6-rc: info: service legacy-cont-init successfully started
+s6-rc: info: service legacy-services: starting
+services-up: info: copying legacy longrun home-assistant (no readiness notification)
+s6-rc: info: service legacy-services successfully started
+2025-11-28 11:19:49.986 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+s6-rc: info: service s6rc-oneshot-runner: starting
+s6-rc: info: service s6rc-oneshot-runner successfully started
+s6-rc: info: service fix-attrs: starting
+s6-rc: info: service fix-attrs successfully started
+s6-rc: info: service legacy-cont-init: starting
+s6-rc: info: service legacy-cont-init successfully started
+s6-rc: info: service legacy-services: starting
+services-up: info: copying legacy longrun home-assistant (no readiness notification)
+s6-rc: info: service legacy-services successfully started
+2025-11-28 17:48:43.604 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-11-28 17:48:45.283 WARNING (Recorder) [homeassistant.components.recorder.util] The system could not validate that the sqlite3 database at //config/home-assistant_v2.db was shutdown cleanly
+2025-11-28 17:48:45.356 WARNING (Recorder) [homeassistant.components.recorder.util] Ended unfinished session (id=13 from 2025-11-28 10:19:51.082104)
+s6-rc: info: service legacy-services: stopping
+[17:36:08] INFO: Home Assistant Core finish process exit code 0
+[17:36:08] INFO: Home Assistant Core service shutdown
+s6-rc: info: service legacy-services successfully stopped
+s6-rc: info: service legacy-cont-init: stopping
+s6-rc: info: service legacy-cont-init successfully stopped
+s6-rc: info: service fix-attrs: stopping
+s6-rc: info: service fix-attrs successfully stopped
+s6-rc: info: service s6rc-oneshot-runner: stopping
+s6-rc: info: service s6rc-oneshot-runner successfully stopped
+s6-rc: info: service s6rc-oneshot-runner: starting
+s6-rc: info: service s6rc-oneshot-runner successfully started
+s6-rc: info: service fix-attrs: starting
+s6-rc: info: service fix-attrs successfully started
+s6-rc: info: service legacy-cont-init: starting
+s6-rc: info: service legacy-cont-init successfully started
+s6-rc: info: service legacy-services: starting
+services-up: info: copying legacy longrun home-assistant (no readiness notification)
+s6-rc: info: service legacy-services successfully started
+2025-11-28 18:36:14.337 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-11-29 05:12:18.002 ERROR (MainThread) [homeassistant.components.backup] Error creating backup: At least one available backup agent must be selected, got []
+2025-11-30 05:04:37.001 ERROR (MainThread) [homeassistant.components.backup] Error creating backup: At least one available backup agent must be selected, got []
+2025-12-01 05:37:54.002 ERROR (MainThread) [homeassistant.components.backup] Error creating backup: At least one available backup agent must be selected, got []
+s6-rc: info: service s6rc-oneshot-runner: starting
+s6-rc: info: service s6rc-oneshot-runner successfully started
+s6-rc: info: service fix-attrs: starting
+s6-rc: info: service fix-attrs successfully started
+s6-rc: info: service legacy-cont-init: starting
+s6-rc: info: service legacy-cont-init successfully started
+s6-rc: info: service legacy-services: starting
+services-up: info: copying legacy longrun home-assistant (no readiness notification)
+s6-rc: info: service legacy-services successfully started
+2025-12-01 06:27:31.250 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-12-01 06:27:32.897 WARNING (Recorder) [homeassistant.components.recorder.util] The system could not validate that the sqlite3 database at //config/home-assistant_v2.db was shutdown cleanly
+2025-12-01 06:27:32.991 WARNING (Recorder) [homeassistant.components.recorder.util] Ended unfinished session (id=15 from 2025-11-28 17:36:15.487281)
+2025-12-01 06:27:33.164 ERROR (MainThread) [async_upnp_client.ssdp] Received error: [Errno 101] Network unreachable, transport: <_SelectorDatagramTransport fd=42 read=polling write=<idle, bufsize=0>>, socket: <asyncio.TransportSocket fd=42, family=2, type=2, proto=0, laddr=('0.0.0.0', 54620)>
+2025-12-01 06:27:33.164 ERROR (MainThread) [async_upnp_client.ssdp] Received error: [Errno 101] Network unreachable, transport: <_SelectorDatagramTransport fd=44 read=polling write=<idle, bufsize=0>>, socket: <asyncio.TransportSocket fd=44, family=2, type=2, proto=0, laddr=('0.0.0.0', 48542)>
+2025-12-01 06:27:49.311 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-12-01 06:28:04.317 WARNING (MainThread) [homeassistant.core] Something is blocking Home Assistant from wrapping up the start up phase. We're going to continue anyway. Please report the following info at https://github.com/home-assistant/core/issues: bluetooth, trace, media_source, todo, input_number, system_log, stt, cloud.tts, tts, backup.sensor, binary_sensor, image_upload, sun, raspberry_pi, usb, hassio.switch, event, script, dlna_dmr.media_player, backup, input_button, hardware, hassio.binary_sensor, ssdp, ffmpeg, met, system_health, timer, homeassistant, mqtt.binary_sensor, person, switch, device_automation, dlna_dmr, file, persistent_notification, shopping_list, hassio.update, select, google_translate.tts, hacs, light, mobile_app, mqtt.update, sun.sensor, samsungtv.remote, assist_pipeline, hassio, logbook, conversation, number, usage_prediction, input_datetime, hacs.switch, rpi_power.binary_sensor, input_select, mobile_app.notify, google_translate, mqtt.button, media_player, my, mobile_app.binary_sensor, hacs.update, diagnostics, samsungtv, mqtt.switch, energy, analytics, mqtt.sensor, repairs, intent, blueprint, websocket_api, mqtt.number, sensor, input_boolean, notify, homeassistant_alerts, backup.event, zeroconf, homeassistant.scene, file_upload, application_credentials, mqtt, hassio.sensor, search, api, dhcp, auth, config, network, update, tag, webhook, frontend, radio_browser, logger, onboarding, stream, mobile_app.sensor, samsungtv.media_player, go2rtc, sun.binary_sensor, zone, history, button, http, remote, wake_word, mobile_app.device_tracker, energy.sensor, shopping_list.todo, counter, schedule, scene, rpi_power, automation, mqtt.select, input_text, recorder, camera, mqtt.light, default_config, device_tracker, lovelace, cloud The system is waiting for tasks: {<Task pending name='Task-174' coro=<HacsBase.startup_tasks() running at /config/custom_components/hacs/base.py:667> wait_for=<_GatheringFuture pending cb=[Task.task_wakeup()]> cb=[set.remove()]>}
+2025-12-01 06:28:11.337 ERROR (MainThread) [custom_components.hacs] Could not update plugin - Error fetching data from HACS: Cannot connect to host data-v2.hacs.xyz:443 ssl:default [DNS server returned general failure]
+2025-12-01 06:28:11.338 ERROR (MainThread) [custom_components.hacs] Could not update theme - Error fetching data from HACS: Cannot connect to host data-v2.hacs.xyz:443 ssl:default [DNS server returned general failure]
+2025-12-01 06:28:11.338 ERROR (MainThread) [custom_components.hacs] Could not update integration - Error fetching data from HACS: Cannot connect to host data-v2.hacs.xyz:443 ssl:default [DNS server returned general failure]
+2025-12-01 06:28:11.338 ERROR (MainThread) [custom_components.hacs] Could not update template - Error fetching data from HACS: Cannot connect to host data-v2.hacs.xyz:443 ssl:default [DNS server returned general failure]
+2025-12-01 06:28:15.328 ERROR (MainThread) [homeassistant.components.homeassistant_alerts.coordinator] Error requesting homeassistant_alerts data: Cannot connect to host alerts.home-assistant.io:443 ssl:default [DNS server returned general failure]
+2025-12-01 06:28:15.328 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-12-01 06:28:36.557 ERROR (MainThread) [metno] Access to https://aa015h6buqvih86i1.api.met.no/weatherapi/locationforecast/2.0/complete returned error 'ClientConnectorDNSError'
+2025-12-01 15:09:18.374 WARNING (MainThread) [homeassistant.components.mqtt.update] Unable to process payload '' for topic zigbee2mqtt/BR Motion Sensor, with value template 'Template<template=({"latest_version":"{{ value_json['update']['latest_version'] }}","installed_version":"{{ value_json['update']['installed_version'] }}","update_percentage":{{ value_json['update'].get('progress', 'null') }},"in_progress":{{ (value_json['update']['state'] == 'updating')|lower }}}) renders=371>'
+2025-12-01 15:09:18.375 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.illumination }}'
+2025-12-01 15:09:18.375 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.voltage }}'
+2025-12-01 15:09:18.375 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.motion_timeout }}'
+2025-12-01 15:09:18.376 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.motion_timeout }})
+2025-12-01 15:09:18.376 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.battery }}'
+2025-12-01 15:13:07.674 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.max_brightness }}'
+2025-12-01 15:13:07.674 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.max_brightness }})
+2025-12-01 15:13:07.675 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.min_brightness }}'
+2025-12-01 15:13:07.675 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.min_brightness }})
+2025-12-01 15:13:07.675 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.audio_sensitivity }}'
+2025-12-01 15:13:07.675 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.audio_sensitivity }})
+2025-12-01 15:13:07.675 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.speed }}'
+2025-12-01 15:13:07.676 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.speed }})
+2025-12-01 15:13:07.676 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.audio }}'
+2025-12-01 15:13:07.676 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.audio }})
+2025-12-01 15:13:07.676 WARNING (MainThread) [homeassistant.components.mqtt.update] Unable to process payload '' for topic zigbee2mqtt/BR LED Stripes, with value template 'Template<template=({"latest_version":"{{ value_json['update']['latest_version'] }}","installed_version":"{{ value_json['update']['installed_version'] }}","update_percentage":{{ value_json['update'].get('progress', 'null') }},"in_progress":{{ (value_json['update']['state'] == 'updating')|lower }}}) renders=2>'
+2025-12-01 15:13:07.676 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.length }}'
+2025-12-01 15:13:07.680 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.length }})
+2025-12-01 15:13:07.681 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.preset }}'
+2025-12-01 15:13:07.681 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.preset }})
+2025-12-01 15:13:07.681 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.power_on_behavior }}'
+2025-12-01 15:13:07.681 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.power_on_behavior }})
+2025-12-01 15:13:07.682 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.audio_effect }}'
+2025-12-01 15:13:07.682 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.audio_effect }})
+2025-12-01 15:17:52.758 ERROR (MainThread) [homeassistant.components.automation] Automation with alias 'BR Lights' failed to setup actions and has been disabled: Unknown device '8831a50e35741463e298bb46394de30b'
+2025-12-01 15:17:54.715 ERROR (MainThread) [homeassistant.components.automation] Automation with alias 'BR Lights' failed to setup actions and has been disabled: Unknown device '8831a50e35741463e298bb46394de30b'
+s6-rc: info: service legacy-services: stopping
+[14:17:59] INFO: Home Assistant Core finish process exit code 0
+[14:17:59] INFO: Home Assistant Core service shutdown
+s6-rc: info: service legacy-services successfully stopped
+s6-rc: info: service legacy-cont-init: stopping
+s6-rc: info: service legacy-cont-init successfully stopped
+s6-rc: info: service fix-attrs: stopping
+s6-rc: info: service fix-attrs successfully stopped
+s6-rc: info: service s6rc-oneshot-runner: stopping
+s6-rc: info: service s6rc-oneshot-runner successfully stopped
+s6-rc: info: service s6rc-oneshot-runner: starting
+s6-rc: info: service s6rc-oneshot-runner successfully started
+s6-rc: info: service fix-attrs: starting
+s6-rc: info: service fix-attrs successfully started
+s6-rc: info: service legacy-cont-init: starting
+s6-rc: info: service legacy-cont-init successfully started
+s6-rc: info: service legacy-services: starting
+services-up: info: copying legacy longrun home-assistant (no readiness notification)
+s6-rc: info: service legacy-services successfully started
+2025-12-01 15:18:05.142 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2025-12-01 15:18:08.863 ERROR (MainThread) [homeassistant.components.automation] Automation with alias 'BR Lights' failed to setup actions and has been disabled: Unknown device '8831a50e35741463e298bb46394de30b'
+2025-12-01 15:21:44.702 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.voltage }}'
+2025-12-01 15:21:44.704 WARNING (MainThread) [homeassistant.components.mqtt.update] Unable to process payload '' for topic zigbee2mqtt/0xb43522fffec77125, with value template 'Template<template=({"latest_version":"{{ value_json['update']['latest_version'] }}","installed_version":"{{ value_json['update']['installed_version'] }}","update_percentage":{{ value_json['update'].get('progress', 'null') }},"in_progress":{{ (value_json['update']['state'] == 'updating')|lower }}}) renders=8>'
+2025-12-01 15:21:44.705 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.illumination }}'
+2025-12-01 15:21:44.705 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.occupancy }}'
+2025-12-01 15:21:44.721 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.occupancy }})
+2025-12-01 15:21:44.721 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.motion_timeout }}'
+2025-12-01 15:21:44.722 ERROR (MainThread) [homeassistant.helpers.template] Error parsing value: 'value_json' is undefined (value: , template: {{ value_json.motion_timeout }})
+2025-12-01 15:21:44.722 ERROR (MainThread) [homeassistant.helpers.template] Template variable error: 'value_json' is undefined when rendering '{{ value_json.battery }}'
