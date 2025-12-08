@@ -6,6 +6,9 @@
 
 {% block body %}
     <div class="content">
+        <!-- <h1>LogHAnalyzer</h1> -->
+        <h2>Upload Logfiles</h2>
+        <h3>Select system logfiles (hassos-data/logs)</h3>
         <form action="/" method="post" enctype="multipart/form-data">
             <input type="file" webkitdirectory directory multiple name="logfiles">
             <input type="submit" value="Upload">
@@ -13,17 +16,21 @@
 
         <table>
             <tr>
-                <th>Time / Date</th>
+                <th>Content</th>
+                <!-- <th>Time / Date</th>
                 <th>Filename</th>
                 <th>Processed</th>
-                <th>Path</th>
+                <th>Path</th> -->
             </tr>
-            {% for log_file in log_files %}
+            <!-- TODO find out how to go over entries of a logfile instead -->
+            {% for log_file in log_files %} 
                 <tr>
-                    <td>{{ log_file.date_uploaded }}</td>
+                    <!-- TODO each line (entry) -->
+                    <td></td>
+                    <!-- <td>{{ log_file.date_uploaded }}</td>
                     <td>{{ log_file.filename }}</td>
                     <td>{{ 'Yes' if log_file.processed else 'No' }}</td>
-                    <td>{{ log_file.filepath }}</td>
+                    <td>{{ log_file.filepath }}</td> -->
                 </tr>
             {% endfor %}
         </table>

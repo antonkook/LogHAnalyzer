@@ -14,6 +14,7 @@ db = SQLAlchemy(app)
 
 # directories
 UPLOAD_DIR = "uploads"
+JOURNAL_DIR = "journals"
 
 # model for uploaded log files
 # class LogFile(db.Model):
@@ -60,11 +61,16 @@ def index():
             # f.save(save_path)
 
             rel_path = f.filename
+            filename_only = os.path.basename(f.filename)
             safe_path = os.path.normpath(rel_path)
             full_path = os.path.join(UPLOAD_DIR, safe_path)
             os.makedirs(os.path.dirname(full_path), exist_ok=True)
             f.save(full_path)
 
+            # print(f"Saved uploaded file to {full_path}")
+            # print(f"Original filename: {filename_only}")
+
+            os.system(f"journalctl --file={full_path} > {JOURNAL_DIR}/{filename_only}.log")
 
             # create a database entry for the log file
             # new_log = LogFile(filename=safe_name, filepath=safe_path)
@@ -76,7 +82,6 @@ def index():
     else:
         # fetch all uploaded log files to display
         log_files = LogFile.query.order_by(LogFile.date_uploaded).all()
-        # subprocess.run(["journalctl", "--file=uploads/logs/temp.txt > testlog.txt 2>/dev/null"], shell=True)
         return render_template("index.html", log_files=log_files)
 
 if __name__ == "__main__":
