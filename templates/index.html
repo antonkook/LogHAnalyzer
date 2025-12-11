@@ -16,22 +16,20 @@
 
         <table>
             <tr>
-                <th>Content</th>
-                <!-- <th>Time / Date</th>
-                <th>Filename</th>
-                <th>Processed</th>
-                <th>Path</th> -->
+                <th>Timestamp</th>
+                <th>Type</th>
+                <th>Device</th>
+                <th>Attributes</th>
             </tr>
             <!-- TODO find out how to go over entries of a logfile instead -->
             {% for log_file in log_files %} 
+               
                 <tr>
                     <!-- TODO each line (entry) -->
                     <td></td>
-                    <!-- <td>{{ log_file.date_uploaded }}</td>
-                    <td>{{ log_file.filename }}</td>
-                    <td>{{ 'Yes' if log_file.processed else 'No' }}</td>
-                    <td>{{ log_file.filepath }}</td> -->
+                    
                 </tr>
+                
             {% endfor %}
         </table>
     </div>

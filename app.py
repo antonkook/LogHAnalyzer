@@ -27,24 +27,24 @@ JOURNAL_DIR = "journals"
 #     def __repr__(self):
 #         return f'<LogFile {self.filename}>'
 
-class LogFile(db.Model):
-    __tablename__ = "log_files"
-    id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String, nullable=False)
-    filepath = db.Column(db.String, nullable=False)
-    processed = db.Column(db.Boolean, default=False)
-    date_uploaded = db.Column(db.DateTime, default=datetime.now)
-    entries = db.relationship("LogEntry", backref="logfile", lazy=True)
+# class LogFile(db.Model):
+#     __tablename__ = "log_files"
+#     id = db.Column(db.Integer, primary_key=True)
+#     filename = db.Column(db.String, nullable=False)
+#     filepath = db.Column(db.String, nullable=False)
+#     processed = db.Column(db.Boolean, default=False)
+#     date_uploaded = db.Column(db.DateTime, default=datetime.now)
+#     entries = db.relationship("LogEntry", backref="logfile", lazy=True)
 
 
 class LogEntry(db.Model):
     __tablename__ = "log_entries"
     id = db.Column(db.Integer, primary_key=True)
-    logfile_id = db.Column(db.Integer, db.ForeignKey("log_files.id"), nullable=False)
+    # logfile_id = db.Column(db.Integer, db.ForeignKey("log_files.id"), nullable=False)
     timestamp = db.Column(db.String)
+    logtype = db.Column(db.String)
     device = db.Column(db.String)
-    event = db.Column(db.String)
-    value = db.Column(db.String)
+    attributes = db.Column(db.String)
 
 
 # route for uploading and viewing log files
@@ -70,19 +70,66 @@ def index():
             # print(f"Saved uploaded file to {full_path}")
             # print(f"Original filename: {filename_only}")
 
-            os.system(f"journalctl --file={full_path} > {JOURNAL_DIR}/{filename_only}.log")
+            # process the journal file using journalctl
+            # os.system(f"journalctl --file={full_path} > {JOURNAL_DIR}/{filename_only}.log")
+            os.system(f"journalctl --file={full_path} >> {JOURNAL_DIR}/journal.log")
+
+            # TODO consider removing the uploaded files
+
+
 
             # create a database entry for the log file
             # new_log = LogFile(filename=safe_name, filepath=safe_path)
             # db.session.add(new_log)
 
+        # create_entries()
+
         # db.session.commit()
+        
         return redirect('/')
 
     else:
         # fetch all uploaded log files to display
-        log_files = LogFile.query.order_by(LogFile.date_uploaded).all()
-        return render_template("index.html", log_files=log_files)
+        create_entries()
+        #log_files = LogFile.query.order_by(LogFile.date_uploaded).all()
+        return render_template("index.html")
+        # return render_template("index.html", log_files=log_files)
+
+
+def create_entries():
+    journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
+    with open(journal_log_path, 'r') as f:
+        for line in f:
+            parts = line.split()
+
+            # TODO write it in a cleaner way (if contains zigbee2mqtt make it Zigbee2MQTT and concat the type like info, etc)
+            logtype = parts[4]
+
+            match_words = ["zigbee2mqtt"]
+            if not any(word in logtype for word in match_words):
+                continue
+
+            # assemble timestamp
+            timestamp = " ".join(parts[0:3])
+
+            # TODO find out how other protocols log this so i can adjust
+            device = parts[7]
+            attributes = " ".join(parts[8:])
+
+            # debug
+            to_parse = f"Parsed entry - Timestamp: {timestamp}, Type: {logtype}, Device: {device}, Attributes: {attributes}"
+            os.system(f"echo '{to_parse}' >> {JOURNAL_DIR}/debug.log")
+
+            log_entry = LogEntry( 
+                timestamp=timestamp,
+                logtype=logtype,
+                device=device,
+                attributes=attributes
+            )
+            #db.session.add(log_entry)
+    #db.session.commit()
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
