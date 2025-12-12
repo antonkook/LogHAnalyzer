@@ -42,9 +42,9 @@ class LogEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # logfile_id = db.Column(db.Integer, db.ForeignKey("log_files.id"), nullable=False)
     timestamp = db.Column(db.String)
+    protocol = db.Column(db.String)
     logtype = db.Column(db.String)
-    device = db.Column(db.String)
-    attributes = db.Column(db.String)
+    message = db.Column(db.String)
 
 
 # route for uploading and viewing log files
@@ -100,35 +100,96 @@ def create_entries():
     journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     with open(journal_log_path, 'r') as f:
         for line in f:
+            # declare variables
+            timestamp: str = None
+            protocol: str = None
+            refactored_protocol: str = None
+            logtype: str = None
+            message: str = None
+
+            # split line into parts
             parts = line.split()
 
-            # TODO write it in a cleaner way (if contains zigbee2mqtt make it Zigbee2MQTT and concat the type like info, etc)
-            logtype = parts[4]
+            # skip if malformed 
+            if len(parts) < 5:
+                continue
 
-            match_words = ["zigbee2mqtt"]
-            if not any(word in logtype for word in match_words):
+            # debug
+            # if not any("DEBUG" in part for part in parts):
+            #     os.system(f"echo '{line}' >> {JOURNAL_DIR}/info.log")
+
+            # TODO consider checking all parts
+
+            # extract protocol
+            protocol = parts[4]
+
+            # check if relevant protocol is present
+            match_words = ["zigbee2mqtt", "zha", "zwave", "thread"]
+            if any(word in protocol.lower() for word in match_words):
+                refactored_protocol = refactor_protocol(protocol)
+            else:
                 continue
 
             # assemble timestamp
             timestamp = " ".join(parts[0:3])
 
-            # TODO find out how other protocols log this so i can adjust
-            device = parts[7]
-            attributes = " ".join(parts[8:])
+            # extract log type
+            match_words = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+            for i, part in enumerate(parts):
+                if any(word in part.upper() for word in match_words):
+                    logtype = refactor_type(part)
+                    message = " ".join(parts[i + 1:])
+                    break
+            
+            # if no logtype found
+            if logtype == None:
+                # debug
+                # print("ALERT LOL")
+                logtype = "None"
+                message = " ".join(parts[5:])
+            
 
             # debug
-            to_parse = f"Parsed entry - Timestamp: {timestamp}, Type: {logtype}, Device: {device}, Attributes: {attributes}"
+            to_parse = f"Parsed entry - Timestamp: {timestamp}, Protocol: {refactored_protocol}, Type: {logtype}, Message: {message}"
             os.system(f"echo '{to_parse}' >> {JOURNAL_DIR}/debug.log")
 
             log_entry = LogEntry( 
                 timestamp=timestamp,
+                protocol=refactored_protocol,
                 logtype=logtype,
-                device=device,
-                attributes=attributes
+                message=message
             )
             #db.session.add(log_entry)
     #db.session.commit()
 
+
+def refactor_protocol(to_parse):
+    if "zigbee2mqtt" in to_parse.lower():
+        return "Zigbee2MQTT"
+    elif "zha" in to_parse.lower():
+        return "ZHA"
+    elif "thread" in to_parse.lower():
+        return "Thread"
+    elif "zwave" in to_parse.lower():
+        return "Z-Wave"
+    else:
+        return None
+
+def refactor_type(to_parse):
+    text = to_parse.upper()
+    match_words = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+    for word in match_words:
+        if word in text:
+            return word
+    return None
+
+# def refactor_protocol(to_parse):
+#     text = to_parse.lower()
+#     match_words = ["zigbee2mqtt", "zha", "zwave", "thread"]
+#     for word in match_words:
+#         if word in text:
+#             return word
+#     return None
 
 
 if __name__ == "__main__":
