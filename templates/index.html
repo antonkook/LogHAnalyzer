@@ -14,7 +14,7 @@
             <input type="submit" value="Upload">
         </form>
 
-        <table>
+        <table class="log-table">
             <tr>
                 <th>Timestamp</th>
                 <th>Protocol</th>
@@ -24,10 +24,10 @@
             <!-- TODO find out how to go over entries of a logfile instead -->
             {% for log_entry in log_entries %}
         <tr>
-            <td>{{ log_entry.timestamp }}</td>
-            <td>{{ log_entry.protocol }}</td>
-            <td>{{ log_entry.logtype }}</td>
-            <td>{{ log_entry.message }}</td>
+            <td class="timestamp">{{ log_entry.timestamp }}</td>
+            <td class="protocol">{{ log_entry.protocol }}</td>
+            <td class="logtype">{{ log_entry.logtype }}</td>
+            <td class="message">{{ log_entry.message }}</td>
         </tr>
     {% endfor %}
         </table>

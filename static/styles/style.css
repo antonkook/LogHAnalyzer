@@ -6,6 +6,7 @@ html, body {
 table {
     border-collapse: collapse;
     width: 100%;
+    table-layout: auto;
 }
 
 th, td {
@@ -19,4 +20,14 @@ th {
 
 td {
     text-align: center;
+    width: 100px;
+}
+
+td.message {
+    word-break: break-all;
+    width: auto;
+}
+
+.log-table tr:nth-child(odd) {
+    background-color: #e8f0f2;
 }
