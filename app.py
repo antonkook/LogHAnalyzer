@@ -50,7 +50,14 @@ class LogEntry(db.Model):
 # route for uploading and viewing log files
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     if request.method == 'POST':
+        # clear previous journal log and database entries
+        os.system(f"echo '' > {journal_log_path}")
+        with app.app_context():
+            db.session.query(LogEntry).delete()
+            db.session.commit()
+
         uploaded_files = request.files.getlist("logfiles")
 
         for f in uploaded_files:
@@ -61,7 +68,7 @@ def index():
             # f.save(save_path)
 
             rel_path = f.filename
-            filename_only = os.path.basename(f.filename)
+            # filename_only = os.path.basename(f.filename)
             safe_path = os.path.normpath(rel_path)
             full_path = os.path.join(UPLOAD_DIR, safe_path)
             os.makedirs(os.path.dirname(full_path), exist_ok=True)
@@ -76,24 +83,14 @@ def index():
 
             # TODO consider removing the uploaded files
 
-
-
-            # create a database entry for the log file
-            # new_log = LogFile(filename=safe_name, filepath=safe_path)
-            # db.session.add(new_log)
-
-        # create_entries()
-
-        # db.session.commit()
+        create_entries()
         
         return redirect('/')
 
     else:
-        # fetch all uploaded log files to display
-        create_entries()
-        #log_files = LogFile.query.order_by(LogFile.date_uploaded).all()
-        return render_template("index.html")
-        # return render_template("index.html", log_files=log_files)
+        # fetch all uploaded log entries and render 
+        log_entries = LogEntry.query.order_by(LogEntry.timestamp).all()
+        return render_template("index.html", log_entries=log_entries)
 
 
 def create_entries():
@@ -103,7 +100,6 @@ def create_entries():
             # declare variables
             timestamp: str = None
             protocol: str = None
-            refactored_protocol: str = None
             logtype: str = None
             message: str = None
 
@@ -118,7 +114,7 @@ def create_entries():
             # if not any("DEBUG" in part for part in parts):
             #     os.system(f"echo '{line}' >> {JOURNAL_DIR}/info.log")
 
-            # TODO consider checking all parts
+            # TODO consider checking all parts if it fails once
 
             # extract protocol
             protocol = parts[4]
@@ -126,7 +122,7 @@ def create_entries():
             # check if relevant protocol is present
             match_words = ["zigbee2mqtt", "zha", "zwave", "thread"]
             if any(word in protocol.lower() for word in match_words):
-                refactored_protocol = refactor_protocol(protocol)
+                protocol = refactor_protocol(protocol)
             else:
                 continue
 
@@ -150,17 +146,17 @@ def create_entries():
             
 
             # debug
-            to_parse = f"Parsed entry - Timestamp: {timestamp}, Protocol: {refactored_protocol}, Type: {logtype}, Message: {message}"
-            os.system(f"echo '{to_parse}' >> {JOURNAL_DIR}/debug.log")
+            # to_parse = f"Parsed entry - Timestamp: {timestamp}, Protocol: {refactored_protocol}, Type: {logtype}, Message: {message}"
+            # os.system(f"echo '{to_parse}' >> {JOURNAL_DIR}/debug.log")
 
             log_entry = LogEntry( 
                 timestamp=timestamp,
-                protocol=refactored_protocol,
+                protocol=protocol,
                 logtype=logtype,
                 message=message
             )
-            #db.session.add(log_entry)
-    #db.session.commit()
+            db.session.add(log_entry)
+    db.session.commit()
 
 
 def refactor_protocol(to_parse):

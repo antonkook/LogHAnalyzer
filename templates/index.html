@@ -22,15 +22,14 @@
                 <th>Message</th>
             </tr>
             <!-- TODO find out how to go over entries of a logfile instead -->
-            {% for log_file in log_files %} 
-               
-                <tr>
-                    <!-- TODO each line (entry) -->
-                    <td></td>
-                    
-                </tr>
-                
-            {% endfor %}
+            {% for log_entry in log_entries %}
+        <tr>
+            <td>{{ log_entry.timestamp }}</td>
+            <td>{{ log_entry.protocol }}</td>
+            <td>{{ log_entry.logtype }}</td>
+            <td>{{ log_entry.message }}</td>
+        </tr>
+    {% endfor %}
         </table>
     </div>
 {% endblock %}
