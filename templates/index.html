@@ -12,6 +12,7 @@
         <form action="/" method="post" enctype="multipart/form-data">
             <input type="file" webkitdirectory directory multiple name="logfiles">
             <input type="submit" value="Upload">
+            <input type="button" value="Clear Logs" onclick="window.location.href='/clearlogs'">
         </form>
 
         <table class="log-table">
@@ -21,15 +22,15 @@
                 <th>Logtype</th>
                 <th>Message</th>
             </tr>
-            <!-- TODO find out how to go over entries of a logfile instead -->
+    
             {% for log_entry in log_entries %}
-        <tr>
-            <td class="timestamp">{{ log_entry.timestamp }}</td>
-            <td class="protocol">{{ log_entry.protocol }}</td>
-            <td class="logtype">{{ log_entry.logtype }}</td>
-            <td class="message">{{ log_entry.message }}</td>
-        </tr>
-    {% endfor %}
+                <tr>
+                    <td class="timestamp">{{ log_entry.timestamp }}</td>
+                    <td class="protocol">{{ log_entry.protocol }}</td>
+                    <td class="logtype">{{ log_entry.logtype }}</td>
+                    <td class="message">{{ log_entry.message }}</td>
+                </tr>
+            {% endfor %}
         </table>
     </div>
 {% endblock %}
