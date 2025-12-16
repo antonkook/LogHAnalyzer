@@ -28,15 +28,31 @@ class LogEntry(db.Model):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     if request.method == 'POST':
+        # retrieve uploaded files
         uploaded_files = request.files.getlist("logfiles")
+        
         for f in uploaded_files:
+            # secure file
             rel_path = f.filename
             safe_path = os.path.normpath(rel_path)
+
+            # prevent directory traversal attacks
+            if safe_path in (".", "..") or not f.filename:
+                continue
+
+            # save file
             full_path = os.path.join(UPLOAD_DIR, safe_path)
             os.makedirs(os.path.dirname(full_path), exist_ok=True)
             f.save(full_path)
+
+            # get metadata
+            # stat = os.stat(full_path)
+
+            # ts = stat.st_atime
+            # dt = datetime.fromtimestamp(ts)
+
+            # print(dt)
 
             # process the journal file using journalctl
             os.system(f"journalctl --file={full_path} >> {JOURNAL_DIR}/journal.log")
