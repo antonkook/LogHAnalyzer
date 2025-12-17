@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "minor_version": 7,
+  "key": "backup",
+  "data": {
+    "backups": [
+      {
+        "backup_id": "0eef98cc",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      }
+    ],
+    "config": {
+      "agents": {},
+      "automatic_backups_configured": true,
+      "create_backup": {
+        "agent_ids": [],
+        "include_addons": [],
+        "include_all_addons": true,
+        "include_database": true,
+        "include_folders": [
+          "media",
+          "share"
+        ],
+        "name": null,
+        "password": "SVBN-UYA1-21AB-AV3J-AZ0V-53U5-UWUM"
+      },
+      "last_attempted_automatic_backup": "2025-12-02T05:10:41.000802+01:00",
+      "last_completed_automatic_backup": "2025-11-27T09:37:27.794181+01:00",
+      "retention": {
+        "copies": 3,
+        "days": null
+      },
+      "schedule": {
+        "days": [],
+        "recurrence": "daily",
+        "time": null
+      }
+    }
+  }
+}

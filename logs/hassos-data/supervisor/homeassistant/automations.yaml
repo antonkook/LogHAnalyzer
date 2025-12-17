@@ -1,0 +1,67 @@
+- id: '1764179193065'
+  alias: LR Lights
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.lr_motion_sensor_occupancy
+    from:
+    - 'off'
+    to:
+    - 'on'
+  conditions:
+  - condition: sun
+    before: sunrise
+    after: sunset
+  actions:
+  - type: turn_on
+    device_id: e57c46951b3d3eefbd554c45ee5fd7ee
+    entity_id: 432a4dd239460a506a90f8b3b821e0f7
+    domain: light
+    flash: short
+  - wait_for_trigger:
+    - trigger: state
+      entity_id:
+      - binary_sensor.lr_motion_sensor_occupancy
+      from:
+      - 'on'
+      to:
+      - 'off'
+  - type: turn_off
+    device_id: e57c46951b3d3eefbd554c45ee5fd7ee
+    entity_id: 432a4dd239460a506a90f8b3b821e0f7
+    domain: light
+  mode: single
+- id: '1764179268072'
+  alias: BR Lights
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.br_motion_sensor_occupancy
+    from:
+    - 'off'
+    to:
+    - 'on'
+  conditions:
+  - condition: time
+    before: '22:00:00'
+    after: '17:00:00'
+  actions:
+  - type: turn_on
+    device_id: 8831a50e35741463e298bb46394de30b
+    entity_id: 3a2c240f727c3e57869a5f22963ce897
+    domain: light
+  - wait_for_trigger:
+    - trigger: state
+      entity_id:
+      - binary_sensor.br_motion_sensor_occupancy
+      from:
+      - 'on'
+      to:
+      - 'off'
+  - type: turn_off
+    device_id: 8831a50e35741463e298bb46394de30b
+    entity_id: 3a2c240f727c3e57869a5f22963ce897
+    domain: light
+  mode: single

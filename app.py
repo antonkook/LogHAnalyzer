@@ -16,10 +16,10 @@ db = SQLAlchemy(app)
 UPLOAD_DIR = "uploads"
 JOURNAL_DIR = "journals"
 
+
 class LogEntry(db.Model):
     __tablename__ = "log_entries"
     id = db.Column(db.Integer, primary_key=True)
-    # logfile_id = db.Column(db.Integer, db.ForeignKey("log_files.id"), nullable=False)
     timestamp = db.Column(db.String)
     protocol = db.Column(db.String)
     logtype = db.Column(db.String)
@@ -28,6 +28,7 @@ class LogEntry(db.Model):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
     if request.method == 'POST':
         # retrieve uploaded files
         uploaded_files = request.files.getlist("logfiles")
@@ -45,14 +46,6 @@ def index():
             full_path = os.path.join(UPLOAD_DIR, safe_path)
             os.makedirs(os.path.dirname(full_path), exist_ok=True)
             f.save(full_path)
-
-            # get metadata
-            # stat = os.stat(full_path)
-
-            # ts = stat.st_atime
-            # dt = datetime.fromtimestamp(ts)
-
-            # print(dt)
 
             # process the journal file using journalctl
             os.system(f"journalctl --file={full_path} >> {JOURNAL_DIR}/journal.log")
@@ -86,12 +79,6 @@ def create_entries():
             if len(parts) < 5:
                 continue
 
-            # debug
-            # if not any("DEBUG" in part for part in parts):
-            #     os.system(f"echo '{line}' >> {JOURNAL_DIR}/info.log")
-
-            # TODO consider checking all parts if it fails once
-
             # extract protocol
             protocol = parts[4]
 
@@ -104,6 +91,7 @@ def create_entries():
 
             # assemble timestamp
             timestamp = " ".join(parts[0:3])
+            timestamp = refactor_timestamp(timestamp)
 
             # extract log type
             match_words = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
@@ -115,8 +103,6 @@ def create_entries():
             
             # if no logtype found
             if logtype == None:
-                # debug
-                # print("ALERT LOL")
                 logtype = "None"
                 message = " ".join(parts[5:])
 
@@ -132,17 +118,17 @@ def create_entries():
     db.session.commit()
 
 
-def remove_journal():
-    journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
-    os.system(f"echo '' > {journal_log_path}")
-
-
 @app.route("/clearlogs", methods=['GET'])
 def remove_db_entries():
     with app.app_context():
             db.session.query(LogEntry).delete()
             db.session.commit()
     return redirect('/')
+
+
+def remove_journal():
+    journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
+    os.system(f"echo '' > {journal_log_path}")
 
 
 def refactor_protocol(to_parse):
@@ -165,6 +151,27 @@ def refactor_type(to_parse):
         if word in text:
             return word
     return None
+
+
+def refactor_timestamp(to_parse):
+    # split timestamp into month, day and time
+    parts = to_parse.split()
+    old_month, day, time = parts
+    new_month: str
+
+    # refactor date and time; Format: MM-DD HH:MM:SS
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    for month in months: 
+        if old_month in month:
+            new_month = str(months.index(month) + 1)
+            if len(new_month) < 2:
+                new_month = "0" + new_month
+    
+    # rejoin timestamp
+    date = "-".join([new_month, day])
+    new_timestamp = " ".join([date, time])
+
+    return new_timestamp
 
 
 if __name__ == "__main__":

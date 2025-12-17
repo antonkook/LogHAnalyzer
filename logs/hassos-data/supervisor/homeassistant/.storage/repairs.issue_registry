@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "repairs.issue_registry",
+  "data": {
+    "issues": [
+      {
+        "created": "2025-11-28T03:55:01.001992+00:00",
+        "dismissed_version": "2025.11.3",
+        "domain": "backup",
+        "is_persistent": true,
+        "issue_id": "automatic_backup_failed",
+        "breaks_in_ha_version": null,
+        "data": null,
+        "is_fixable": false,
+        "issue_domain": null,
+        "learn_more_url": "homeassistant://config/backup",
+        "severity": "warning",
+        "translation_key": "automatic_backup_failed_create",
+        "translation_placeholders": null
+      },
+      {
+        "created": "2025-12-01T14:18:08.864999+00:00",
+        "dismissed_version": null,
+        "domain": "automation",
+        "is_persistent": false,
+        "issue_id": "automation.br_lights_validation_failed_actions"
+      }
+    ]
+  }
+}
