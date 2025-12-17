@@ -1,0 +1,52 @@
+Feb 03 06:18:42 homeassistant systemd[1]: Started Home Assistant Core.
+Feb 03 06:18:43 homeassistant hass[1043]: INFO (MainThread) [homeassistant.core] Starting Home Assistant
+Feb 03 06:18:44 homeassistant hass[1043]: INFO (MainThread) [homeassistant.setup] Setting up zha
+Feb 03 06:18:45 homeassistant hass[1043]: INFO (MainThread) [homeassistant.setup] Setting up zwave_js
+Feb 03 06:18:45 homeassistant hass[1043]: INFO (MainThread) [homeassistant.setup] Setting up mqtt
+Feb 03 06:18:46 homeassistant hass[1043]: INFO (MainThread) [homeassistant.setup] Setting up thread
+
+Feb 03 06:19:01 homeassistant hass[1043]: INFO (MainThread) [zha.core.gateway] Initializing ZHA Gateway
+Feb 03 06:19:02 homeassistant hass[1043]: INFO (MainThread) [bellows.zigbee.application] EZSP Radio ready
+Feb 03 06:19:04 homeassistant hass[1043]: INFO (MainThread) [zha.core.gateway] ZHA Gateway started
+
+Mar 14 19:47:11 homeassistant systemd[1]: Started Zigbee2MQTT Service.
+Mar 14 19:47:13 zigbee2mqtt[1211]: info  zigbee-herdsman started
+Mar 14 19:47:15 zigbee2mqtt[1211]: info  Coordinator firmware version: 2023.01
+
+May 02 21:03:22 homeassistant hass[1043]: INFO (MainThread) [zwave_js] Starting Z-Wave JS server
+May 02 21:03:24 zwave_js[1315]: info  Z-Wave driver ready
+May 02 21:03:27 zwave_js[1315]: info  Node 7 (Motion Sensor) interview completed
+
+May 02 21:03:41 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.thread] Thread network initialized
+May 02 21:03:43 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.matter] Matter server started
+
+Jul 09 08:22:37 homeassistant hass[1043]: DEBUG (MainThread) [zha.event] Received event from device 00:15:8d:00:02:ab:cd:ef: cluster=0x0406, attribute=0x0000, value=1
+Jul 09 08:22:37 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.binary_sensor] Binary sensor 'binary_sensor.zha_motion_hallway' turned on
+
+Jul 09 08:23:10 homeassistant hass[1043]: DEBUG (MainThread) [zha.event] Received event from device 00:15:8d:00:02:ab:cd:ef: cluster=0x0406, attribute=0x0000, value=0
+Jul 09 08:23:10 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.binary_sensor] Binary sensor 'binary_sensor.zha_motion_hallway' turned off
+
+Mar 14 20:05:52 zigbee2mqtt[1211]: debug Received MQTT message on 'zigbee2mqtt/livingroom_motion'
+Mar 14 20:05:52 zigbee2mqtt[1211]: info  Zigbee2MQTT:MQTT publish: topic 'zigbee2mqtt/livingroom_motion', payload '{"occupancy":true}'
+Mar 14 20:05:53 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.mqtt.binary_sensor] MQTT binary_sensor 'binary_sensor.z2m_motion_livingroom' state changed to ON
+
+Mar 14 20:06:27 zigbee2mqtt[1211]: info  Zigbee2MQTT:MQTT publish: topic 'zigbee2mqtt/livingroom_motion', payload '{"occupancy":false}'
+Mar 14 20:06:27 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.mqtt.binary_sensor] MQTT binary_sensor 'binary_sensor.z2m_motion_livingroom' state changed to OFF
+
+Oct 18 23:41:14 zwave_js[1315]: debug Node 7: Value updated: Notification CC, Home Security, Motion detected
+Oct 18 23:41:14 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.zwave_js.binary_sensor] binary_sensor.zwave_motion_garage turned on
+
+Oct 18 23:41:49 zwave_js[1315]: debug Node 7: Value updated: Notification CC, Home Security, Motion idle
+Oct 18 23:41:49 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.zwave_js.binary_sensor] binary_sensor.zwave_motion_garage turned off
+
+Dec 01 05:12:08 homeassistant hass[1043]: DEBUG (MainThread) [matter.server] Attribute update: Node 0x1234, Endpoint 1, OccupancySensor.Occupancy = 1
+Dec 01 05:12:08 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.binary_sensor] binary_sensor.thread_motion_bedroom turned on
+
+Dec 01 05:12:41 homeassistant hass[1043]: DEBUG (MainThread) [matter.server] Attribute update: Node 0x1234, Endpoint 1, OccupancySensor.Occupancy = 0
+Dec 01 05:12:41 homeassistant hass[1043]: INFO (MainThread) [homeassistant.components.binary_sensor] binary_sensor.thread_motion_bedroom turned off
+
+Jul 09 03:44:11 homeassistant hass[1043]: WARNING (MainThread) [zha.core.device] Device 00:15:8d:00:02:ab:cd:ef is not responding
+
+Mar 14 21:01:02 homeassistant hass[1043]: WARNING (MainThread) [homeassistant.components.mqtt] Message delayed for 2.3s on topic zigbee2mqtt/livingroom_motion
+
+Oct 18 23:55:17 zwave_js[1315]: info  Node 7 is asleep, queued notification values

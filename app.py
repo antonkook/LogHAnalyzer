@@ -1,5 +1,5 @@
 import os
-import subprocess
+import magic
 from flask import Flask, render_template, url_for, request, redirect
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
@@ -15,6 +15,9 @@ db = SQLAlchemy(app)
 # directories
 UPLOAD_DIR = "uploads"
 JOURNAL_DIR = "journals"
+
+# mime types
+JOURNAL_TYPE = 'application/x-linux-journal'
 
 
 class LogEntry(db.Model):
@@ -47,11 +50,18 @@ def index():
             os.makedirs(os.path.dirname(full_path), exist_ok=True)
             f.save(full_path)
 
-            # process the journal file using journalctl
-            os.system(f"journalctl --file={full_path} >> {JOURNAL_DIR}/journal.log")
+            # get filetype
+            filetype = magic.from_file(f'{full_path}', mime = True)
+            print(filetype)
+
+            # process the journal file using journalctl if journal-file
+            if filetype == JOURNAL_TYPE:
+                os.system(f"journalctl --file={full_path} >> {JOURNAL_DIR}/journal.log")
+            else:
+                os.system(f"cat {full_path} >> {JOURNAL_DIR}/journal.log")
 
         # create database entries 
-        create_entries()
+        create_entries(filetype)
         remove_journal()
         
         return redirect('/')
@@ -62,7 +72,7 @@ def index():
         return render_template("index.html", log_entries=log_entries)
 
 
-def create_entries():
+def create_entries(filetype):
     journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     with open(journal_log_path, 'r') as f:
         for line in f:
@@ -74,6 +84,10 @@ def create_entries():
 
             # split line into parts
             parts = line.split()
+
+            # cut the beginning TODO TEST THIS
+            if filetype == JOURNAL_TYPE:
+                parts = parts[5:]
 
             # skip if malformed 
             if len(parts) < 5:
