@@ -1,5 +1,7 @@
 import os
 import magic
+import pprint
+import json
 from flask import Flask, render_template, url_for, request, redirect
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
@@ -225,7 +227,29 @@ def handle_logtype_and_message(parts):
 
 
 def format_z2m_message(message):
-    pass
+    parts = message.split()
+    header = " ".join(parts[0:3])
+    print(header)
+    if not header == "z2m:mqtt: MQTT publish:":
+        return message
+
+    payload_start: int
+    for i, part in enumerate(parts):
+        if part == "payload":
+            payload_start = i
+            break
+    
+    topic = "Topic: " + " ".join(parts[4:i])
+
+    # TODO continue formatting (\n not possible btw)
+    # TODO compare to no formatting
+
+    payload = "Payload: " + " ".join(parts[i + 1:])
+
+    # rebuild message
+    message = topic + payload
+
+    return message
 
 
 ### Helper functions
