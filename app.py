@@ -19,7 +19,11 @@ JOURNAL_DIR = "journals"
 # mime types
 JOURNAL_TYPE = 'application/x-linux-journal'
 
+# constants
+MIN_PARTS = 4
 
+
+### database model
 class LogEntry(db.Model):
     __tablename__ = "log_entries"
     id = db.Column(db.Integer, primary_key=True)
@@ -29,6 +33,7 @@ class LogEntry(db.Model):
     message = db.Column(db.String)
 
 
+### web
 @app.route("/", methods=['GET', 'POST'])
 def index():
     os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -72,6 +77,14 @@ def index():
         return render_template("index.html", log_entries=log_entries)
 
 
+@app.route("/clearlogs", methods=['GET'])
+def remove_db_entries():
+    with app.app_context():
+            db.session.query(LogEntry).delete()
+            db.session.commit()
+    return redirect('/')
+
+
 def create_entries(filetype):
     journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     with open(journal_log_path, 'r') as f:
@@ -85,40 +98,37 @@ def create_entries(filetype):
             # split line into parts
             parts = line.split()
 
-            # cut the beginning TODO TEST THIS
-            if filetype == JOURNAL_TYPE:
-                parts = parts[5:]
-
             # skip if malformed 
-            if len(parts) < 5:
+            if len(parts) < MIN_PARTS:
                 continue
 
-            # extract protocol
-            protocol = parts[4]
+            # get the protocol
+            protocol = handle_protocol(parts)
 
-            # check if relevant protocol is present
-            match_words = ["zigbee2mqtt", "zha", "zwave", "thread"]
+            # filter out unneeded logs
+            # TODO add more
+            match_words = ["audit", "kernel", "hassio-dns", "homeassistant"]
             if any(word in protocol.lower() for word in match_words):
-                protocol = refactor_protocol(protocol)
-            else:
                 continue
 
-            # assemble timestamp
-            timestamp = " ".join(parts[0:3])
-            timestamp = refactor_timestamp(timestamp)
-
-            # extract log type
-            match_words = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
-            for i, part in enumerate(parts):
-                if any(word in part.upper() for word in match_words):
-                    logtype = refactor_type(part)
-                    message = " ".join(parts[i + 1:])
-                    break
+             # extract logtype and message
+            logtype, message = handle_logtype_and_message(parts)
             
-            # if no logtype found
-            if logtype == None:
-                logtype = "None"
-                message = " ".join(parts[5:])
+            # find out timestamp format
+            if protocol == "ring-mqtt":
+                timestamp = handle_timestamp_ring(parts)
+            elif filetype == JOURNAL_TYPE:
+                timestamp = handle_timestamp_journal(parts)
+            # elif protocol == "Zigbee2MQTT":
+            #     timestamp = handle_z2m()
+            # elif protocol == "ZHA":
+            #     timestamp = handle_zha()
+            # elif protocol == "Z-Wave":
+            #     timestamp = handle_zwave()
+            # elif protocol == "Thread":
+            #     timestamp = handle_thread()
+            else:
+                timestamp = handle_timestamp(parts)
 
             # create and add log entry to database
             log_entry = LogEntry( 
@@ -132,61 +142,121 @@ def create_entries(filetype):
     db.session.commit()
 
 
-@app.route("/clearlogs", methods=['GET'])
-def remove_db_entries():
-    with app.app_context():
-            db.session.query(LogEntry).delete()
-            db.session.commit()
-    return redirect('/')
+### Handle timestamp
+def handle_timestamp_journal(parts):
+    timestamp = " ".join(parts[5:7])
+    timestamp = remove_special_chars(timestamp)
+    return timestamp
 
 
+def handle_timestamp_ring(parts):
+    timestamp = parts[5]
+
+    # split timestamp appart
+    datetime = "T".split(timestamp)
+    time = ".".split(datetime[1])
+
+    # rebuild timestamp
+    timestamp = " ".join([datetime[0], time[0]])
+    return timestamp
+
+
+def handle_timestamp(parts):
+    timestamp = " ".join(parts[0:2])
+    timestamp = remove_special_chars(timestamp)
+    return timestamp
+
+
+### Handle parts of the log
+def handle_protocol(parts):
+    protocol = None
+    match_words = ["z2m", "zh:", "zha", "thread", "zwave", "ring"]
+    for part in parts:
+        for word in match_words:
+            if word in part:
+                protocol = word
+                break
+
+    match protocol:
+        case "z2m":
+            return "Zigbee2MQTT"
+        case "zh:": # TODO make sure this is fine
+            return "Zigbee2MQTT"
+        case "zha":
+            return "ZHA"
+        case "thread":
+            return "Thread"
+        case "zwave":
+            return "Z-Wave"
+        case "ring":
+            return "ring-mqtt"
+        case _:
+            return "unknown"
+
+
+def handle_logtype_and_message(parts):
+    logtype: str
+    message: str
+    match_words = ["debug", "info", "warning", "error", "critical"]
+
+    for i, part in enumerate(parts):
+        for word in match_words:
+            if word in part.lower():
+                logtype = word
+                message = " ".join(parts[i + 1:])
+                return logtype, message
+    # if no logtype found
+    logtype = "unknown"
+    message = " ".join(parts)
+    return logtype, message
+
+
+### Helper functions
 def remove_journal():
     journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     os.system(f"echo '' > {journal_log_path}")
 
 
-def refactor_protocol(to_parse):
-    if "zigbee2mqtt" in to_parse.lower():
-        return "Zigbee2MQTT"
-    elif "zha" in to_parse.lower():
-        return "ZHA"
-    elif "thread" in to_parse.lower():
-        return "Thread"
-    elif "zwave" in to_parse.lower():
-        return "Z-Wave"
-    else:
-        return None
-
-
-def refactor_type(to_parse):
-    text = to_parse.upper()
-    match_words = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
-    for word in match_words:
-        if word in text:
-            return word
-    return None
-
-
-def refactor_timestamp(to_parse):
-    # split timestamp into month, day and time
-    parts = to_parse.split()
-    old_month, day, time = parts
-    new_month: str
-
-    # refactor date and time; Format: MM-DD HH:MM:SS
-    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    for month in months: 
-        if old_month in month:
-            new_month = str(months.index(month) + 1)
-            if len(new_month) < 2:
-                new_month = "0" + new_month
+def remove_special_chars(to_parse):
+    if to_parse.startswith('['):
+        to_parse = to_parse.replace('[', '')
     
-    # rejoin timestamp
-    date = "-".join([new_month, day])
-    new_timestamp = " ".join([date, time])
-
-    return new_timestamp
+    if to_parse.endswith(']'):
+        to_parse = to_parse.replace(']', '')
+    
+    return to_parse
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+# def refactor_timestamp(to_parse):
+#     # split timestamp into month, day and time
+#     parts = to_parse.split()
+#     old_month, day, time = parts
+#     new_month: str
+
+#     # refactor date and time; Format: MM-DD HH:MM:SS
+#     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+#     for month in months: 
+#         if old_month in month:
+#             new_month = str(months.index(month) + 1)
+#             if len(new_month) < 2:
+#                 new_month = "0" + new_month
+    
+#     # rejoin timestamp
+#     date = "-".join([new_month, day])
+#     new_timestamp = " ".join([date, time])
+
+#     return new_timestamp
