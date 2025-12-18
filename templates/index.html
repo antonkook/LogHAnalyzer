@@ -15,9 +15,10 @@
             <input type="button" value="Clear Logs" onclick="window.location.href='/clearlogs'">
         </form>
 
-        <table class="log-table">
+        <div class="log-table">
+            <table>
             <tr>
-                <th>Timestamp (MM-DD HH-MM-SS)</th>
+                <th>Timestamp (YYYY-MM-DD HH-MM-SS)</th>
                 <th>Protocol</th>
                 <th>Logtype</th>
                 <th>Message</th>
@@ -31,6 +32,7 @@
                     <td class="message">{{ log_entry.message }}</td>
                 </tr>
             {% endfor %}
-        </table>
+            </table>
+        </div>
     </div>
 {% endblock %}

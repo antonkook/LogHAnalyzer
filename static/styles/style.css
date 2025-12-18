@@ -3,10 +3,12 @@ html, body {
     font: sans-serif;
 } 
 
+
+
 table {
     border-collapse: collapse;
-    width: 100%;
     table-layout: auto;
+    width: 100%
 }
 
 th, td {
@@ -21,6 +23,8 @@ th {
 td {
     text-align: center;
     width: 100px;
+    /* position: sticky; 
+    top: 0; */
 }
 
 td.message {
@@ -30,4 +34,12 @@ td.message {
 
 .log-table tr:nth-child(odd) {
     background-color: #e8f0f2;
+}
+
+.log-table {
+    max-height: 1500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 95%;
+    border: 1px solid #c90e0e83;
 }

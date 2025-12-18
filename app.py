@@ -40,6 +40,7 @@ def index():
     if request.method == 'POST':
         # retrieve uploaded files
         uploaded_files = request.files.getlist("logfiles")
+        filetype: str = None
         
         for f in uploaded_files:
             # secure file
@@ -57,7 +58,6 @@ def index():
 
             # get filetype
             filetype = magic.from_file(f'{full_path}', mime = True)
-            print(filetype)
 
             # process the journal file using journalctl if journal-file
             if filetype == JOURNAL_TYPE:
@@ -66,8 +66,9 @@ def index():
                 os.system(f"cat {full_path} >> {JOURNAL_DIR}/journal.log")
 
         # create database entries 
-        create_entries(filetype)
-        remove_journal()
+        if filetype:
+            create_entries(filetype)
+            remove_journal()
         
         return redirect('/')
 
@@ -102,14 +103,15 @@ def create_entries(filetype):
             if len(parts) < MIN_PARTS:
                 continue
 
+            # filter out unneeded logs
+            if filetype == JOURNAL_TYPE:
+                match_words = ["audit", "kernel", "hass", "homeassistant", "fstrim", "systemd", "mosquitto", "rauc", "config", "vscode"]
+                to_match = parts[4]
+                if any(word in to_match.lower() for word in match_words):
+                    continue
+
             # get the protocol
             protocol = handle_protocol(parts)
-
-            # filter out unneeded logs
-            # TODO add more
-            match_words = ["audit", "kernel", "hassio-dns", "homeassistant"]
-            if any(word in protocol.lower() for word in match_words):
-                continue
 
              # extract logtype and message
             logtype, message = handle_logtype_and_message(parts)
@@ -129,6 +131,12 @@ def create_entries(filetype):
             #     timestamp = handle_thread()
             else:
                 timestamp = handle_timestamp(parts)
+            
+            if timestamp == None:
+                continue
+
+            if protocol == "Zigbee2MQTT":
+                message = format_z2m_message(message)
 
             # create and add log entry to database
             log_entry = LogEntry( 
@@ -153,11 +161,16 @@ def handle_timestamp_ring(parts):
     timestamp = parts[5]
 
     # split timestamp appart
-    datetime = "T".split(timestamp)
-    time = ".".split(datetime[1])
+    datetime = timestamp.split('T')
+
+    time = []
+    if len(datetime) > 1:
+        time = datetime[1].split('.')
 
     # rebuild timestamp
-    timestamp = " ".join([datetime[0], time[0]])
+    if len(datetime) > 1 and len(time) > 1:
+        timestamp = " ".join([datetime[0], time[0]])
+        
     return timestamp
 
 
@@ -180,7 +193,7 @@ def handle_protocol(parts):
     match protocol:
         case "z2m":
             return "Zigbee2MQTT"
-        case "zh:": # TODO make sure this is fine
+        case "zh:": 
             return "Zigbee2MQTT"
         case "zha":
             return "ZHA"
@@ -211,6 +224,10 @@ def handle_logtype_and_message(parts):
     return logtype, message
 
 
+def format_z2m_message(message):
+    pass
+
+
 ### Helper functions
 def remove_journal():
     journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
@@ -220,9 +237,13 @@ def remove_journal():
 def remove_special_chars(to_parse):
     if to_parse.startswith('['):
         to_parse = to_parse.replace('[', '')
+    else:
+        return None
     
     if to_parse.endswith(']'):
         to_parse = to_parse.replace(']', '')
+    else: 
+        return None
     
     return to_parse
 
