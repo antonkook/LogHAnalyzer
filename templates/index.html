@@ -6,13 +6,23 @@
 
 {% block body %}
     <div class="content">
-        <!-- <h1>LogHAnalyzer</h1> -->
-        <h2>Upload Logfiles</h2>
-        <h3>Select system logfiles (hassos-data/logs)</h3>
-        <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="logfiles" multiple>
+        <h3>Select logs</h3>
+        <p>Example locations of logs: hassos-data/logs/ | /var/log/ | homeassistant/zigbee2mqtt/log/ | homeassistant/</p>
+        <form action="/uploadlogs" method="post" enctype="multipart/form-data">
+            <input type="file" name="logfiles" value="Select logs" multiple>
             <input type="submit" value="Upload">
-            <input type="button" value="Clear Logs" onclick="window.location.href='/clearlogs'">
+            <input type="button" value="Clear" onclick="window.location.href='/clearlogs'">
+        </form>
+
+        <br>
+
+        <h3>Select config files</h3> 
+        <p>Example locations of config files: homeassistant/configuration.yaml | homeassistant/zigbee2mqtt/configuration.yaml | homeassistant/secrets.yaml | homeassistant/zigbee2mqtt/state.json | homeassistant/zigbee2mqtt/coordinator_backup.json</p>
+        
+        <form action="/uploadconfigfiles" method="post" enctype="multipart/form-data">
+            <input type="file" name="configfiles">
+            <input type="submit" value="Upload">
+            <input type="button" value="Clear" onclick="window.location.href='/clearconfigfiles'">
         </form>
 
         <div class="log-table">
@@ -26,13 +36,40 @@
     
             {% for log_entry in log_entries %}
                 <tr>
-                    <td class="timestamp">{{ log_entry.timestamp }}</td>
-                    <td class="protocol">{{ log_entry.protocol }}</td>
-                    <td class="logtype">{{ log_entry.logtype }}</td>
-                    <td class="message">{{ log_entry.message }}</td>
+                    {% autoescape false %}
+                        <td class="timestamp">{{ log_entry.timestamp }}</td>
+                        <td class="protocol">{{ log_entry.protocol }}</td>
+                        <td class="logtype">{{ log_entry.logtype }}</td>
+                        <td class="message">{{ log_entry.message }}</td>
+                    {% endautoescape %}
                 </tr>
             {% endfor %}
             </table>
         </div>
+
+        <br>
+
+        <div class="config-table">
+            <table>
+            <tr>
+                <th>Filename</th>
+                <th>Infotype</th>
+                <th>Value</th>
+            </tr>
+    
+            {% for config_entry in config_entries %}
+                <tr>
+                    {% autoescape false %}
+                        <td class="filename">{{ config_entry.filename }}</td>
+                        <td class="infotype">{{ config_entry.infotype }}</td>
+                        <td class="value">{{ config_entry.value }}</td>
+                    {% endautoescape %}
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
+
+
+
     </div>
 {% endblock %}

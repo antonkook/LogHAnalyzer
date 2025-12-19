@@ -17,15 +17,17 @@ db = SQLAlchemy(app)
 # directories
 UPLOAD_DIR = "uploads"
 JOURNAL_DIR = "journals"
+CONFIG_DIR = "config"
 
 # mime types
 JOURNAL_TYPE = 'application/x-linux-journal'
 
 # constants
-MIN_PARTS = 4
+MIN_PARTS_JOURNAL = 8
+MIN_PARTS_LOG = 3
 
 
-### database model
+### database models
 class LogEntry(db.Model):
     __tablename__ = "log_entries"
     id = db.Column(db.Integer, primary_key=True)
@@ -35,49 +37,65 @@ class LogEntry(db.Model):
     message = db.Column(db.String)
 
 
+class ConfigEntry(db.Model):
+    __tablename__ = "config_entries"
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String)
+    infotype = db.Column(db.String)
+    value = db.Column(db.String)
+
+
 ### web
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=['GET'])
 def index():
+    # fetch all uploaded log entries and render 
+    log_entries = LogEntry.query.order_by(LogEntry.timestamp).all()
+    config_entries = ConfigEntry.query.order_by(ConfigEntry.infotype).all()
+    return render_template("index.html", log_entries=log_entries, config_entries=config_entries)
+
+
+@app.route("/uploadlogs", methods=['POST'])
+def upload_logs():
+    # make sure uploads folder exists and create it if it doesn't
     os.makedirs(UPLOAD_DIR, exist_ok=True)
-    if request.method == 'POST':
-        # retrieve uploaded files
-        uploaded_files = request.files.getlist("logfiles")
-        filetype: str = None
-        
-        for f in uploaded_files:
-            # secure file
-            rel_path = f.filename
-            safe_path = os.path.normpath(rel_path)
 
-            # prevent directory traversal attacks
-            if safe_path in (".", "..") or not f.filename:
-                continue
+    is_uploaded: bool = False
+    filetype: str = None
 
-            # save file
-            full_path = os.path.join(UPLOAD_DIR, safe_path)
-            os.makedirs(os.path.dirname(full_path), exist_ok=True)
-            f.save(full_path)
+    # retrieve uploaded files
+    uploaded_files = request.files.getlist("logfiles")
+    
+    for f in uploaded_files:
+        is_uploaded = True
 
-            # get filetype
-            filetype = magic.from_file(f'{full_path}', mime = True)
+        # secure file
+        rel_path = f.filename
+        safe_path = os.path.normpath(rel_path)
 
-            # process the journal file using journalctl if journal-file
-            if filetype == JOURNAL_TYPE:
-                os.system(f"journalctl --file={full_path} >> {JOURNAL_DIR}/journal.log")
-            else:
-                os.system(f"cat {full_path} >> {JOURNAL_DIR}/journal.log")
+        # prevent directory traversal attacks
+        if safe_path in (".", "..") or not f.filename:
+            continue
 
-        # create database entries 
-        if filetype:
-            create_entries(filetype)
-            remove_journal()
-        
-        return redirect('/')
+        # save file
+        full_path = os.path.join(UPLOAD_DIR, safe_path)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        f.save(full_path)
 
-    else:
-        # fetch all uploaded log entries and render 
-        log_entries = LogEntry.query.order_by(LogEntry.timestamp).all()
-        return render_template("index.html", log_entries=log_entries)
+        # get filetype
+        filetype = magic.from_file(f'{full_path}', mime = True)
+
+        # process the journal file using journalctl if journal-file
+        if filetype == JOURNAL_TYPE:
+            os.system(f"journalctl --file={full_path} >> {JOURNAL_DIR}/journal.log")
+        else:
+            os.system(f"cat {full_path} >> {JOURNAL_DIR}/journal.log")
+
+    # create database entries 
+    if is_uploaded:
+        create_log_entries(filetype)
+        remove_journal()
+    
+    return redirect('/')
 
 
 @app.route("/clearlogs", methods=['GET'])
@@ -88,7 +106,49 @@ def remove_db_entries():
     return redirect('/')
 
 
-def create_entries(filetype):
+@app.route("/uploadconfigfiles", methods=['POST'])
+def upload_config_files():
+    # make sure uploads folder exists and create it if it doesn't
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+    # retrieve uploaded files
+    # uploaded_file = request.files.getlist("configfiles")
+    f = request.files.get("configfiles")
+
+    if f:
+        is_uploaded = True
+
+        # secure file
+        rel_path = f.filename
+        safe_path = os.path.normpath(rel_path)
+
+        # prevent directory traversal attacks
+        if safe_path in (".", "..") or not f.filename:
+            return redirect('/')
+
+         # save file
+        full_path = os.path.join(UPLOAD_DIR, safe_path)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        f.save(full_path)
+
+        os.system(f"cat {full_path} >> {CONFIG_DIR}/config.log")
+
+        # create database entries 
+        create_config_entries(f.filename)
+        remove_config()
+
+    return redirect('/')
+
+
+@app.route("/clearconfigfiles", methods=['GET'])
+def clear_config_files():
+    with app.app_context():
+            db.session.query(ConfigEntry).delete()
+            db.session.commit()
+    return redirect('/')
+
+
+def create_log_entries(filetype):
     journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     with open(journal_log_path, 'r') as f:
         for line in f:
@@ -100,16 +160,18 @@ def create_entries(filetype):
 
             # split line into parts
             parts = line.split()
-
-            # skip if malformed 
-            if len(parts) < MIN_PARTS:
-                continue
-
+                
             # filter out unneeded logs
             if filetype == JOURNAL_TYPE:
+                # skip if malformed 
+                if len(parts) < MIN_PARTS_JOURNAL:
+                    continue
                 match_words = ["audit", "kernel", "hass", "homeassistant", "fstrim", "systemd", "mosquitto", "rauc", "config", "vscode"]
                 to_match = parts[4]
                 if any(word in to_match.lower() for word in match_words):
+                    continue
+            else:
+                if len(parts) < MIN_PARTS_LOG:
                     continue
 
             # get the protocol
@@ -141,7 +203,7 @@ def create_entries(filetype):
                 message = format_z2m_message(message)
 
             # create and add log entry to database
-            log_entry = LogEntry( 
+            log_entry = LogEntry(
                 timestamp=timestamp,
                 protocol=protocol,
                 logtype=logtype,
@@ -149,6 +211,30 @@ def create_entries(filetype):
             )
             db.session.add(log_entry)
     
+    db.session.commit()
+
+
+def create_config_entries(filename):
+    # config_log_path = os.path.join(CONFIG_DIR, "config.log")
+    infotype: str
+    value: str
+
+    match filename:
+        case "configuration.yaml":
+            infotype, value = handle_configuration()
+        case _:
+            print("error")
+            return
+        #TODO
+
+   # create and add config entry to database
+    config_entry = ConfigEntry(
+        filename=filename,
+        infotype=infotype,
+        value=value
+    )
+    print(f"about to commit: {filename}")
+    db.session.add(config_entry)
     db.session.commit()
 
 
@@ -239,23 +325,57 @@ def format_z2m_message(message):
             payload_start = i
             break
     
-    topic = "Topic: " + " ".join(parts[4:i])
-
-    # TODO continue formatting (\n not possible btw)
-    # TODO compare to no formatting
-
-    payload = "Payload: " + " ".join(parts[i + 1:])
-
     # rebuild message
-    message = topic + payload
+    topic = "Topic: " + " ".join(parts[4:i])
+    payload = "Payload: " + " ".join(parts[i + 1:])
+    message = topic + "<br/>" + payload
 
     return message
+
+
+### Handle files
+def handle_configuration():
+    config_log_path = os.path.join(CONFIG_DIR, "config.log")
+    # declare variables
+    infotype: str = "Logging"
+    value: str = "No information about logging found. For anything but Z2M, there will likely be no relevant logs"
+
+    with open(config_log_path, 'r') as f:
+        for line in f:
+            # split into parts
+            parts = line.split()
+
+            # TODO fix not detecting logger in configuration.yaml
+
+            for i, part in enumerate(parts):
+                if '#' in part:
+                    left = part.split('#')[0]
+                    if i > 0:
+                        string = " ".join(part[0:i]) + " " + left
+                        parts = string.split()
+                    else:
+                        parts = []
+                    break
+            
+            for part in parts:
+                print(part)
+                if "logger" in part:
+                    value = "Logger detected"
+
+        print(value)
+        return infotype, value
+
 
 
 ### Helper functions
 def remove_journal():
     journal_log_path = os.path.join(JOURNAL_DIR, "journal.log")
     os.system(f"echo '' > {journal_log_path}")
+
+
+def remove_config():
+    config_log_path = os.path.join(CONFIG_DIR, "config.log")
+    os.system(f"echo '' > {config_log_path}")
 
 
 def remove_special_chars(to_parse):
@@ -274,14 +394,6 @@ def remove_special_chars(to_parse):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
-
-
 
 
 

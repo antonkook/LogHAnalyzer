@@ -21,8 +21,6 @@ th {
 td {
     text-align: center;
     width: 100px;
-    /* position: sticky; 
-    top: 0; */
 }
 
 td.message {
@@ -35,7 +33,23 @@ td.message {
 }
 
 .log-table {
-    max-height: 1500px;
+    max-height: 1000px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 95%;
+    border: 1px solid #c90e0e83;
+}
+
+th.infotype {
+    width: 100px;
+}
+
+.config-table tr:nth-child(odd) {
+    background-color: #e8f0f2;
+}
+
+.config-table {
+    max-height: 1000px;
     overflow-y: auto;
     overflow-x: hidden;
     width: 95%;

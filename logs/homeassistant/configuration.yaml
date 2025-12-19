@@ -1,14 +1,16 @@
 
 # Loads default set of integrations. Do not remove.
-default_config:
+# default_config:
 
-# Load frontend themes from the themes folder
-frontend:
-  themes: !include_dir_merge_named themes
+# # Load frontend themes from the themes folder
+# frontend:
+#   themes: !include_dir_merge_named themes
 
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
+# automation: !include automations.yaml
+# script: !include scripts.yaml
+# scene: !include scenes.yaml
+
+# logger
 
 # logger:
 #   default: info
@@ -25,3 +27,12 @@ scene: !include scenes.yaml
 #     zigpy_zigate: debug
 #     zigpy_znp: debug
 #     zhaquirks: debug
+
+bla bla # test
+# test # test2
+# sdkjfsdkjfksjdf # skdjfksjdkfj # ### 
+### dksjfsdjf
+hey ### test
+log#ger
+l#o#G#g#e#r
+logger: # lol
