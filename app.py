@@ -116,7 +116,6 @@ def upload_config_files():
     f = request.files.get("configfiles")
 
     if f:
-        is_uploaded = True
 
         # secure file
         rel_path = f.filename
@@ -131,6 +130,7 @@ def upload_config_files():
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
         f.save(full_path)
 
+        # TODO consider removing and use the filepath instead? (as parameter)
         os.system(f"cat {full_path} >> {CONFIG_DIR}/config.log")
 
         # create database entries 
@@ -215,27 +215,14 @@ def create_log_entries(filetype):
 
 
 def create_config_entries(filename):
-    # config_log_path = os.path.join(CONFIG_DIR, "config.log")
-    infotype: str
-    value: str
-
     match filename:
         case "configuration.yaml":
-            infotype, value = handle_configuration()
+            handle_configuration(filename)
+        case "configuration.yaml (z2m)":
+            handle_configuration_z2m(filename) 
         case _:
             print("error")
             return
-        #TODO
-
-   # create and add config entry to database
-    config_entry = ConfigEntry(
-        filename=filename,
-        infotype=infotype,
-        value=value
-    )
-    print(f"about to commit: {filename}")
-    db.session.add(config_entry)
-    db.session.commit()
 
 
 ### Handle timestamp
@@ -324,7 +311,8 @@ def format_z2m_message(message):
         if part == "payload":
             payload_start = i
             break
-    
+    # TODO
+    print("i is " + str(i) + " while payload_start is " + payload_start)
     # rebuild message
     topic = "Topic: " + " ".join(parts[4:i])
     payload = "Payload: " + " ".join(parts[i + 1:])
@@ -334,36 +322,93 @@ def format_z2m_message(message):
 
 
 ### Handle files
-def handle_configuration():
+def handle_configuration(filename):
+    # variables
     config_log_path = os.path.join(CONFIG_DIR, "config.log")
-    # declare variables
-    infotype: str = "Logging"
-    value: str = "No information about logging found. For anything but Z2M, there will likely be no relevant logs"
+    match_words = ["debug", "info", "warning", "error", "critical", "logger"]
+    logger_detected: bool = False
+    
+    with open(config_log_path, 'r') as f:
+        for line in f:
+            # declare variables
+            infotype: str = "Default"
+            value: str = None
+
+            # remove commented out part of the line
+            if '#' in line:
+                line = line.split("#")[0]
+
+            # split into parts
+            parts = line.split(":")
+
+            # filter out line if no relevant information 
+            if len(parts) != 2:
+                continue
+
+            if not any(word in line.lower() for word in match_words):
+                # TODO do i want that?
+                # infotype = "other"
+                # value = line
+                continue
+            elif "logger:" in line:
+                infotype: str = "Logging"
+                value = "Custom Logging Configuration Found"
+                logger_detected = True
+            else:
+                infotype = "Logging Configuration"
+                value = line
+            
+            # create and add config entry to database
+            config_entry = ConfigEntry(
+                filename=filename,
+                infotype=infotype,
+                value=value
+            )
+            db.session.add(config_entry)
+
+    if not logger_detected:
+        infotype = "Logging"
+        value = "No relevant information regarding logging found which probably means that only Z2M logs are findable" \
+                "since the other protocols configuration has to be set to debug mode"
+        config_entry = ConfigEntry(
+            filename=filename,
+            infotype=infotype,
+            value=value
+        )
+        db.session.add(config_entry)
+
+    db.session.commit()
+    return 
+
+
+def handle_configuration_z2m(filename):
+    # variables
+    config_log_path = os.path.join(CONFIG_DIR, "config.log")
+    # match_words = ["debug", "info", "warning", "error", "critical", "logger"]
 
     with open(config_log_path, 'r') as f:
         for line in f:
+            # declare variables
+            infotype: str = "Default"
+            value: str = None
+
+            # remove commented out part of the line
+            if '#' in line:
+                line = line.split("#")[0]
+
             # split into parts
-            parts = line.split()
+            parts = line.split(":")
 
-            # TODO fix not detecting logger in configuration.yaml
+            # filter out line if no relevant information 
+            if len(parts) != 2:
+                continue
 
-            for i, part in enumerate(parts):
-                if '#' in part:
-                    left = part.split('#')[0]
-                    if i > 0:
-                        string = " ".join(part[0:i]) + " " + left
-                        parts = string.split()
-                    else:
-                        parts = []
-                    break
-            
-            for part in parts:
-                print(part)
-                if "logger" in part:
-                    value = "Logger detected"
+            # if not any(word in line.lower() for word in match_words):
+            #     # TODO do i want that?
+            #     # infotype = "other"
+            #     # value = line
+            #     continue
 
-        print(value)
-        return infotype, value
 
 
 
@@ -394,26 +439,3 @@ def remove_special_chars(to_parse):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-# def refactor_timestamp(to_parse):
-#     # split timestamp into month, day and time
-#     parts = to_parse.split()
-#     old_month, day, time = parts
-#     new_month: str
-
-#     # refactor date and time; Format: MM-DD HH:MM:SS
-#     months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-#     for month in months: 
-#         if old_month in month:
-#             new_month = str(months.index(month) + 1)
-#             if len(new_month) < 2:
-#                 new_month = "0" + new_month
-    
-#     # rejoin timestamp
-#     date = "-".join([new_month, day])
-#     new_timestamp = " ".join([date, time])
-
-#     return new_timestamp

@@ -16,14 +16,7 @@
 
         <br>
 
-        <h3>Select config files</h3> 
-        <p>Example locations of config files: homeassistant/configuration.yaml | homeassistant/zigbee2mqtt/configuration.yaml | homeassistant/secrets.yaml | homeassistant/zigbee2mqtt/state.json | homeassistant/zigbee2mqtt/coordinator_backup.json</p>
         
-        <form action="/uploadconfigfiles" method="post" enctype="multipart/form-data">
-            <input type="file" name="configfiles">
-            <input type="submit" value="Upload">
-            <input type="button" value="Clear" onclick="window.location.href='/clearconfigfiles'">
-        </form>
 
         <div class="log-table">
             <table>
@@ -49,6 +42,15 @@
 
         <br>
 
+        <h3>Select config files</h3> 
+        <p>Example locations of config files: homeassistant/configuration.yaml | homeassistant/zigbee2mqtt/configuration.yaml | homeassistant/secrets.yaml | homeassistant/zigbee2mqtt/state.json | homeassistant/zigbee2mqtt/coordinator_backup.json</p>
+        
+        <form action="/uploadconfigfiles" method="post" enctype="multipart/form-data">
+            <input type="file" name="configfiles">
+            <input type="submit" value="Upload">
+            <input type="button" value="Clear" onclick="window.location.href='/clearconfigfiles'">
+        </form>
+
         <div class="config-table">
             <table>
             <tr>
@@ -68,8 +70,5 @@
             {% endfor %}
             </table>
         </div>
-
-
-
     </div>
 {% endblock %}
