@@ -1,11 +1,7 @@
 import os
 import magic
-import pprint
-import json
-from flask import Flask, render_template, url_for, request, redirect
-from werkzeug.utils import secure_filename
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
 # app
 app = Flask(__name__)
@@ -112,7 +108,6 @@ def upload_config_files():
     os.makedirs(UPLOAD_DIR, exist_ok=True)
 
     # retrieve uploaded files
-    # uploaded_file = request.files.getlist("configfiles")
     f = request.files.get("configfiles")
 
     if f:
@@ -217,9 +212,9 @@ def create_log_entries(filetype):
 def create_config_entries(filename):
     match filename:
         case "configuration.yaml":
-            handle_configuration(filename)
-        case "configuration.yaml (z2m)":
-            handle_configuration_z2m(filename) 
+            handle_configurations(filename)
+        # case "configuration.yaml (z2m)":
+        #     handle_configuration_z2m(filename) 
         case _:
             print("error")
             return
@@ -228,7 +223,7 @@ def create_config_entries(filename):
 ### Handle timestamp
 def handle_timestamp_journal(parts):
     timestamp = " ".join(parts[5:7])
-    timestamp = remove_special_chars(timestamp)
+    timestamp = remove_special_chars(timestamp, '[', ']')
     return timestamp
 
 
@@ -251,7 +246,7 @@ def handle_timestamp_ring(parts):
 
 def handle_timestamp(parts):
     timestamp = " ".join(parts[0:2])
-    timestamp = remove_special_chars(timestamp)
+    timestamp = remove_special_chars(timestamp, '[', ']')
     return timestamp
 
 
@@ -302,32 +297,38 @@ def handle_logtype_and_message(parts):
 def format_z2m_message(message):
     parts = message.split()
     header = " ".join(parts[0:3])
-    print(header)
     if not header == "z2m:mqtt: MQTT publish:":
         return message
 
-    payload_start: int
+    # search for index where payload starts
     for i, part in enumerate(parts):
         if part == "payload":
-            payload_start = i
             break
-    # TODO
-    print("i is " + str(i) + " while payload_start is " + payload_start)
+
     # rebuild message
     topic = "Topic: " + " ".join(parts[4:i])
     payload = "Payload: " + " ".join(parts[i + 1:])
-    message = topic + "<br/>" + payload
+    message = topic + "<br>" + payload
 
     return message
 
 
 ### Handle files
+def handle_configurations(filename):
+    config_log_path = os.path.join(CONFIG_DIR, "config.log")
+    with open(config_log_path, 'r') as f:
+        if "mqtt:" in f.read():
+            handle_configuration_z2m(filename)
+        else:
+            handle_configuration(filename)
+    return 
+
+
 def handle_configuration(filename):
-    # variables
     config_log_path = os.path.join(CONFIG_DIR, "config.log")
     match_words = ["debug", "info", "warning", "error", "critical", "logger"]
     logger_detected: bool = False
-    
+
     with open(config_log_path, 'r') as f:
         for line in f:
             # declare variables
@@ -347,9 +348,8 @@ def handle_configuration(filename):
 
             if not any(word in line.lower() for word in match_words):
                 # TODO do i want that?
-                # infotype = "other"
-                # value = line
-                continue
+                value = line
+                # continue
             elif "logger:" in line:
                 infotype: str = "Logging"
                 value = "Custom Logging Configuration Found"
@@ -378,23 +378,42 @@ def handle_configuration(filename):
         db.session.add(config_entry)
 
     db.session.commit()
-    return 
 
 
 def handle_configuration_z2m(filename):
     # variables
     config_log_path = os.path.join(CONFIG_DIR, "config.log")
+    infotype: str = "Default"
+    hex_list: list = []
     # match_words = ["debug", "info", "warning", "error", "critical", "logger"]
 
     with open(config_log_path, 'r') as f:
         for line in f:
-            # declare variables
-            infotype: str = "Default"
+            # variables
             value: str = None
 
             # remove commented out part of the line
             if '#' in line:
                 line = line.split("#")[0]
+            
+            if "network_key" in infotype or "ext_pan_id" in infotype:
+                if line.startswith("    - "):
+                    hex_list.append(int(line.replace("    - ", "")))
+                else:
+                    to_hex: str = ""
+                    for h in hex_list:
+                        to_hex += hex(h) + " "
+                    
+                    value = to_hex
+
+                    # create and add config entry to database
+                    config_entry = ConfigEntry(
+                        filename=filename + " (z2m)",
+                        infotype=infotype,
+                        value=value
+                    )
+                    db.session.add(config_entry)
+                    hex_list = []
 
             # split into parts
             parts = line.split(":")
@@ -403,12 +422,38 @@ def handle_configuration_z2m(filename):
             if len(parts) != 2:
                 continue
 
-            # if not any(word in line.lower() for word in match_words):
-            #     # TODO do i want that?
-            #     # infotype = "other"
-            #     # value = line
-            #     continue
+            # default behaviour
+            infotype = parts[0]
+            value = parts[1]
 
+            if value in "\n":
+                continue
+            
+            # create and add config entry to database
+            config_entry = ConfigEntry(
+                filename=filename + " (z2m)",
+                infotype=infotype,
+                value=value
+            )
+            db.session.add(config_entry)
+    
+        # TODO find out if file always ends this way
+        # TODO fix this... check out the other read() and try to print it maybe? 
+        print(f.read())
+        if "devices:" in f.read():
+            infotype = "Device Aliases"
+            value = f.read().split("devices:")[1]
+
+            # create and add config entry to database
+            config_entry = ConfigEntry(
+                filename=filename + " (z2m)",
+                infotype=infotype,
+                value=value
+            )
+            db.session.add(config_entry)
+
+    db.session.commit()
+    return
 
 
 
@@ -423,14 +468,14 @@ def remove_config():
     os.system(f"echo '' > {config_log_path}")
 
 
-def remove_special_chars(to_parse):
-    if to_parse.startswith('['):
-        to_parse = to_parse.replace('[', '')
+def remove_special_chars(to_parse, left, right):
+    if to_parse.startswith(left):
+        to_parse = to_parse.replace(left, '')
     else:
         return None
     
-    if to_parse.endswith(']'):
-        to_parse = to_parse.replace(']', '')
+    if to_parse.endswith(right):
+        to_parse = to_parse.replace(right, '')
     else: 
         return None
     

@@ -1,61 +1,53 @@
-
-Loads default set of integrations. Do not remove.
-default_config:
-
-# Load frontend themes from the themes folder
+version: 4
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://core-mosquitto:1883
+  user: addons
+  password: xag5nie0eiDie8Yohz6aitohbeeyae3He6saeB9eicha2Tho5Ahsaazoosiex2no
+serial:
+  port: /dev/ttyUSB0
+  adapter: zstack
+  baudrate: 115200
+  rtscts: false
+advanced:
+  log_level: info
+  channel: 11
+  network_key:
+    - 27
+    - 212
+    - 253
+    - 55
+    - 221
+    - 228
+    - 56
+    - 189
+    - 150
+    - 153
+    - 24
+    - 224
+    - 237
+    - 49
+    - 15
+    - 118
+  pan_id: 15532
+  ext_pan_id:
+    - 176
+    - 13
+    - 79
+    - 41
+    - 168
+    - 240
+    - 190
+    - 100
 frontend:
-  themes: !include_dir_merge_named themes
-
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-
-# logger
-
-# logger:
-#   default: info
-#   logs:
-#     homeassistant.core: debug
-#     homeassistant.components.zha: debug
-#     bellows.zigbee.application: debug
-#     bellows.ezsp: debug
-#     zigpy: debug
-#     zigpy_deconz.zigbee.application: debug
-#     zigpy_deconz.api: debug
-#     zigpy_xbee.zigbee.application: debug
-#     zigpy_xbee.api: debug
-#     zigpy_zigate: debug
-#     zigpy_znp: debug
-#     zhaquirks: debug
-
-bla bla # test
-# test # test2
-# sdkjfsdkjfksjdf # skdjfksjdkfj # ### 
-### dksjfsdjf
-hey ### test
-log#ger
-l#o#G#g#e#r
-logger: # lol
-l:o:g:ger
-::::::: sdfkjsdkfj : DKFj: # : DKJf: 3:# : DKJf: 3:
-# : DKJf: 3:
-###############R JFdjfkj ## #J# KJlogger
-
-logger:
-  default: info
-  logs:
-    homeassistant.core: debug
-    homeassistant.components.zha: debug
-    bellows.zigbee.application: debug
-    bellows.ezsp: debug
-    zigpy: debug
-    zigpy_deconz.zigbee.application: debug
-    zigpy_deconz.api: debug
-    zigpy_xbee.zigbee.application: debug
-    zigpy_xbee.api: debug
-    zigpy_zigate: debug
-    zigpy_znp: debug
-    zhaquirks: debug
-
-
-bla : blub
+  enabled: true
+  port: 8099
+homeassistant:
+  enabled: true
+devices:
+  '0x001788010f5d31a9':
+    friendly_name: LR LED Stripes
+  '0x08ddebfffeda418c':
+    friendly_name: LR Motion Sensor
+  '0xb43522fffec77125':
+    friendly_name: BR Motion Sensor
