@@ -21,6 +21,8 @@ JOURNAL_TYPE = 'application/x-linux-journal'
 # constants
 MIN_PARTS_JOURNAL = 8
 MIN_PARTS_LOG = 3
+NETWORK_KEY_OFFSET = 16
+EXT_PAN_ID_OFFSET = 8
 
 
 ### database models
@@ -383,37 +385,70 @@ def handle_configuration(filename):
 def handle_configuration_z2m(filename):
     # variables
     config_log_path = os.path.join(CONFIG_DIR, "config.log")
+    pre_infotype: str = ""
     infotype: str = "Default"
-    hex_list: list = []
+    value: str = ""
     # match_words = ["debug", "info", "warning", "error", "critical", "logger"]
 
     with open(config_log_path, 'r') as f:
-        for line in f:
-            # variables
-            value: str = None
+        # read file content
+        file_content = f.readlines()
 
+        for i, line in enumerate(file_content):
             # remove commented out part of the line
             if '#' in line:
                 line = line.split("#")[0]
             
-            if "network_key" in infotype or "ext_pan_id" in infotype:
-                if line.startswith("    - "):
-                    hex_list.append(int(line.replace("    - ", "")))
-                else:
-                    to_hex: str = ""
-                    for h in hex_list:
-                        to_hex += hex(h) + " "
-                    
-                    value = to_hex
+            # TODO convert to hex ist tot 
+            if "network_key:" in line:
+                infotype = "network_key"
+                decimals = file_content[i + 1 : i + NETWORK_KEY_OFFSET + 1]
+                to_hex: str = convert_to_hex(decimals)
+                value = to_hex
 
-                    # create and add config entry to database
-                    config_entry = ConfigEntry(
-                        filename=filename + " (z2m)",
-                        infotype=infotype,
-                        value=value
-                    )
-                    db.session.add(config_entry)
-                    hex_list = []
+                # create and add config entry to database
+                config_entry = ConfigEntry(
+                    filename=filename + " (z2m)",
+                    infotype=pre_infotype + infotype,
+                    value=value
+                )
+                db.session.add(config_entry)
+                continue
+
+            # TODO method to encapsulate redundant code
+            if "ext_pan_id:" in line:
+                infotype = "ext_pan_id"
+                decimals = file_content[i + 1 : i + EXT_PAN_ID_OFFSET + 1]
+                to_hex: str = convert_to_hex(decimals)
+                value = to_hex
+
+                # create and add config entry to database
+                config_entry = ConfigEntry(
+                    filename=filename + " (z2m)",
+                    infotype=pre_infotype + infotype,
+                    value=value
+                )
+                db.session.add(config_entry)
+                continue
+
+            if "devices:" in line: 
+                pre_infotype = ""
+                infotype = "device aliases"
+                devices = file_content[i + 1:] # TODO nicht alle devices... BR LED stripes fehlt. (maaybe ganz file_content printen als test?)
+                                                # TODO actually es fehlt immer das letzte.... (bzw eins davon, zb mqtt - server) hat safe was mit den i's zu tun 
+
+                value = " ".join(devices)
+
+                # create and add config entry to database
+                config_entry = ConfigEntry(
+                    filename=filename + " (z2m)",
+                    infotype=infotype,
+                    value=value
+                )
+                db.session.add(config_entry)
+                break
+            
+            ## default behaviour
 
             # split into parts
             parts = line.split(":")
@@ -423,38 +458,24 @@ def handle_configuration_z2m(filename):
                 continue
 
             # default behaviour
-            infotype = parts[0]
             value = parts[1]
 
             if value in "\n":
+                pre_infotype = parts[0] + " - "
                 continue
+
+            infotype = parts[0]
             
             # create and add config entry to database
             config_entry = ConfigEntry(
                 filename=filename + " (z2m)",
-                infotype=infotype,
-                value=value
-            )
-            db.session.add(config_entry)
-    
-        # TODO find out if file always ends this way
-        # TODO fix this... check out the other read() and try to print it maybe? 
-        print(f.read())
-        if "devices:" in f.read():
-            infotype = "Device Aliases"
-            value = f.read().split("devices:")[1]
-
-            # create and add config entry to database
-            config_entry = ConfigEntry(
-                filename=filename + " (z2m)",
-                infotype=infotype,
+                infotype=pre_infotype + infotype,
                 value=value
             )
             db.session.add(config_entry)
 
     db.session.commit()
     return
-
 
 
 ### Helper functions
@@ -480,6 +501,15 @@ def remove_special_chars(to_parse, left, right):
         return None
     
     return to_parse
+
+
+def convert_to_hex(decimals):
+    hex_list = []
+    for decimal in decimals:
+        decimal = decimal.replace("    - ", "")
+        hex_list.append(hex(int(decimal)))
+        # to_hex += hex(decimal) + " "
+    return " ".join(hex_list)
 
 
 if __name__ == "__main__":
