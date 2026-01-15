@@ -88,7 +88,7 @@ def upload_logs():
         else:
             os.system(f"cat {full_path} >> {JOURNAL_DIR}/journal.log")
 
-    # create database entries 
+    # create database entries y
     if is_uploaded:
         create_log_entries(filetype)
         remove_journal()
@@ -131,8 +131,8 @@ def upload_config_files():
         os.system(f"cat {full_path} >> {CONFIG_DIR}/config.log")
 
         # create database entries 
-        create_config_entries(f.filename)
-        remove_config()
+        # create_config_entries(f.filename)
+        # remove_config()
 
     return redirect('/')
 
@@ -211,15 +211,15 @@ def create_log_entries(filetype):
     db.session.commit()
 
 
-def create_config_entries(filename):
-    match filename:
-        case "configuration.yaml":
-            handle_configurations(filename)
-        # case "configuration.yaml (z2m)":
-        #     handle_configuration_z2m(filename) 
-        case _:
-            print("error")
-            return
+# def create_config_entries(filename):
+#     match filename:
+#         case "configuration.yaml":
+#             handle_configurations(filename)
+#         # case "configuration.yaml (z2m)":
+#         #     handle_configuration_z2m(filename) 
+#         case _:
+#             print("error")
+#             return
 
 
 ### Handle timestamp
@@ -316,166 +316,165 @@ def format_z2m_message(message):
 
 
 ### Handle files
-def handle_configurations(filename):
-    config_log_path = os.path.join(CONFIG_DIR, "config.log")
-    with open(config_log_path, 'r') as f:
-        if "mqtt:" in f.read():
-            handle_configuration_z2m(filename)
-        else:
-            handle_configuration(filename)
-    return 
+# def handle_configurations(filename):
+#     config_log_path = os.path.join(CONFIG_DIR, "config.log")
+#     with open(config_log_path, 'r') as f:
+#         if "mqtt:" in f.read():
+#             handle_configuration_z2m(filename)
+#         else:
+#             handle_configuration(filename)
+#     return 
 
 
-def handle_configuration(filename):
-    config_log_path = os.path.join(CONFIG_DIR, "config.log")
-    match_words = ["debug", "info", "warning", "error", "critical", "logger"]
-    logger_detected: bool = False
+# def handle_configuration(filename):
+#     config_log_path = os.path.join(CONFIG_DIR, "config.log")
+#     match_words = ["debug", "info", "warning", "error", "critical", "logger"]
+#     logger_detected: bool = False
 
-    with open(config_log_path, 'r') as f:
-        for line in f:
-            # declare variables
-            infotype: str = "Default"
-            value: str = None
+#     with open(config_log_path, 'r') as f:
+#         for line in f:
+#             # declare variables
+#             infotype: str = "Default"
+#             value: str = None
 
-            # remove commented out part of the line
-            if '#' in line:
-                line = line.split("#")[0]
+#             # remove commented out part of the line
+#             if '#' in line:
+#                 line = line.split("#")[0]
 
-            # split into parts
-            parts = line.split(":")
+#             # split into parts
+#             parts = line.split(":")
 
-            # filter out line if no relevant information 
-            if len(parts) != 2:
-                continue
+#             # filter out line if no relevant information 
+#             if len(parts) != 2:
+#                 continue
 
-            if not any(word in line.lower() for word in match_words):
-                # TODO do i want that?
-                value = line
-                # continue
-            elif "logger:" in line:
-                infotype: str = "Logging"
-                value = "Custom Logging Configuration Found"
-                logger_detected = True
-            else:
-                infotype = "Logging Configuration"
-                value = line
+#             if not any(word in line.lower() for word in match_words):
+#                 # TODO do i want that?
+#                 value = line
+#                 # continue
+#             elif "logger:" in line:
+#                 infotype: str = "Logging"
+#                 value = "Custom Logging Configuration Found"
+#                 logger_detected = True
+#             else:
+#                 infotype = "Logging Configuration"
+#                 value = line
             
-            # create and add config entry to database
-            config_entry = ConfigEntry(
-                filename=filename,
-                infotype=infotype,
-                value=value
-            )
-            db.session.add(config_entry)
+#             # create and add config entry to database
+#             config_entry = ConfigEntry(
+#                 filename=filename,
+#                 infotype=infotype,
+#                 value=value
+#             )
+#             db.session.add(config_entry)
 
-    if not logger_detected:
-        infotype = "Logging"
-        value = "No relevant information regarding logging found which probably means that only Z2M logs are findable" \
-                "since the other protocols configuration has to be set to debug mode"
-        config_entry = ConfigEntry(
-            filename=filename,
-            infotype=infotype,
-            value=value
-        )
-        db.session.add(config_entry)
+#     if not logger_detected:
+#         infotype = "Logging"
+#         value = "No relevant information regarding logging found which probably means that only Z2M logs are findable" \
+#                 "since the other protocols configuration has to be set to debug mode"
+#         config_entry = ConfigEntry(
+#             filename=filename,
+#             infotype=infotype,
+#             value=value
+#         )
+#         db.session.add(config_entry)
 
-    db.session.commit()
+#     db.session.commit()
 
 
-def handle_configuration_z2m(filename):
-    # variables
-    config_log_path = os.path.join(CONFIG_DIR, "config.log")
-    pre_infotype: str = ""
-    infotype: str = "Default"
-    value: str = ""
-    # match_words = ["debug", "info", "warning", "error", "critical", "logger"]
+# def handle_configuration_z2m(filename):
+#     # variables
+#     config_log_path = os.path.join(CONFIG_DIR, "config.log")
+#     pre_infotype: str = ""
+#     infotype: str = "Default"
+#     value: str = ""
+#     # match_words = ["debug", "info", "warning", "error", "critical", "logger"]
 
-    with open(config_log_path, 'r') as f:
-        # read file content
-        file_content = f.readlines()
+#     with open(config_log_path, 'r') as f:
+#         # read file content
+#         file_content = f.readlines()
 
-        for i, line in enumerate(file_content):
-            # remove commented out part of the line
-            if '#' in line:
-                line = line.split("#")[0]
+#         for i, line in enumerate(file_content):
+#             # remove commented out part of the line
+#             if '#' in line:
+#                 line = line.split("#")[0]
             
-            # TODO convert to hex ist tot 
-            if "network_key:" in line:
-                infotype = "network_key"
-                decimals = file_content[i + 1 : i + NETWORK_KEY_OFFSET + 1]
-                to_hex: str = convert_to_hex(decimals)
-                value = to_hex
+#             if "network_key:" in line:
+#                 infotype = "network_key"
+#                 decimals = file_content[i + 1 : i + NETWORK_KEY_OFFSET + 1]
+#                 to_hex: str = convert_to_hex(decimals)
+#                 value = to_hex
 
-                # create and add config entry to database
-                config_entry = ConfigEntry(
-                    filename=filename + " (z2m)",
-                    infotype=pre_infotype + infotype,
-                    value=value
-                )
-                db.session.add(config_entry)
-                continue
+#                 # create and add config entry to database
+#                 config_entry = ConfigEntry(
+#                     filename=filename + " (z2m)",
+#                     infotype=pre_infotype + infotype,
+#                     value=value
+#                 )
+#                 db.session.add(config_entry)
+#                 continue
 
-            # TODO method to encapsulate redundant code
-            if "ext_pan_id:" in line:
-                infotype = "ext_pan_id"
-                decimals = file_content[i + 1 : i + EXT_PAN_ID_OFFSET + 1]
-                to_hex: str = convert_to_hex(decimals)
-                value = to_hex
+#             # TODO method to encapsulate redundant code
+#             if "ext_pan_id:" in line:
+#                 infotype = "ext_pan_id"
+#                 decimals = file_content[i + 1 : i + EXT_PAN_ID_OFFSET + 1]
+#                 to_hex: str = convert_to_hex(decimals)
+#                 value = to_hex
 
-                # create and add config entry to database
-                config_entry = ConfigEntry(
-                    filename=filename + " (z2m)",
-                    infotype=pre_infotype + infotype,
-                    value=value
-                )
-                db.session.add(config_entry)
-                continue
+#                 # create and add config entry to database
+#                 config_entry = ConfigEntry(
+#                     filename=filename + " (z2m)",
+#                     infotype=pre_infotype + infotype,
+#                     value=value
+#                 )
+#                 db.session.add(config_entry)
+#                 continue
 
-            if "devices:" in line: 
-                pre_infotype = ""
-                infotype = "device aliases"
-                devices = file_content[i + 1:] # TODO nicht alle devices... BR LED stripes fehlt. (maaybe ganz file_content printen als test?)
-                                                # TODO actually es fehlt immer das letzte.... (bzw eins davon, zb mqtt - server) hat safe was mit den i's zu tun 
+#             if "devices:" in line: 
+#                 pre_infotype = ""
+#                 infotype = "device aliases"
+#                 devices = file_content[i + 1:] # TODO nicht alle devices... BR LED stripes fehlt. (maaybe ganz file_content printen als test?)
+#                                                 # TODO actually es fehlt immer das letzte.... (bzw eins davon, zb mqtt - server) hat safe was mit den i's zu tun 
 
-                value = " ".join(devices)
+#                 value = " ".join(devices)
 
-                # create and add config entry to database
-                config_entry = ConfigEntry(
-                    filename=filename + " (z2m)",
-                    infotype=infotype,
-                    value=value
-                )
-                db.session.add(config_entry)
-                break
+#                 # create and add config entry to database
+#                 config_entry = ConfigEntry(
+#                     filename=filename + " (z2m)",
+#                     infotype=infotype,
+#                     value=value
+#                 )
+#                 db.session.add(config_entry)
+#                 break
             
-            ## default behaviour
+#             ## default behaviour
 
-            # split into parts
-            parts = line.split(":")
+#             # split into parts
+#             parts = line.split(":")
 
-            # filter out line if no relevant information 
-            if len(parts) != 2:
-                continue
+#             # filter out line if no relevant information 
+#             if len(parts) != 2:
+#                 continue
 
-            # default behaviour
-            value = parts[1]
+#             # default behaviour
+#             value = parts[1]
 
-            if value in "\n":
-                pre_infotype = parts[0] + " - "
-                continue
+#             if value in "\n":
+#                 pre_infotype = parts[0] + " - "
+#                 continue
 
-            infotype = parts[0]
+#             infotype = parts[0]
             
-            # create and add config entry to database
-            config_entry = ConfigEntry(
-                filename=filename + " (z2m)",
-                infotype=pre_infotype + infotype,
-                value=value
-            )
-            db.session.add(config_entry)
+#             # create and add config entry to database
+#             config_entry = ConfigEntry(
+#                 filename=filename + " (z2m)",
+#                 infotype=pre_infotype + infotype,
+#                 value=value
+#             )
+#             db.session.add(config_entry)
 
-    db.session.commit()
-    return
+#     db.session.commit()
+#     return
 
 
 ### Helper functions

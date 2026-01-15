@@ -33,7 +33,7 @@ td.message {
 }
 
 .log-table {
-    max-height: 1000px;
+    max-height: 800px;
     overflow-y: auto;
     overflow-x: hidden;
     width: 95%;
@@ -44,14 +44,14 @@ th.infotype {
     width: 100px;
 }
 
-.config-table tr:nth-child(odd) {
+/* .config-table tr:nth-child(odd) {
     background-color: #e8f0f2;
 }
 
 .config-table {
-    max-height: 1000px;
+    max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
     width: 95%;
     border: 1px solid #c90e0e83;
-}
+} */
