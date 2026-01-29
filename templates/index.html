@@ -6,19 +6,19 @@
 
 {% block body %}
     <div class="content">
-        <h3>Select logs</h3>
-        <p>Example locations of logs: hassos-data/logs/ | /var/log/ | homeassistant/zigbee2mqtt/log/ | homeassistant/</p>
-        <form action="/uploadlogs" method="post" enctype="multipart/form-data">
-            <input type="file" name="logfiles" value="Select logs" multiple>
+        <h3>Select image</h3>
+        <!-- <p>Example locations of logs: hassos-data/logs/ | /var/log/ | homeassistant/zigbee2mqtt/log/ | homeassistant/</p> -->
+        <form action="/uploadimage" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" value="Upload hassos-data image">
             <input type="submit" value="Upload">
-            <input type="button" value="Clear" onclick="window.location.href='/clearlogs'">
+            <input type="button" value="Clear" onclick="window.location.href='/clear'">
         </form>
 
         <br>
 
         
 
-        <div class="log-table">
+        <!-- <div class="log-table">
             <table>
             <tr>
                 <th>Timestamp (YYYY-MM-DD HH-MM-SS)</th>
@@ -38,7 +38,7 @@
                 </tr>
             {% endfor %}
             </table>
-        </div>
+        </div> -->
 
         <br>
 
