@@ -43,15 +43,3 @@ td.message {
 th.infotype {
     width: 100px;
 }
-
-/* .config-table tr:nth-child(odd) {
-    background-color: #e8f0f2;
-}
-
-.config-table {
-    max-height: 600px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    width: 95%;
-    border: 1px solid #c90e0e83;
-} */
