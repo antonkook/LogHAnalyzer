@@ -3,6 +3,7 @@ import magic
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
+# TODO backend
 
 # app
 app = Flask(__name__)
