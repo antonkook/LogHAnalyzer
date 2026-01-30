@@ -1,9 +1,8 @@
 import os
 import magic
+import socket
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-
-# TODO backend
 
 # app
 app = Flask(__name__)
@@ -14,8 +13,6 @@ db = SQLAlchemy(app)
 
 # directories
 UPLOAD_DIR = "uploads"
-
-
 
 ### web
 @app.route("/", methods=['GET'])
@@ -39,5 +36,27 @@ def remove_db_entries():
     return redirect('/')
 
 
+@app.post("/use-image")
+def use_image():
+    path = request.json["path"]
+
+    # TODO 
+    # with open(path, "rb") as f:
+    #     # do big-file-safe processing
+    #     f.read(512)
+
+    return "ok"
+
+
+def get_port():
+    sock = socket.socket()
+    sock.bind(("127.0.0.1", 0))
+    port = sock.getsockname()[1]
+    sock.close()
+    return port
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = get_port()
+    print(f"PORT:{port}", flush=True)
+    app.run(debug=True, port=port)
