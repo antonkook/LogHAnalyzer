@@ -1,9 +1,15 @@
 const { app, BrowserWindow, dialog, ipcMain } = require("electron")
 const { spawn } = require("child_process")
+var sudo = require('sudo-prompt');
 
 // variables
 let port = null // port for communication with backend
 let localhostURL = null // url of the localhost with port 
+
+var options = {
+  name: 'Electron',
+  // icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
+};
 
 // start backend
 function startBackend() {
@@ -36,6 +42,13 @@ async function openFileAndSend() {
 
     const path = result.filePaths[0]
 
+    // mount
+    sudo.exec(`mkdir /mnt/hassos && mount -o loop ${path} /mnt/hassos`, options,
+    function(error, stdout, stderr) {
+      if (error) throw error;
+      console.log('stdout: ' + stdout);
+    })
+
     await fetch(localhostURL + "/use-image", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,6 +57,18 @@ async function openFileAndSend() {
 
   } catch (err) {
       console.error("openFile failed:", err)
+  }
+}
+
+async function closeFileAndUnmount() {
+  try {
+    sudo.exec(`umount -R /mnt/hassos && rm -r /mnt/hassos`, options,
+    function(error, stdout, stderr) {
+      if (error) throw error;
+      console.log('stdout: ' + stdout);
+    })
+  } catch (err) {
+      console.error("closeFile failed:", err)
   }
 }
 
@@ -65,6 +90,10 @@ ipcMain.handle("open-file", async () => {
   await openFileAndSend()
 })
 
+ipcMain.handle("close-file", async () => {
+  await closeFileAndUnmount()
+})
+
 // main function
 app.whenReady().then(async () => {
   await startBackend()
@@ -79,7 +108,7 @@ app.whenReady().then(async () => {
     }
   })
 
-  app.on("window-all-closed", () => {
+  app.on("window-all-closed", async (event) => {
     if (process.platform !== "darwin") {
       app.quit()
     }

@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/buttons.js') }}"></script> -->
+    <link rel="stylesheet" href="../../styles/style.css">
+    <script src="../js/main.js"></script>
+    <!-- <script src="../js/buttons.js"></script> -->
     
     <title>LogHAnalyzer</title>
 
@@ -12,11 +16,15 @@
 <body>
    <div class="content">
         <h3>Sup</h3>
-        <button id="open">Open Image</button>
+        <button id="open">Mount Image</button>
+        <button id="unmount">Unmount Image</button>
 
         <script>
           document.getElementById("open").onclick = () => {
             window.api.openFile()
+          }
+          document.getElementById("unmount").onclick = async (event) => {
+            window.api.closeFile()
           }
         </script>
         

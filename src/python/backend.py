@@ -1,6 +1,7 @@
 import os
 import magic
 import socket
+import subprocess
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
@@ -12,7 +13,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///logs.db'
 db = SQLAlchemy(app)
 
 # directories
-UPLOAD_DIR = "uploads"
+UPLOAD_DIR = "../../uploads"
+MOUNT_DIR = "/mnt/hassos"
 
 ### web
 # @app.route("/", methods=['GET'])
@@ -44,9 +46,7 @@ def use_image():
     # debug
     print(path)
 
-    with open(path, "rb") as f:
-        # TODO
-        f.read(512)
+    # TODO do stuff with the mounted image file
 
     return "ok"
 

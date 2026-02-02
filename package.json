@@ -12,6 +12,11 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "electron": "^40.1.0"
+    "electron": "^40.1.0",
+    "sudo-prompt": "^9.2.1"
+  },
+  "dependencies": {
+    "@expo/sudo-prompt": "github:expo/sudo-prompt",
+    "electron-sudo": "^4.0.12"
   }
 }
