@@ -15,35 +15,38 @@ db = SQLAlchemy(app)
 UPLOAD_DIR = "uploads"
 
 ### web
-@app.route("/", methods=['GET'])
-def index():
-    return render_template("index.html")
+# @app.route("/", methods=['GET'])
+# def index():
+#     return render_template("index.html")
 
 
-@app.route("/uploadimage", methods=['POST'])
-def upload_image():
-    # make sure uploads folder exists and create it if it doesn't
-    os.makedirs(UPLOAD_DIR, exist_ok=True)
+# @app.route("/uploadimage", methods=['POST'])
+# def upload_image():
+#     # make sure uploads folder exists and create it if it doesn't
+#     os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-    # retrieve uploaded files
-    uploaded_file = request.files.get("image")
+#     # retrieve uploaded files
+#     uploaded_file = request.files.get("image")
     
-    return redirect('/')
+#     return redirect('/')
 
 
-@app.route("/clear", methods=['GET'])
-def remove_db_entries():
-    return redirect('/')
+# @app.route("/clear", methods=['GET'])
+# def remove_db_entries():
+#     return redirect('/')
 
 
 @app.post("/use-image")
 def use_image():
+    # get path
     path = request.json["path"]
 
-    # TODO 
-    # with open(path, "rb") as f:
-    #     # do big-file-safe processing
-    #     f.read(512)
+    # debug
+    print(path)
+
+    with open(path, "rb") as f:
+        # TODO
+        f.read(512)
 
     return "ok"
 
@@ -59,4 +62,4 @@ def get_port():
 if __name__ == "__main__":
     port = get_port()
     print(f"PORT:{port}", flush=True)
-    app.run(debug=True, port=port)
+    app.run(port=port, debug=False, use_reloader=False)

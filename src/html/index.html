@@ -12,6 +12,13 @@
 <body>
    <div class="content">
         <h3>Sup</h3>
+        <button id="open">Open Image</button>
+
+        <script>
+          document.getElementById("open").onclick = () => {
+            window.api.openFile()
+          }
+        </script>
         
         <!-- <form action="/uploadimage" method="post" enctype="multipart/form-data">
             <input type="file" name="image" value="Upload hassos-data image">

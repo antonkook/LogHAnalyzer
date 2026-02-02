@@ -1,6 +1,5 @@
-const { app, BrowserWindow, dialog } = require("electron")
+const { app, BrowserWindow, dialog, ipcMain } = require("electron")
 const { spawn } = require("child_process")
-const backend = spawn("python", ["src/python/backend.py"])
 
 // variables
 let port = null // port for communication with backend
@@ -9,10 +8,12 @@ let localhostURL = null // url of the localhost with port
 // start backend
 function startBackend() {
   return new Promise((resolve, reject) => {
-    const backend = spawn("python", ["src/python/backend.py"]);
+    const backend = spawn("python", ["src/python/backend.py"])
 
     backend.stdout.on("data", d => {
       const msg = d.toString();
+      console.log("PY:", msg);
+      
       if (msg.startsWith("PORT:")) {
         port = msg.split(":")[1].trim();
         localhostURL = `http://127.0.0.1:${port}`;
@@ -50,11 +51,19 @@ async function openFileAndSend() {
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    webPreferences: {
+      preload: __dirname + "/preload.js"
+    }
   })
 
   win.loadFile("src/html/index.html")
 }
+
+// ipc stuff 
+ipcMain.handle("open-file", async () => {
+  await openFileAndSend()
+})
 
 // main function
 app.whenReady().then(async () => {
@@ -62,7 +71,7 @@ app.whenReady().then(async () => {
   createWindow()
 
   // TODO do this after pressing button instead
-  await openFileAndSend()
+  // await openFileAndSend()
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
