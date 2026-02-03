@@ -2,6 +2,7 @@ import os
 import magic
 import socket
 import subprocess
+import sqlite3
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
@@ -41,12 +42,44 @@ MOUNT_DIR = "/mnt/hassos"
 @app.post("/use-image")
 def use_image():
     # get path
-    path = request.json["path"]
+    # path = request.json["path"]
 
     # debug
-    print(path)
+    # print("XD", flush=True)
 
-    # TODO do stuff with the mounted image file
+    # TODO maybe make it less hardcoded or at least throw a warning if not found and stuff
+    db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
+
+    conn = sqlite3.connect(db_path, uri=True)
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT name
+    FROM sqlite_master
+    WHERE type='table'
+    ORDER BY name;
+    """)
+
+    tables = cursor.fetchall()
+
+    for table in tables:
+        print(table[0], flush=True)
+
+    cursor.execute("""
+        SELECT entity_id, state, last_changed
+        FROM states
+        ORDER BY last_changed DESC
+        LIMIT 10;
+    """)
+
+    rows = cursor.fetchall()
+
+    for entity_id, state, last_changed in rows:
+        print(entity_id, state, last_changed)
+        
+    conn.close()
+
+    print("test, if we even get here", flush=True)
 
     return "ok"
 

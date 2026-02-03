@@ -49,12 +49,6 @@ async function openFileAndSend() {
       console.log('stdout: ' + stdout);
     })
 
-    await fetch(localhostURL + "/use-image", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ path })
-    })
-
   } catch (err) {
       console.error("openFile failed:", err)
   }
@@ -70,6 +64,14 @@ async function closeFileAndUnmount() {
   } catch (err) {
       console.error("closeFile failed:", err)
   }
+}
+
+async function openDatabase() {
+  await fetch(localhostURL + "/use-image", {
+      method: "POST",
+      // headers: { "Content-Type": "application/json" },
+      // body: JSON.stringify({ path }),
+    })
 }
 
 // create window
@@ -93,6 +95,11 @@ ipcMain.handle("open-file", async () => {
 ipcMain.handle("close-file", async () => {
   await closeFileAndUnmount()
 })
+
+ipcMain.handle("open-database", async () => {
+  await openDatabase()
+})
+
 
 // main function
 app.whenReady().then(async () => {
