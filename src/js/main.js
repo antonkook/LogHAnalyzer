@@ -1,3 +1,4 @@
+// const { Chart } = require("chart.js")
 const { app, BrowserWindow, dialog, ipcMain } = require("electron")
 const { spawn } = require("child_process")
 var sudo = require('sudo-prompt');
@@ -29,6 +30,19 @@ function startBackend() {
 
     backend.stderr.on("data", d => console.error(d.toString()));
   });
+}
+
+// create window
+function createWindow() {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      preload: __dirname + "/preload.js"
+    }
+  })
+
+  win.loadFile("src/html/index.html")
 }
 
 // send image path to backend
@@ -74,18 +88,14 @@ async function openDatabase() {
     })
 }
 
-// create window
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: __dirname + "/preload.js"
-    }
-  })
+// async function plot(ctx) {
+//   try {
+    
 
-  win.loadFile("src/html/index.html")
-}
+//   } catch (err) {
+//     console.error("plot failed:", err)
+//   }
+// }
 
 // ipc stuff 
 ipcMain.handle("open-file", async () => {
@@ -95,6 +105,10 @@ ipcMain.handle("open-file", async () => {
 ipcMain.handle("close-file", async () => {
   await closeFileAndUnmount()
 })
+
+// ipcMain.handle("plot", async (event, ctx) => {
+//   await plot(ctx)
+// })
 
 ipcMain.handle("open-database", async () => {
   await openDatabase()

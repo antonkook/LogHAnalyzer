@@ -3,6 +3,7 @@ import magic
 import socket
 import subprocess
 import sqlite3
+import matplotlib.pyplot as plt
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
@@ -41,45 +42,30 @@ MOUNT_DIR = "/mnt/hassos"
 
 @app.post("/use-image")
 def use_image():
-    # get path
-    # path = request.json["path"]
 
-    # debug
-    # print("XD", flush=True)
-
-    # TODO maybe make it less hardcoded or at least throw a warning if not found and stuff
     db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
 
     conn = sqlite3.connect(db_path, uri=True)
     cursor = conn.cursor()
 
     cursor.execute("""
-    SELECT name
-    FROM sqlite_master
-    WHERE type='table'
-    ORDER BY name;
-    """)
+        SELECT states.state_id, states.state, states_meta.entity_id,
+        DATETIME(IIF(states.last_changed_ts IS NULL,states.last_updated_ts,states.last_changed_ts), 'unixepoch', 'localtime'),
+        state_attributes.shared_attrs, hex(states.context_id_bin)
 
-    tables = cursor.fetchall()
+        FROM states LEFT JOIN states_meta ON (states.metadata_id=states_meta.metadata_id) 
 
-    for table in tables:
-        print(table[0], flush=True)
+        LEFT JOIN state_attributes ON (states.attributes_id=state_attributes.attributes_id)
 
-    cursor.execute("""
-        SELECT entity_id, state, last_changed
-        FROM states
-        ORDER BY last_changed DESC
-        LIMIT 10;
-    """)
+        WHERE state_attributes.shared_attrs LIKE '%sensor%';
+     """)
+    
+    query = cursor.fetchall()
 
-    rows = cursor.fetchall()
-
-    for entity_id, state, last_changed in rows:
-        print(entity_id, state, last_changed)
+    for line in query:
+        print(line)
         
     conn.close()
-
-    print("test, if we even get here", flush=True)
 
     return "ok"
 
