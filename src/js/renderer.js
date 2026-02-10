@@ -1,23 +1,21 @@
-function createPlot() {
+async function createPlot() {
     // setup 
-    // const res = await fetch("http://127.0.0.1:PORT/use-image", {
-    //     method: "POST"
-    // });
+    const query = await window.api.getQuery()
 
-    // const query = await res.json();
+    
+    logMessage(query)
 
-    // const tsMin = query[0][3]
-    // const tsMax = query[query.length - 1][3]
+    const tsMin = query[0][3]
+    const tsMax = query[query.length - 1][3]
 
-    // query.forEach(line => {
-    //     const state     = line[1];
-    //     const entityId  = line[2];
-    //     const timestamp = line[3];
+    query.forEach(line => {
+        const state     = line[1];
+        const entityId  = line[2];
+        const timestamp = line[3];
 
-    //     console.log(entityId, state, timestamp);
-    // });
+        console.log(entityId, state, timestamp);
+    });
 
-    // setup 
     const data = {
         data: [
             { x: 1, y: "occupied" },
@@ -53,10 +51,6 @@ document.getElementById("open").onclick = () => {
     window.api.openFile()
 }
 
-document.getElementById("database").onclick = () => {
-    window.api.openDB()
-}
-
 document.getElementById("plot").onclick = () => {
     createPlot()
 }
@@ -65,7 +59,9 @@ document.getElementById("unmount").onclick =  () => {
     window.api.closeFile()
 }
 
-
+function logMessage(toLog) {
+    window.api.logMessage(toLog)
+}
 
 
 // debug

@@ -9,7 +9,6 @@ let localhostURL = null // url of the localhost with port
 
 var options = {
   name: 'Electron',
-  // icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
 };
 
 // start backend
@@ -80,22 +79,19 @@ async function closeFileAndUnmount() {
   }
 }
 
-async function openDatabase() {
-  await fetch(localhostURL + "/use-image", {
-      method: "POST",
-      // headers: { "Content-Type": "application/json" },
-      // body: JSON.stringify({ path }),
-    })
+async function getQuery() {
+  const res = await fetch(localhostURL + "/use-image", {
+        method: "POST"
+    });
+
+    const query = await res.json();
+    return query
 }
 
-// async function plot(ctx) {
-//   try {
-    
+async function logMessage(toLog) {
+  console.log(toLog)
+}
 
-//   } catch (err) {
-//     console.error("plot failed:", err)
-//   }
-// }
 
 // ipc stuff 
 ipcMain.handle("open-file", async () => {
@@ -106,12 +102,12 @@ ipcMain.handle("close-file", async () => {
   await closeFileAndUnmount()
 })
 
-// ipcMain.handle("plot", async (event, ctx) => {
-//   await plot(ctx)
-// })
+ipcMain.handle("get-query", async () => {
+  return await getQuery()
+})
 
-ipcMain.handle("open-database", async () => {
-  await openDatabase()
+ipcMain.handle("log-message", async (event, toLog) => {
+  await logMessage(toLog)
 })
 
 
@@ -119,9 +115,6 @@ ipcMain.handle("open-database", async () => {
 app.whenReady().then(async () => {
   await startBackend()
   createWindow()
-
-  // TODO do this after pressing button instead
-  // await openFileAndSend()
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
