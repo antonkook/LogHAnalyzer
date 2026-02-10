@@ -1,5 +1,6 @@
 import os
-import magic
+# import magic
+from flask import jsonify
 import socket
 import subprocess
 import sqlite3
@@ -42,6 +43,7 @@ MOUNT_DIR = "/mnt/hassos"
 
 @app.post("/use-image")
 def use_image():
+    # TODO datum und uhrzeit spanne hier retrieven und in query mit einbauen? wenn nicht geht dann in code
 
     db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
 
@@ -63,17 +65,24 @@ def use_image():
     query = cursor.fetchall()
 
     
-
+    sensors: list = []
     for line in query:
         # TODO cut everything before and after date / time
-        #print(line)
+        
         # timestamps
-        print(line[3], flush=True)
+        # print(line[3], flush=True)
+        pass
+
 
         
+    # columns = [col[0] for col in cursor.description]
+    # rows = [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    # print(jsonify(rows), flush=True)
+
     conn.close()
 
-    return "ok"
+    return jsonify(query)
 
 
 def get_port():
