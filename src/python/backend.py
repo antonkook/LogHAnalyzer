@@ -49,9 +49,9 @@ def use_image():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT states.state_id, states.state, states_meta.entity_id,
-        DATETIME(IIF(states.last_changed_ts IS NULL,states.last_updated_ts,states.last_changed_ts), 'unixepoch', 'localtime'),
-        state_attributes.shared_attrs, hex(states.context_id_bin)
+        SELECT states.state_id AS stateID, states.state AS state, states_meta.entity_id AS entityID,
+        DATETIME(IIF(states.last_changed_ts IS NULL,states.last_updated_ts,states.last_changed_ts), 'unixepoch', 'localtime') AS ts,
+        state_attributes.shared_attrs AS attributes, hex(states.context_id_bin) AS ctxID
 
         FROM states LEFT JOIN states_meta ON (states.metadata_id=states_meta.metadata_id) 
 
@@ -62,8 +62,14 @@ def use_image():
     
     query = cursor.fetchall()
 
+    
+
     for line in query:
-        print(line)
+        # TODO cut everything before and after date / time
+        #print(line)
+        # timestamps
+        print(line[3], flush=True)
+
         
     conn.close()
 

@@ -1,6 +1,6 @@
 function createPlot(ctx) {
     const xyValues = [
-        {x:50, y:7},
+        {x:50, y:"test"},
         {x:60, y:8},
         {x:70, y:8}
     ];
@@ -8,12 +8,23 @@ function createPlot(ctx) {
     // const ctx = document.getElementById("numberLine");
 
     new Chart(ctx, {
-      type: "scatter",
-      data: {
-          datasets: [{
-          data: xyValues
-          }]
-      }
+        type: "scatter",
+        data: {
+            datasets: [{
+            data: [
+                { x: 1700000000, y: "occupied" },
+                { x: 1700000600, y: "unoccupied" }
+            ]
+            }]
+        },
+        options: {
+            scales: {
+            y: {
+                type: "category",
+                labels: ["unoccupied", "occupied", "unknown"]
+            }
+            }
+        }
     });
     // const plot = new Chart("numberLine", {
     //   type: "scatter",
