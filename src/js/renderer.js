@@ -1,29 +1,74 @@
+// import 'chartjs-adapter-date-fns';
+
+// global variables
+let chart = null;
+
+
+class Point {
+    constructor(x, y, state) {
+        // convert "2025-12-02 11:09:14"
+        // into valid ISO date
+        this.x = new Date(x.replace(" ", "T"))
+        this.y = y
+        this.state = state
+        this.color = this.getColor()
+    }
+
+    getColor() {
+        return this.state === "on"  ? "green" :
+               this.state === "off" ? "red"   :
+                                      "yellow"
+    }
+}
+
+
 async function createPlot() {
     // setup 
-    const query = await window.api.getQuery()
+    min_ts = document.getElementById("from").value.replace("T", " ") + ":00"
+    max_ts = document.getElementById("to").value.replace("T", " ") + ":00"
 
-    
-    logMessage(query)
+    logMessage(min_ts)
 
-    const tsMin = query[0][3]
-    const tsMax = query[query.length - 1][3]
+    const query = await window.api.getQuery(min_ts, max_ts)
+
+    //debug
+    // logMessage(query)
+
+    if (!query || query.length === 0) return
+
+    // min and max timestamps
+    const tsMin = new Date(query[0][0].replace(" ", "T"))
+    const tsMax = new Date(query[query.length - 1][0].replace(" ", "T"))
+
+    // create arrays
+    const points = []
+    const pointBackgroundColors = []
+    const sensors = []
 
     query.forEach(line => {
-        const state     = line[1];
-        const entityId  = line[2];
-        const timestamp = line[3];
+        const ts = line[0]
+        const sensor = line[1]
+        // const info = line[2]
+        const state = line[3]
 
-        console.log(entityId, state, timestamp);
+        if (!sensors.includes(sensor)) 
+            sensors.push(sensor)
+        
+        // create point 
+        const point = new Point(ts, sensor, state)
+        points.push({
+            x: point.x,
+            y: point.y
+        })
+        pointBackgroundColors.push(point.color)
     });
 
     const data = {
-        data: [
-            { x: 1, y: "occupied" },
-            { x: 2, y: "unoccupied" }
-        ]
+        datasets: [{
+            data: points,
+            pointBackgroundColor: pointBackgroundColors,
+        }]
     }
-
-    const sensors = ["LR_Motion_Sensor", "Joe_MAMA_sensor"]
 
     // config
     const config = {
@@ -32,7 +77,15 @@ async function createPlot() {
         options: {
             scales: {
                 x: {
-
+                    type: 'time',
+                    time: {
+                        unit: "hour",
+                        // displayFormats: {
+                        //     hour: 'MMM DD'
+                        // },
+                    },
+                    min: tsMin,
+                    max: tsMax,
                 },
                 y: {
                     type: "category",
@@ -43,7 +96,10 @@ async function createPlot() {
     }
 
     // render
-    new Chart(document.getElementById("numberLine"), config);
+    if (chart)
+        chart.destroy()
+
+    chart = new Chart(document.getElementById("numberLine"), config);
 }
 
 // render 

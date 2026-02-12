@@ -16,13 +16,27 @@
 </head>
 <body>
    <div class="content">
-        <h3>Sup</h3>
+        <h3>Mount / Unmount Image-File</h3>
+
         <button id="open">Mount Image</button>
-        <button id="plot">Generate Plot</button>
         <button id="unmount">Unmount Image</button>
+
+        <br>
+
+        <h3>Select Timespan</h3>
+
+        <label>From:</label>
+        <input type="datetime-local" id="from">
+        <label>To:</label>
+        <input type="datetime-local" id="to">
+
+        <br>
+
+        <button id="plot">Generate Plot</button>
 
         <canvas id="numberLine" style="width:100%;max-width:700px"></canvas>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
         <script src="../js/renderer.js"></script>
 
         

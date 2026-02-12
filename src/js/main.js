@@ -56,7 +56,7 @@ async function openFileAndSend() {
     const path = result.filePaths[0]
 
     // mount
-    sudo.exec(`mkdir /mnt/hassos && mount -o loop ${path} /mnt/hassos`, options,
+    sudo.exec(`mkdir -p /mnt/hassos && mount -o loop ${path} /mnt/hassos`, options,
     function(error, stdout, stderr) {
       if (error) throw error;
       console.log('stdout: ' + stdout);
@@ -79,9 +79,16 @@ async function closeFileAndUnmount() {
   }
 }
 
-async function getQuery() {
-  const res = await fetch(localhostURL + "/use-image", {
-        method: "POST"
+async function getQuery(min_ts, max_ts) {
+    const res = await fetch(localhostURL + "/use-image", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            min_ts,
+            max_ts,
+        }),
     });
 
     const query = await res.json();
@@ -102,8 +109,8 @@ ipcMain.handle("close-file", async () => {
   await closeFileAndUnmount()
 })
 
-ipcMain.handle("get-query", async () => {
-  return await getQuery()
+ipcMain.handle("get-query", async (event, min_ts, max_ts) => {
+  return await getQuery(min_ts, max_ts)
 })
 
 ipcMain.handle("log-message", async (event, toLog) => {
@@ -113,6 +120,7 @@ ipcMain.handle("log-message", async (event, toLog) => {
 
 // main function
 app.whenReady().then(async () => {
+  
   await startBackend()
   createWindow()
 

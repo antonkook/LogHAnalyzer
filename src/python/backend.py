@@ -24,18 +24,22 @@ def get_port():
     return port
 
 
-
 @app.post("/use-image")
 def use_image():
-    # TODO datum und uhrzeit spanne hier retrieven und in query mit einbauen? wenn nicht geht dann in code
+    # retrieve json
+    data = request.get_json()
+
+    # get span
+    min_ts = data["min_ts"]
+    max_ts = data["max_ts"]
 
     db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
 
     conn = sqlite3.connect(db_path, uri=True)
     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT DATETIME(IIF(states.last_changed_ts IS NULL,states.last_updated_ts,states.last_changed_ts), 'unixepoch', 'localtime') AS ts, 
+    cursor.execute(f"""
+        SELECT DATETIME(IIF(states.last_changed_ts IS NULL,states.last_updated_ts,states.last_changed_ts), 'unixepoch') AS ts, 
         states_meta.entity_id AS entityID,
         state_attributes.shared_attrs AS attributes,
         states.state AS state
@@ -44,12 +48,15 @@ def use_image():
 
         LEFT JOIN state_attributes ON (states.attributes_id=state_attributes.attributes_id)
 
-        WHERE state_attributes.shared_attrs LIKE '%sensor%';
+        WHERE state_attributes.shared_attrs LIKE '%sensor%'
+        AND ts BETWEEN '{min_ts}' AND '{max_ts}';
      """)
      # removed: , hex(states.context_id_bin) AS ctxID
      #            states.state_id AS stateID,
     
     query = cursor.fetchall()
+
+    print(query, flush=True)
 
     conn.close()
 
