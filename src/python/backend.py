@@ -33,8 +33,22 @@ def use_image():
     min_ts = data["min_ts"]
     max_ts = data["max_ts"]
 
-    db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
+    min_str = f" AND ts >= '{min_ts}'"
+    max_str = f" AND ts <= '{max_ts}'"
+    tail: str = ""
 
+    if min_ts:
+        tail += min_str
+    
+    if max_ts: 
+        tail += max_str
+
+    tail += f";"
+
+    # debugging
+    print(f"TAIL IS {tail}", flush=True)
+
+    db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
     conn = sqlite3.connect(db_path, uri=True)
     cursor = conn.cursor()
 
@@ -49,8 +63,7 @@ def use_image():
         LEFT JOIN state_attributes ON (states.attributes_id=state_attributes.attributes_id)
 
         WHERE state_attributes.shared_attrs LIKE '%sensor%'
-        AND ts BETWEEN '{min_ts}' AND '{max_ts}';
-     """)
+     """ + tail)
      # removed: , hex(states.context_id_bin) AS ctxID
      #            states.state_id AS stateID,
     
@@ -61,7 +74,6 @@ def use_image():
     conn.close()
 
     return jsonify(query)
-
 
 if __name__ == "__main__":
     port = get_port()

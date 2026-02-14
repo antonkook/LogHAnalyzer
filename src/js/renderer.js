@@ -24,15 +24,20 @@ class Point {
 
 async function createPlot() {
     // setup 
-    min_ts = document.getElementById("from").value.replace("T", " ") + ":00"
-    max_ts = document.getElementById("to").value.replace("T", " ") + ":00"
+    min_ts = document.getElementById("from").value
+    max_ts = document.getElementById("to").value
 
-    logMessage(min_ts)
+    if (min_ts)
+        min_ts = min_ts.replace("T", " ") + ":00"
 
+    if (max_ts)
+        max_ts = max_ts.replace("T", " ") + ":00"
+        
     const query = await window.api.getQuery(min_ts, max_ts)
 
     //debug
     // logMessage(query)
+    // logMessage(min_ts)
 
     if (!query || query.length === 0) return
 
