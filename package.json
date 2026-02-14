@@ -18,6 +18,7 @@
   "dependencies": {
     "@expo/sudo-prompt": "github:expo/sudo-prompt",
     "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-plugin-zoom": "^2.2.0",
     "electron-sudo": "^4.0.12"
   }
 }

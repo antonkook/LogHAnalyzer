@@ -96,7 +96,7 @@ async function getQuery(min_ts, max_ts) {
 }
 
 async function logMessage(toLog) {
-  console.log(toLog)
+  console.log("R: " + toLog)
 }
 
 

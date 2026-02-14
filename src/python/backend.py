@@ -69,7 +69,8 @@ def use_image():
     
     query = cursor.fetchall()
 
-    print(query, flush=True)
+    # debug
+    # print(query, flush=True)
 
     conn.close()
 

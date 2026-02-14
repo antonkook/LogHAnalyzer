@@ -30,25 +30,19 @@
         <label>To:</label>
         <input type="datetime-local" id="to">
 
-        <br>
-
         <button id="plot">Generate Plot</button>
 
-        <canvas id="numberLine" style="width:100%;max-width:700px"></canvas>
+        <br><br>
+
+        <div id="chart-container">
+            <canvas id="numberLine"></canvas>
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
         <script src="../js/renderer.js"></script>
 
-        
-
-        
-        <!-- <form action="/uploadimage" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" value="Upload hassos-data image">
-            <input type="submit" value="Upload">
-            <input type="button" value="Clear" onclick="window.location.href='/clear'">
-        </form> -->
-
-        <br>
     </div>
 </body>
 </html>

@@ -42,17 +42,27 @@ async function createPlot() {
     if (!query || query.length === 0) return
 
     // min and max timestamps
+    let unit = "day"
     const tsMin = new Date(query[0][0].replace(" ", "T"))
     const tsMax = new Date(query[query.length - 1][0].replace(" ", "T"))
+    
+    const dateMin = tsMin.toISOString().substring(0, tsMin.toISOString().indexOf("T"))
+    const dateMax = tsMax.toISOString().substring(0, tsMax.toISOString().indexOf("T"))
 
+    if (dateMin === dateMax) 
+        unit = "hour"
+    
+        
     // create arrays
     const points = []
     const pointBackgroundColors = []
     const sensors = []
 
+    // let i = 0
     query.forEach(line => {
         const ts = line[0]
-        const sensor = line[1]
+        const sensor = line[1] // + i
+        // i++
         // const info = line[2]
         const state = line[3]
 
@@ -80,11 +90,13 @@ async function createPlot() {
         type: "scatter",
         data,
         options: {
+            // responsive: false,
+            // maintainAspectRatio: false, 
             scales: {
                 x: {
                     type: 'time',
                     time: {
-                        unit: "hour",
+                        unit,
                         // displayFormats: {
                         //     hour: 'MMM DD'
                         // },
@@ -94,7 +106,27 @@ async function createPlot() {
                 },
                 y: {
                     type: "category",
-                    labels: sensors
+                    labels: sensors,
+                    ticks: {
+                        autoskip: false
+                    }
+                }
+            },
+            plugins: {
+                zoom: {
+                    // pan: {
+                    //     enabled: true,
+                    //     mode: 'x',   // x, y, or xy
+                    // },
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x',
+                    }
                 }
             }
         }
@@ -104,7 +136,8 @@ async function createPlot() {
     if (chart)
         chart.destroy()
 
-    chart = new Chart(document.getElementById("numberLine"), config);
+    const canvas = document.getElementById("numberLine");
+    chart = new Chart(canvas, config);
 }
 
 // render 
