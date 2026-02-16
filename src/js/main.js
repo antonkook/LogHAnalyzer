@@ -79,7 +79,7 @@ async function closeFileAndUnmount() {
   }
 }
 
-async function getQuery(min_ts, max_ts) {
+async function getQuery(min_ts, max_ts, checked) {
     const res = await fetch(localhostURL + "/use-image", {
         method: "POST",
         headers: {
@@ -88,6 +88,7 @@ async function getQuery(min_ts, max_ts) {
         body: JSON.stringify({
             min_ts,
             max_ts,
+            checked
         }),
     });
 
@@ -109,8 +110,8 @@ ipcMain.handle("close-file", async () => {
   await closeFileAndUnmount()
 })
 
-ipcMain.handle("get-query", async (event, min_ts, max_ts) => {
-  return await getQuery(min_ts, max_ts)
+ipcMain.handle("get-query", async (event, min_ts, max_ts, checked) => {
+  return await getQuery(min_ts, max_ts, checked)
 })
 
 ipcMain.handle("log-message", async (event, toLog) => {

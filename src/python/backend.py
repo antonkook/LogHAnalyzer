@@ -29,13 +29,18 @@ def use_image():
     # retrieve json
     data = request.get_json()
 
-    # get span
+    # get parameters
     min_ts = data["min_ts"]
     max_ts = data["max_ts"]
+    checked = data["checked"]
 
     min_str = f" AND ts >= '{min_ts}'"
     max_str = f" AND ts <= '{max_ts}'"
+    checked_str = f" AND entityID LIKE '%sensor%'"
     tail: str = ""
+
+    if checked:
+        tail += checked_str
 
     if min_ts:
         tail += min_str
@@ -46,7 +51,7 @@ def use_image():
     tail += f";"
 
     # debugging
-    print(f"TAIL IS {tail}", flush=True)
+    # print(f"TAIL IS {tail}", flush=True)
 
     db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
     conn = sqlite3.connect(db_path, uri=True)
@@ -62,7 +67,7 @@ def use_image():
 
         LEFT JOIN state_attributes ON (states.attributes_id=state_attributes.attributes_id)
 
-        WHERE state_attributes.shared_attrs LIKE '%sensor%'
+        WHERE 1=1
      """ + tail)
      # removed: , hex(states.context_id_bin) AS ctxID
      #            states.state_id AS stateID,
