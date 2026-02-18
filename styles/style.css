@@ -14,10 +14,6 @@ th, td {
     padding: 8px;
 }
 
-th {
-    background: #f3effa;
-}
-
 td {
     text-align: center;
     width: 100px;
@@ -28,24 +24,50 @@ td.message {
     width: auto;
 }
 
-.log-table tr:nth-child(odd) {
-    background-color: #e8f0f2;
+.tableContainer tr:nth-child(odd) {
+    background-color: #f3f3f3;
 }
 
-.log-table {
+.tableContainer {
     max-height: 800px;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 95%;
-    border: 1px solid #c90e0e83;
+    width: 90%;
+    border: 1px solid #0b001c83;
 }
 
 th.infotype {
     width: 100px;
 }
 
-/* #chart-container {
-    height: 1000px;
-    overflow-y: auto;
-} */
+#chart-container {
+    width: 90%;
+}
 
+#queryTable {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    overflow-y: auto;
+    max-height: 1000px; 
+    /* border: "1";
+    cellspacing: "0"; 
+    cellpadding: "5"; */
+}
+
+#queryTable th {
+    position: sticky;
+    top: 0;
+    background: rgb(225, 209, 251);
+    z-index: 2;
+}
+
+#queryTable th,
+#queryTable td {
+    border: 1px solid #ccc;
+    padding: 6px;
+
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}

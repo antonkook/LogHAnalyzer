@@ -136,6 +136,30 @@ async function createPlot() {
 
     const canvas = document.getElementById("numberLine");
     chart = new Chart(canvas, config);
+
+    // create table
+    renderTable(query)
+}
+
+
+function renderTable(query) {
+    const tbody = document.querySelector("#queryTable tbody");
+    tbody.innerHTML = ""; // clear previous data
+
+    // create table
+    document.createElement("table")
+
+    query.forEach(row => {
+        const tr = document.createElement("tr");
+
+        row.forEach(cell => {
+            const td = document.createElement("td");
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
 }
 
 // render 

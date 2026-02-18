@@ -2,6 +2,7 @@ import os
 import socket
 import subprocess
 import sqlite3
+from pathlib import Path
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
@@ -13,8 +14,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///logs.db'
 db = SQLAlchemy(app)
 
 # directories
-UPLOAD_DIR = "../../uploads"
-MOUNT_DIR = "/mnt/hassos"
+UPLOAD_DIR = "uploads"
+MOUNT_DIR = "mountpoint"
 
 def get_port():
     sock = socket.socket()
@@ -26,6 +27,11 @@ def get_port():
 
 @app.post("/use-image")
 def use_image():
+    # check for errors
+    if not Path(MOUNT_DIR).is_dir():
+        print("Error: Image file not mounted", flush=True)
+        return "error"
+
     # retrieve json
     data = request.get_json()
 

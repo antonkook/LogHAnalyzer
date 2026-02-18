@@ -16,30 +16,54 @@
 </head>
 <body>
    <div class="content">
-        <h3>Mount / Unmount Image-File</h3>
+        <h3>Mount Image</h3>
 
         <button id="open">Mount Image</button>
         <button id="unmount">Unmount Image</button>
 
         <br>
 
-        <h3>Select Timespan</h3>
+        <h3>Configuration</h3>
 
         <label>From:</label>
         <input type="datetime-local" id="from">
         <label>To:</label>
         <input type="datetime-local" id="to">
 
-        <button id="plot">Generate Plot</button>
+        
         <input type="checkbox" id="filterBox">
         <label for="filterBox">Only Sensors</label>
         <input type="checkbox" id="zoomBox">
         <label for="zoomBox">Lock Y-Axis Zoom</label>
 
+        <br>
+
+        <h3>Generate Plot and Table</h3>
+
+        <button id="plot">Generate Plot</button>
+
+
         <br><br>
 
         <div id="chart-container">
             <canvas id="numberLine"></canvas>
+        </div>
+
+        <br><br>
+
+        <div class="tableContainer">
+            <table id="queryTable">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Sensor</th>
+                        <th>Info</th>
+                        <th>State</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

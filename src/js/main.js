@@ -1,11 +1,13 @@
 // const { Chart } = require("chart.js")
 const { app, BrowserWindow, dialog, ipcMain } = require("electron")
 const { spawn } = require("child_process")
+const path = require("path");
 var sudo = require('sudo-prompt');
 
 // variables
 let port = null // port for communication with backend
 let localhostURL = null // url of the localhost with port 
+const mountDir = path.join(process.cwd(), "mountpoint")
 
 var options = {
   name: 'Electron',
@@ -55,8 +57,8 @@ async function openFileAndSend() {
 
     const path = result.filePaths[0]
 
-    // mount
-    sudo.exec(`mkdir -p /mnt/hassos && mount -o loop ${path} /mnt/hassos`, options,
+    // mount  
+    sudo.exec(`mkdir -p ${mountDir} && mount -o loop ${path} ${mountDir}`, options,
     function(error, stdout, stderr) {
       if (error) throw error;
       console.log('stdout: ' + stdout);
@@ -69,7 +71,7 @@ async function openFileAndSend() {
 
 async function closeFileAndUnmount() {
   try {
-    sudo.exec(`umount -R /mnt/hassos && rm -r /mnt/hassos`, options,
+    sudo.exec(`umount -R ${mountDir} && rm -r ${mountDir}`, options,
     function(error, stdout, stderr) {
       if (error) throw error;
       console.log('stdout: ' + stdout);
