@@ -143,11 +143,14 @@ async function createPlot() {
 
 
 function renderTable(query) {
+    // make table visible
+    const container = document.getElementById("tableContainer");
+    container.style.display = "block";
+    // const queryTable = document.getElementById("queryTable")
+    // queryTable.style.display = "table"
+
     const tbody = document.querySelector("#queryTable tbody");
     tbody.innerHTML = ""; // clear previous data
-
-    // create table
-    document.createElement("table")
 
     query.forEach(row => {
         const tr = document.createElement("tr");

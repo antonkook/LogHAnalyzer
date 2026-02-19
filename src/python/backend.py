@@ -54,7 +54,7 @@ def use_image():
     if max_ts: 
         tail += max_str
 
-    tail += f";"
+    tail += f" ORDER BY ts;"
 
     # debugging
     # print(f"TAIL IS {tail}", flush=True)

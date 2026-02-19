@@ -5,6 +5,7 @@ const path = require("path");
 var sudo = require('sudo-prompt');
 
 // variables
+let backend = null
 let port = null // port for communication with backend
 let localhostURL = null // url of the localhost with port 
 const mountDir = path.join(process.cwd(), "mountpoint")
@@ -16,7 +17,7 @@ var options = {
 // start backend
 function startBackend() {
   return new Promise((resolve, reject) => {
-    const backend = spawn("python", ["src/python/backend.py"])
+    backend = spawn("python", ["src/python/backend.py"])
 
     backend.stdout.on("data", d => {
       const msg = d.toString();
@@ -123,7 +124,7 @@ ipcMain.handle("log-message", async (event, toLog) => {
 
 // main function
 app.whenReady().then(async () => {
-  
+  // spawn backend
   await startBackend()
   createWindow()
 
@@ -132,6 +133,13 @@ app.whenReady().then(async () => {
       createWindow()
     }
   })
+
+  app.on("before-quit", () => {
+    if (backend) {
+        backend.kill();
+        backend = null;
+    }
+});
 
   app.on("window-all-closed", async (event) => {
     if (process.platform !== "darwin") {
