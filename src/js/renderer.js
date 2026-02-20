@@ -22,6 +22,7 @@ async function createPlot() {
     min_ts = document.getElementById("from").value
     max_ts = document.getElementById("to").value
     checked = document.getElementById("filterBox").checked
+    filterMore = document.getElementById("filterMoreBox").checked
 
     if (min_ts)
         min_ts = min_ts.replace("T", " ") + ":00"
@@ -29,7 +30,7 @@ async function createPlot() {
     if (max_ts)
         max_ts = max_ts.replace("T", " ") + ":00"
         
-    const query = await window.api.getQuery(min_ts, max_ts, checked)
+    const query = await window.api.getQuery(min_ts, max_ts, checked, filterMore)
 
     if (!query || query.length === 0) return
 
@@ -170,18 +171,30 @@ document.getElementById("open").onclick = () => {
     window.api.openFile()
 }
 
+document.getElementById("unmount").onclick =  () => {
+    window.api.closeFile()
+}
+
 document.getElementById("plot").onclick = () => {
     createPlot()
 }
 
-document.getElementById("unmount").onclick =  () => {
-    window.api.closeFile()
+document.getElementById("toggleConfig").onclick =  () => {
+    const config = document.getElementById("config");
+    config.style.display = config.style.display === "block" ? "none" : "block"
 }
 
 document.getElementById("zoomBox").addEventListener("change", (e) => {
     const checked = document.getElementById("zoomBox").checked
     chart.options.plugins.zoom.zoom.mode = checked ? "x" : "xy"
     chart.update()
+});
+
+document.getElementById("filterBox").addEventListener("change", (e) => {
+    const filterBox = document.getElementById("filterBox")
+    const filterMoreBox = document.getElementById("filterMoreBox");
+    filterMoreBox.checked = false
+    filterMoreBox.disabled = filterBox.checked ? false : true
 });
 
 function logMessage(toLog) {

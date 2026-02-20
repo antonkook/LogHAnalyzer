@@ -39,14 +39,45 @@ def use_image():
     min_ts = data["min_ts"]
     max_ts = data["max_ts"]
     checked = data["checked"]
+    filterMore = data["filterMore"]
 
     min_str = f" AND ts >= '{min_ts}'"
     max_str = f" AND ts <= '{max_ts}'"
-    checked_str = f" AND entityID LIKE '%sensor%'"
+    checked_str = f" AND (entityID LIKE 'sensor.%' OR entityID LIKE 'binary_sensor.%')"
+    filterMore_str = f""" 
+        AND entityID NOT LIKE '%battery' 
+        AND entityID NOT LIKE '%voltage' 
+        AND entityID NOT LIKE '%battery_state' 
+        AND entityID NOT LIKE '%sun_next_dawn' 
+        AND entityID NOT LIKE '%sun_next_setting' 
+        AND entityID NOT LIKE '%sun_next_midnight' 
+        AND entityID NOT LIKE '%sun_next_rising' 
+        AND entityID NOT LIKE '%sun_next_dusk' 
+        AND entityID NOT LIKE '%sun_next_noon'
+        AND entityID NOT LIKE '%battery_low' 
+        AND entityID NOT LIKE '%version' 
+        AND entityID NOT LIKE '%backup' 
+        AND entityID NOT LIKE '%battery_level' 
+        AND entityID NOT LIKE '%charger_type' 
+        AND entityID NOT LIKE '%connection_type'
+        AND entityID NOT LIKE '%power_status' 
+        AND entityID NOT LIKE '%last_update_trigger'
+        AND entityID NOT LIKE '%backup_manager_state'
+        AND entityID NOT LIKE '%connection_state'
+    """ 
+    # AND entityID NOT LIKE '%ssid'
+    # AND entityID NOT LIKE '%bssid'
+    # AND entityID NOT LIKE '%sim_1'
+    # AND entityID NOT LIKE '%sim_2'
+    # AND entityID NOT LIKE '%audio_output'
+
     tail: str = ""
 
     if checked:
         tail += checked_str
+
+    if filterMore:
+        tail += filterMore_str
 
     if min_ts:
         tail += min_str

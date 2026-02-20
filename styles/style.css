@@ -3,6 +3,16 @@ html, body {
     font: sans-serif;
 } 
 
+.config {
+    display: none;
+    position: absolute;
+    left: 250px;
+    bottom: 1200px;
+    /* width: 500px; */
+    /* height: 120px; */
+    border: 1px solid rgb(233, 233, 233);
+}
+
 table {
     border-collapse: collapse;
     table-layout: auto;
