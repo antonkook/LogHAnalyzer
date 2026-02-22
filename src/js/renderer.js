@@ -23,6 +23,8 @@ async function createPlot() {
     max_ts = document.getElementById("to").value
     checked = document.getElementById("filterBox").checked
     filterMore = document.getElementById("filterMoreBox").checked
+    selectedObj = document.querySelector('input[name="mode"]:checked');
+    selected = selectedObj ? selectedObj.value : null
 
     if (min_ts)
         min_ts = min_ts.replace("T", " ") + ":00"
@@ -30,7 +32,7 @@ async function createPlot() {
     if (max_ts)
         max_ts = max_ts.replace("T", " ") + ":00"
         
-    const query = await window.api.getQuery(min_ts, max_ts, checked, filterMore)
+    const query = await window.api.getQuery(min_ts, max_ts, checked, filterMore, selected)
 
     if (!query || query.length === 0) return
 

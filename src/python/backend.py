@@ -40,6 +40,7 @@ def use_image():
     max_ts = data["max_ts"]
     checked = data["checked"]
     filterMore = data["filterMore"]
+    selected = data["selected"]
 
     min_str = f" AND ts >= '{min_ts}'"
     max_str = f" AND ts <= '{max_ts}'"
@@ -85,7 +86,12 @@ def use_image():
     if max_ts: 
         tail += max_str
 
-    tail += f" ORDER BY ts;"
+    match (int(selected)):
+        case 1: tail += f" ORDER BY ts;"
+        case 2: tail += f" ORDER BY entityID;"
+        case 3: tail += f" ORDER BY attributes;"
+        case 4: tail += f" ORDER BY state;"
+        case _: tail += f" ORDER BY ts;"
 
     # debugging
     # print(f"TAIL IS {tail}", flush=True)

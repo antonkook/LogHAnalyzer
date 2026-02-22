@@ -82,7 +82,7 @@ async function closeFileAndUnmount() {
   }
 }
 
-async function getQuery(min_ts, max_ts, checked, filterMore) {
+async function getQuery(min_ts, max_ts, checked, filterMore, selected) {
     const res = await fetch(localhostURL + "/use-image", {
         method: "POST",
         headers: {
@@ -92,7 +92,8 @@ async function getQuery(min_ts, max_ts, checked, filterMore) {
             min_ts,
             max_ts,
             checked,
-            filterMore
+            filterMore,
+            selected
         }),
     });
 
@@ -114,8 +115,8 @@ ipcMain.handle("close-file", async () => {
   await closeFileAndUnmount()
 })
 
-ipcMain.handle("get-query", async (event, min_ts, max_ts, checked, filterMore) => {
-  return await getQuery(min_ts, max_ts, checked, filterMore)
+ipcMain.handle("get-query", async (event, min_ts, max_ts, checked, filterMore, selected) => {
+  return await getQuery(min_ts, max_ts, checked, filterMore, selected)
 })
 
 ipcMain.handle("log-message", async (event, toLog) => {

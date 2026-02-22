@@ -34,19 +34,43 @@
     
         <div class="config" id="config">
             <h3>Configuration</h3>
-                <label>From:</label>
-                <input type="datetime-local" id="from">
-                <label>To:</label>
-                <input type="datetime-local" id="to">
-                <br>
-                <input type="checkbox" id="filterBox">
-                <label for="filterBox">Only Show Sensors</label>
-                <br>
-                <input type="checkbox" id="filterMoreBox" disabled="true">
-                <label for="filterMoreBox">Filter Out Battery/Voltage/Sun/Backup etc.</label>
-                <br>
-                <input type="checkbox" id="zoomBox">
-                <label for="zoomBox">Lock Y-Axis Zoom</label>
+            <label>From:</label>
+            <input type="datetime-local" id="from">
+            <label>To:</label>
+            <input type="datetime-local" id="to">
+            <br>
+            <input type="checkbox" id="filterBox">
+            <label for="filterBox">Only Show Sensors</label>
+            <br>
+            <input type="checkbox" id="filterMoreBox" disabled="true">
+            <label for="filterMoreBox">Filter Out Battery/Voltage/Sun/Backup etc.</label>
+            <br>
+            <input type="checkbox" id="zoomBox">
+            <label for="zoomBox">Lock Y-Axis Zoom</label>
+
+            <br>
+
+            Order table by...
+
+            <label>
+                <input type="radio" name="mode" value="1" checked>
+                Timestamp
+            </label>
+
+            <label>
+                <input type="radio" name="mode" value="2">
+                Sensor
+            </label>
+
+            <label>
+                <input type="radio" name="mode" value="3">
+                Info
+            </label>
+
+            <label>
+                <input type="radio" name="mode" value="4">
+                State
+            </label>
         </div>
         
 
@@ -72,11 +96,11 @@
         </div> 
     </div>
     
-     <div class="scripts">
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-            <script src="../js/renderer.js"></script>
+    <div class="scripts">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+        <script src="../js/renderer.js"></script>
     </div>
 
 </body>
