@@ -19,12 +19,12 @@ class Point {
 
 async function createPlot() {
     // setup 
-    min_ts = document.getElementById("from").value
-    max_ts = document.getElementById("to").value
-    checked = document.getElementById("filterBox").checked
-    filterMore = document.getElementById("filterMoreBox").checked
-    selectedObj = document.querySelector('input[name="mode"]:checked');
-    selected = selectedObj ? selectedObj.value : null
+    const min_ts = document.getElementById("from").value
+    const max_ts = document.getElementById("to").value
+    const checked = document.getElementById("filterBox").checked
+    const filterMore = document.getElementById("filterMoreBox").checked
+    const selectedObj = document.querySelector('input[name="mode"]:checked');
+    const selected = selectedObj ? selectedObj.value : null
 
     if (min_ts)
         min_ts = min_ts.replace("T", " ") + ":00"
@@ -47,7 +47,6 @@ async function createPlot() {
     if (dateMin === dateMax) 
         unit = "hour"
     
-        
     // create arrays
     const points = []
     const pointBackgroundColors = []

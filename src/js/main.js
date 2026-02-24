@@ -2,6 +2,7 @@
 const { app, BrowserWindow, dialog, ipcMain } = require("electron")
 const { spawn } = require("child_process")
 const path = require("path");
+const fs = require("fs");
 var sudo = require('sudo-prompt');
 
 // variables
@@ -9,6 +10,8 @@ let backend = null
 let port = null // port for communication with backend
 let localhostURL = null // url of the localhost with port 
 const mountDir = path.join(process.cwd(), "mountpoint")
+const personDir = path.join(process.cwd(), "mountpoint/supervisor/homeassistant/.storage/person")
+const areaDir = path.join(process.cwd(), "mountpoint/supervisor/homeassistant/.storage/core.device_registry")
 
 var options = {
   name: 'Electron',
@@ -83,28 +86,65 @@ async function closeFileAndUnmount() {
 }
 
 async function getQuery(min_ts, max_ts, checked, filterMore, selected) {
-    const res = await fetch(localhostURL + "/use-image", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            min_ts,
-            max_ts,
-            checked,
-            filterMore,
-            selected
-        }),
-    });
+  const res = await fetch(localhostURL + "/use-image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      min_ts,
+      max_ts,
+      checked,
+      filterMore,
+      selected
+    }),
+  });
 
-    const query = await res.json();
-    return query
+  const query = await res.json();
+
+  // modify query by adding person and area 
+  assignPersonAndArea(query)
+
+  return query
 }
 
 async function logMessage(toLog) {
   console.log("R: " + toLog)
 }
 
+function assignPersonAndArea(query) {
+  const person = JSON.parse(fs.readFileSync(personDir, "utf8"));
+  const area = JSON.parse(fs.readFileSync(areaDir, "utf8"));
+
+  const items = person.data.items
+  const areas = area.data.devices
+
+  query.forEach(row => {
+    const sensor = row[1]
+    const info = JSON.parse(row[2])
+    const sensorName = info.friendly_name
+    
+    if (sensorName) {
+      items.forEach(item => {
+        const devices = item.device_trackers
+        devices.forEach(device => {
+          if (device === sensor) {
+            row[1] += " (" + item.name + ")"
+          }
+        })
+      })
+      
+      areas.forEach(area => {
+        if (area.area_id != null) {
+          if (sensorName.includes(area.name)) {
+            row[1] += " (" + area.area_id + ")"
+          }
+        }
+      })
+
+    }
+  })
+}
 
 // ipc stuff 
 ipcMain.handle("open-file", async () => {
