@@ -19,19 +19,21 @@ class Point {
 
 async function createPlot() {
     // setup 
-    const min_ts = document.getElementById("from").value
-    const max_ts = document.getElementById("to").value
+    let min_ts = document.getElementById("from").value
+    let max_ts = document.getElementById("to").value
     const checked = document.getElementById("filterBox").checked
     const filterMore = document.getElementById("filterMoreBox").checked
     const selectedObj = document.querySelector('input[name="mode"]:checked');
     const selected = selectedObj ? selectedObj.value : null
 
-    if (min_ts)
+    if (min_ts) {
         min_ts = min_ts.replace("T", " ") + ":00"
+    }
 
-    if (max_ts)
+    if (max_ts) {
         max_ts = max_ts.replace("T", " ") + ":00"
-        
+    }
+             
     const query = await window.api.getQuery(min_ts, max_ts, checked, filterMore, selected)
 
     if (!query || query.length === 0) return
