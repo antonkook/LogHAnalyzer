@@ -11,7 +11,7 @@ let port = null // port for communication with backend
 let localhostURL = null // url of the localhost with port 
 const mountDir = path.join(process.cwd(), "mountpoint")
 const personDir = path.join(process.cwd(), "mountpoint/supervisor/homeassistant/.storage/person")
-const areaDir = path.join(process.cwd(), "mountpoint/supervisor/homeassistant/.storage/core.device_registry")
+const deviceDir = path.join(process.cwd(), "mountpoint/supervisor/homeassistant/.storage/core.device_registry")
 
 var options = {
   name: 'Electron',
@@ -103,47 +103,57 @@ async function getQuery(min_ts, max_ts, checked, filterMore, selected) {
   const query = await res.json();
 
   // modify query by adding person and area 
-  assignPersonAndArea(query)
+  assignSensor(query)
 
   return query
 }
 
-async function logMessage(toLog) {
-  console.log("R: " + toLog)
-}
 
-function assignPersonAndArea(query) {
+function assignSensor(query) {
   const person = JSON.parse(fs.readFileSync(personDir, "utf8"));
-  const area = JSON.parse(fs.readFileSync(areaDir, "utf8"));
+  const device = JSON.parse(fs.readFileSync(deviceDir, "utf8"));
 
   const items = person.data.items
-  const areas = area.data.devices
+  const devices = device.data.devices
 
   query.forEach(row => {
-    const sensor = row[1]
+    let sensor = ""
+    const entityID = row[1]
     const info = JSON.parse(row[2])
     const sensorName = info.friendly_name
     
     if (sensorName) {
       items.forEach(item => {
-        const devices = item.device_trackers
-        devices.forEach(device => {
-          if (device === sensor) {
+        const device_trackers = item.device_trackers
+        device_trackers.forEach(tracker => {
+          if (tracker === entityID) {
             row[1] += " (" + item.name + ")"
           }
         })
       })
       
-      areas.forEach(area => {
-        if (area.area_id != null) {
-          if (sensorName.includes(area.name)) {
-            row[1] += " (" + area.area_id + ")"
+      devices.forEach(device => {
+        if (sensorName.includes(device.name)) {
+          if (device.manufacturer != null) {
+            sensor += device.manufacturer
+          }
+
+          if (device.model != null) {
+            sensor += " " + device.model
+          }
+
+          if (device.area_id != null) {
+            sensor += " (" + device.area_id + ")"
           }
         }
-      })
-
-    }
+      }) 
+      row.push(sensor) 
+    }   
   })
+}
+
+async function logMessage(toLog) {
+  console.log("R: " + toLog)
 }
 
 // ipc stuff 
