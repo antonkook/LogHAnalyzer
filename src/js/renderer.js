@@ -2,10 +2,10 @@
 let chart = null;
 
 class Point {
-    constructor(x, y, info, state, entityID) {
+    constructor(x, y, info, state, sensor) {
         this.x = new Date(x.replace(" ", "T"))
         this.y = y
-        this.entityID = entityID
+        this.sensor = sensor
         this.info = info
         this.state = state
         this.color = this.getColor()
@@ -67,13 +67,13 @@ async function createPlot() {
             sensors.push(sensor)
         
         // create point 
-        const point = new Point(ts, sensor, info, state, entityID)
+        const point = new Point(ts, entityID, info, state, sensor)
         points.push({
             x: point.x,
             y: point.y,
             info,
             state,
-            entityID
+            sensor
         })
         pointBackgroundColors.push(point.color)
     });
@@ -114,11 +114,11 @@ async function createPlot() {
                             const point = context.raw;
 
                             return [
-                                "Sensor: " + point.y,
-                                "Time: " + point.x.toLocaleString(),
+                                "Timestamp: " + point.x.toLocaleString(),
+                                "EntityID: " + point.y,
                                 "Info: " + point.info,
                                 "State: " + point.state,
-                                "EntityID: " + point.entityID,
+                                "Sensor: " + point.sensor,
                             ];
                         }
                     }

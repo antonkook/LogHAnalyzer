@@ -143,7 +143,7 @@ function assignSensor(query) {
           }
 
           if (device.area_id != null) {
-            sensor += " (" + device.area_id + ")"
+            row[1] += " (" + device.area_id + ")"
           }
         }
       }) 

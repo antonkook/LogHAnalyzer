@@ -52,7 +52,8 @@ th.infotype {
 }
 
 #chart-container {
-    width: 90%;
+    width: 95%;
+    height: 2000;
 }
 
 #queryTable {
