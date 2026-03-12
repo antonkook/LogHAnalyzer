@@ -2,10 +2,10 @@
 let chart = null;
 
 class Point {
-    constructor(x, y, info, state, sensor) {
+    constructor(x, y, info, state, deviceclass) {
         this.x = new Date(x.replace(" ", "T"))
         this.y = y
-        this.sensor = sensor
+        this.deviceclass = deviceclass
         this.info = info
         this.state = state
         this.color = this.getColor()
@@ -53,7 +53,7 @@ async function createPlot() {
     // create arrays
     const points = []
     const pointBackgroundColors = []
-    const sensors = []
+    // const deviceclasss = []
 
     
     query.forEach(line => {
@@ -61,19 +61,19 @@ async function createPlot() {
         const entityID = line[1]
         const info = line[2]
         const state = line[3]
-        const sensor = line[4]
+        const deviceclass = line[4]
 
-        if (!sensors.includes(sensor)) 
-            sensors.push(sensor)
+        // if (!deviceclasss.includes(deviceclass)) 
+        //     deviceclasss.push(deviceclass)
         
         // create point 
-        const point = new Point(ts, entityID, info, state, sensor)
+        const point = new Point(ts, entityID, info, state, deviceclass)
         points.push({
             x: point.x,
             y: point.y,
             info,
             state,
-            sensor
+            deviceclass
         })
         pointBackgroundColors.push(point.color)
     });
@@ -101,7 +101,7 @@ async function createPlot() {
                 },
                 y: {
                     type: "category",
-                    labels: sensors,
+                    // labels: deviceclasss,
                     ticks: {
                         autoskip: false
                     }
@@ -118,7 +118,7 @@ async function createPlot() {
                                 "EntityID: " + point.y,
                                 "Info: " + point.info,
                                 "State: " + point.state,
-                                "Sensor: " + point.sensor,
+                                "Deviceclass: " + point.deviceclass,
                             ];
                         }
                     }

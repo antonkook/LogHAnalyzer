@@ -134,20 +134,20 @@ function assignSensor(query) {
       
       devices.forEach(device => {
         if (sensorName.includes(device.name)) {
-          if (device.manufacturer != null) {
-            sensor += device.manufacturer
-          }
+          // if (device.manufacturer != null) {
+          //   sensor += device.manufacturer
+          // }
 
-          if (device.model != null) {
-            sensor += " " + device.model
-          }
+          // if (device.model != null) {
+          //   sensor += " " + device.model
+          // }
 
           if (device.area_id != null) {
             row[1] += " (" + device.area_id + ")"
           }
         }
       }) 
-      row.push(sensor) 
+      // row.push(sensor) 
     }   
   })
 }

@@ -17,6 +17,7 @@ db = SQLAlchemy(app)
 UPLOAD_DIR = "uploads"
 MOUNT_DIR = "mountpoint"
 
+
 def get_port():
     sock = socket.socket()
     sock.bind(("127.0.0.1", 0))
@@ -91,6 +92,7 @@ def use_image():
         case 2: tail += f" ORDER BY entityID;"
         case 3: tail += f" ORDER BY attributes;"
         case 4: tail += f" ORDER BY state;"
+        case 5: tail += f" ORDER BY device_class;"
         case _: tail += f" ORDER BY ts;"
 
     # debugging
@@ -104,7 +106,8 @@ def use_image():
         SELECT DATETIME(IIF(states.last_changed_ts IS NULL,states.last_updated_ts,states.last_changed_ts), 'unixepoch') AS ts, 
         states_meta.entity_id AS entityID,
         state_attributes.shared_attrs AS attributes,
-        states.state AS state
+        states.state AS state,
+        json_extract(state_attributes.shared_attrs, '$.device_class') AS device_class
 
         FROM states LEFT JOIN states_meta ON (states.metadata_id=states_meta.metadata_id) 
 
@@ -123,6 +126,7 @@ def use_image():
     conn.close()
 
     return jsonify(query)
+
 
 if __name__ == "__main__":
     port = get_port()
