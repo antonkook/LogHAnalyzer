@@ -12,9 +12,57 @@ class Point {
     }
 
     getColor() {
-        return this.state === "on"  ? "green" :
-               this.state === "off" ? "red"   :
-                                      "yellow"
+        let color = "grey"
+        switch(this.deviceclass) {
+            case "occupancy":
+                  color = this.state === "on"  ? "yellow" :
+                          this.state === "off" ? "red" :
+                                                 "grey"
+                break;
+            case "door":
+                color = this.state === "on"  ? "green" :
+                        this.state === "off" ? "green" :
+                                               "grey"
+                break;
+            case "window":
+                color = this.state === "on"  ? "green" :
+                        this.state === "off" ? "green" :
+                                               "grey"
+                break;
+            case "garage_door":
+                color = this.state === "on"  ? "green" :
+                        this.state === "off" ? "red" :
+                                               "grey"
+                break;
+            case "lock":
+                color = this.state === "on"  ? "green" :
+                        this.state === "off" ? "yellow" :
+                                               "grey"
+                break;
+            case "vibration":
+                color = this.state === "on"  ? "yellow" :
+                        this.state === "off" ? "grey" :
+                                               "grey"
+                break;
+            case "motion":
+                color = this.state === "on"  ? "yellow" :
+                        this.state === "off" ? "red" :
+                                               "grey"
+                break;
+            // case "humidity":
+            //     if (this.state > 70) { // TODO get one of these or find out how it's stored in a different manner?
+            //         color = "green"
+            //     }
+            //     else {
+            //         color = "red"
+            //     }
+            //     break;
+            // case "absolute_humidity":
+
+            //     break;
+            default:
+        } 
+        return color
     }
 }
 
