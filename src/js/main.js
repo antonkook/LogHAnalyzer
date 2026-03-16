@@ -117,7 +117,7 @@ function assignSensor(query) {
   const devices = device.data.devices
 
   query.forEach(row => {
-    let sensor = ""
+    let area = ""
     const entityID = row[1]
     const info = JSON.parse(row[2])
     const sensorName = info.friendly_name
@@ -143,11 +143,12 @@ function assignSensor(query) {
           // }
 
           if (device.area_id != null) {
-            row[1] += " (" + device.area_id + ")"
+            area = device.area_id
+            row[1] += " (" + area + ")"
           }
         }
       }) 
-      // row.push(sensor) 
+      row.push(area) 
     }   
   })
 }

@@ -26,7 +26,7 @@
         <br>
 
         <div class="generation">
-                <h3>Generate Plot and Table</h3>
+                <h3>Generate Chart and Table</h3>
                 <button id="plot">Generate</button>
                 <button id="toggleConfig">Show/Hide Config</button>
         </div>
@@ -78,32 +78,60 @@
             </label>
         </div>
         
+        <br>
 
-        <div id="chart-container">
+        <div id="sensorContainer">
+            <h3>Sensor Chart</h3>
             <canvas id="numberLine"></canvas>
         </div>
 
-        <div id="presence-container">
+        <br>
+
+        <div class="sensorTableContainer" id="sensorTableContainer">
+            <h3>Sensor Table</h3>
+            <div class="innerSensorTableContainer" id="innerSensorTableContainer">
+                <table id="queryTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>EntityID</th>
+                            <th>Info</th>
+                            <th>State</th>
+                            <th>Deviceclass</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    
+        <br>
+
+        <div id="presenceContainer">
+            <h3>Presence Chart</h3>
             <canvas id="presencePlot"></canvas>
         </div>
 
-        <br><br>
+        <br>
 
-        <div class="tableContainer" id="tableContainer">
-            <table id="queryTable">
-                <thead>
-                    <tr>
-                        <th>Timestamp</th>
-                        <th>EntityID</th>
-                        <th>Info</th>
-                        <th>State</th>
-                        <th>Deviceclass</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div> 
+        <div class="presenceTableContainer" id="presenceTableContainer">
+            <h3>Presence Table</h3>
+            <div id="innerPresenceTableContainer" class="innerPresenceTableContainer">
+                <table id="presenceTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Area</th>
+                            <th>Trigger</th>
+                            <th>Presence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     
     <div class="scripts">

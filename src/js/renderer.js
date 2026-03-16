@@ -3,12 +3,13 @@ let chart = null;
 let presenceChart = null;
 
 class Point {
-    constructor(x, y, info, state, deviceclass) {
+    constructor(x, y, info, state, deviceclass, area) {
         this.x = new Date(x.replace(" ", "T"))
         this.y = y
-        this.deviceclass = deviceclass
         this.info = info
         this.state = state
+        this.deviceclass = deviceclass
+        this.area = area
         this.color = this.getColor()
     }
 
@@ -68,19 +69,19 @@ class Point {
 }
 
 class PresencePoint {
-    contructor(x, y, trigger, presence) {
+    constructor(x, y, trigger, color) {
         this.x = new Date(x.replace(" ", "T"))
         this.y = y
         this.trigger = trigger
-        this.presence = presence
-        this.color = this.getColor()
+        this.color = color
+        this.presence = this.getPresence()
     }
 
-    getColor() {
-        return this.presence === "human present" ? "green" :
-               this.presence === "human potentially present" ? "yellow" :
-               this.presence === "human not present" ? "red" :
-                                                       "grey"
+    getPresence() {
+        return this.color === "green"  ? "human present" :
+               this.color === "yellow" ? "human potentially present" :
+               this.color === "red"    ? "human not present" :
+                                         "unknown"
     }
 }
 
@@ -122,14 +123,16 @@ async function render() {
     const presencePoints = []
     const pointBackgroundColors = []
     const presencePointBackgroundColors = []
-
+    const labels = []
+    const presenceLabels = []
+    
     let ts
     let entityID
     let info
     let state
     let deviceclass
     let area
-    let trigger
+    // let trigger
     let presence
     
     query.forEach(line => {
@@ -138,43 +141,57 @@ async function render() {
         info = line[2]
         state = line[3]
         deviceclass = line[4]
-        // TODO assign area trigger and stuff
-
-        // if (!deviceclasss.includes(deviceclass)) 
-        //     deviceclasss.push(deviceclass)
         
+        area = line[5]
+        // trigger = entityID
+
+        if (!labels.includes(entityID)) 
+            labels.push(entityID)
+        
+        if (!presenceLabels.includes(area)) 
+            presenceLabels.push(area)
+
         // create point 
-        const point = new Point(ts, entityID, info, state, deviceclass)
-        points.push({
-            x: point.x,
-            y: point.y,
-            info,
-            state,
-            deviceclass
-        })
+        const point = new Point(ts, entityID, info, state, deviceclass, area)
+        points.push(point)
         pointBackgroundColors.push(point.color)
 
-        // TODO create presencePoint
-
-    });
+        // create presencePoint
+        if (point.color != "grey") {
+            const presencePoint = new PresencePoint(ts, area, entityID, point.color)
+            presencePoints.push(presencePoint)
+            presencePointBackgroundColors.push(point.color)
+        }
+    })
 
     
-    // create chart
-    renderChart(query, min_ts, max_ts, unit, points, pointBackgroundColors)
+    
+    // create sensor chart
+    renderSensorChart(unit, tsMin, tsMax, labels, points, pointBackgroundColors)
+
+    // create sensor table
+    renderSensorTable(points)
 
     // create presence chart
-    renderPresenceChart(query, min_ts, max_ts, unit)
+    renderPresenceChart(unit, tsMin, tsMax, presenceLabels, presencePoints, presencePointBackgroundColors)
 
-    // create table
-    renderTable(query)
+    // create presence table
+    renderPresenceTable(presencePoints)
 }
 
 
-function renderChart(unit, points, pointBackgroundColors) {
+function renderSensorChart(unit, tsMin, tsMax, labels, points, presencePointBackgroundColors) {
+    // make table visible
+    const container = document.getElementById("sensorContainer");
+    container.style.display = "block";
+
+    // data
     const data = {
         datasets: [{
             data: points,
-            pointBackgroundColor: pointBackgroundColors,
+            pointBackgroundColor: presencePointBackgroundColors,
+            pointBorderColor: presencePointBackgroundColors,
+            pointBorderWidth: 2
         }]
     }
 
@@ -194,7 +211,7 @@ function renderChart(unit, points, pointBackgroundColors) {
                 },
                 y: {
                     type: "category",
-                    // labels: deviceclasss,
+                    labels: labels,
                     ticks: {
                         autoskip: false
                     }
@@ -211,7 +228,7 @@ function renderChart(unit, points, pointBackgroundColors) {
                                 "EntityID: " + point.y,
                                 "Info: " + point.info,
                                 "State: " + point.state,
-                                "Deviceclass: " + point.deviceclass,
+                                "Deviceclass: " + point.deviceclass
                             ];
                         }
                     }
@@ -239,7 +256,22 @@ function renderChart(unit, points, pointBackgroundColors) {
     chart = new Chart(canvas, config)
 }
 
-function renderPresenceChart(query, unit, presencePoints, presencePointBackgroundColors) {
+
+function renderPresenceChart(unit, tsMin, tsMax, presenceLabels, presencePoints, pointBackgroundColors) {
+    // make table visible
+    const container = document.getElementById("presenceContainer");
+    container.style.display = "block";
+
+    // data
+    const data = {
+        datasets: [{
+            data: presencePoints,
+            pointBackgroundColor: pointBackgroundColors,
+            pointBorderColor: pointBackgroundColors,
+            pointBorderWidth: 2
+        }]
+    }
+
     // config
     const config = {
         type: "scatter",
@@ -256,7 +288,7 @@ function renderPresenceChart(query, unit, presencePoints, presencePointBackgroun
                 },
                 y: {
                     type: "category",
-                    // labels: deviceclasss,
+                    labels: presenceLabels,
                     ticks: {
                         autoskip: false
                     }
@@ -266,14 +298,13 @@ function renderPresenceChart(query, unit, presencePoints, presencePointBackgroun
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            const point = context.raw;
+                            const presencePoint = context.raw;
 
                             return [
-                                "Timestamp: " + point.x.toLocaleString(),
-                                "EntityID: " + point.y,
-                                "Info: " + point.info,
-                                "State: " + point.state,
-                                "Deviceclass: " + point.deviceclass,
+                                "Timestamp: " + presencePoint.x.toLocaleString(),
+                                "Area: " + presencePoint.y,
+                                "Trigger: " + presencePoint.trigger,
+                                "Presence: " + presencePoint.presence
                             ];
                         }
                     }
@@ -297,22 +328,59 @@ function renderPresenceChart(query, unit, presencePoints, presencePointBackgroun
         presenceChart.destroy()
     
     const presenceCanvas = document.getElementById("presencePlot")
-    presenceChart = new Chart(canvas, config)
+    presenceChart = new Chart(presenceCanvas, config)
 }
 
 
-function renderTable(query) {
+function renderSensorTable(points) {
     // make table visible
-    const container = document.getElementById("tableContainer");
+    const container = document.getElementById("sensorTableContainer");
     container.style.display = "block";
 
     const tbody = document.querySelector("#queryTable tbody");
     tbody.innerHTML = ""; // clear previous data
 
-    query.forEach(row => {
+    points.forEach(point => {
         const tr = document.createElement("tr");
 
-        row.forEach(cell => {
+        const cells = [
+            point.x.toLocaleString(),
+            point.y,
+            point.info,
+            point.state,
+            point.deviceclass,
+        ]
+
+        cells.forEach(cell => {
+            const td = document.createElement("td");
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+}
+
+
+function renderPresenceTable(presencePoints) {
+    // make table visible
+    const container = document.getElementById("presenceTableContainer");
+    container.style.display = "block";
+
+    const tbody = document.querySelector("#presenceTable tbody");
+    tbody.innerHTML = ""; // clear previous data
+
+    presencePoints.forEach(point => {
+        const tr = document.createElement("tr");
+
+        const cells = [
+            point.x.toLocaleString(),
+            point.y,
+            point.trigger,
+            point.presence
+        ]
+
+        cells.forEach(cell => {
             const td = document.createElement("td");
             td.textContent = cell;
             tr.appendChild(td);
@@ -343,8 +411,12 @@ document.getElementById("toggleConfig").onclick =  () => {
 
 document.getElementById("zoomBox").addEventListener("change", (e) => {
     const checked = document.getElementById("zoomBox").checked
+
     chart.options.plugins.zoom.zoom.mode = checked ? "x" : "xy"
     chart.update()
+
+    presenceChart.options.plugins.zoom.zoom.mode = checked ? "x" : "xy"
+    presenceChart.update()
 });
 
 document.getElementById("filterBox").addEventListener("change", (e) => {

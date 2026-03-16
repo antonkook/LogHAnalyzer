@@ -34,12 +34,11 @@ td.message {
     width: auto;
 }
 
-.tableContainer tr:nth-child(odd) {
+.innerSensorTableContainer tr:nth-child(odd) {
     background-color: #f3f3f3;
 }
 
-.tableContainer {
-    display: none;
+.innerSensorTableContainer {
     max-height: 800px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -47,11 +46,38 @@ td.message {
     border: 1px solid #0b001c83;
 }
 
+.sensorTableContainer {
+    display: none;
+}
+
+.innerPresenceTableContainer tr:nth-child(odd) {
+    background-color: #f3f3f3;
+}
+
+.innerPresenceTableContainer {
+    max-height: 800px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 90%;
+    border: 1px solid #0b001c83;
+}
+
+.presenceTableContainer {
+    display: none;
+}
+
 th.infotype {
     width: 100px;
 }
 
-#chart-container {
+#sensorContainer {
+    display: none;
+    width: 95%;
+    height: 2000;
+}
+
+#presenceContainer {
+    display: none;
     width: 95%;
     height: 2000;
 }
@@ -77,6 +103,35 @@ th.infotype {
 
 #queryTable th,
 #queryTable td {
+    border: 1px solid #ccc;
+    padding: 6px;
+
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#presenceTable {
+    /* display: none; */
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    overflow-y: auto;
+    max-height: 1000px; 
+    /* border: "1";
+    cellspacing: "0"; 
+    cellpadding: "5"; */
+}
+
+#presenceTable th {
+    position: sticky;
+    top: 0;
+    background: rgb(225, 209, 251);
+    z-index: 2;
+}
+
+#presenceTable th,
+#presenceTable td {
     border: 1px solid #ccc;
     padding: 6px;
 
