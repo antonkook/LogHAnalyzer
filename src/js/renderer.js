@@ -1,5 +1,6 @@
 // global variables
 let chart = null;
+let presenceChart = null;
 
 class Point {
     constructor(x, y, info, state, deviceclass) {
@@ -66,7 +67,25 @@ class Point {
     }
 }
 
-async function createPlot() {
+class PresencePoint {
+    contructor(x, y, trigger, presence) {
+        this.x = new Date(x.replace(" ", "T"))
+        this.y = y
+        this.trigger = trigger
+        this.presence = presence
+        this.color = this.getColor()
+    }
+
+    getColor() {
+        return this.presence === "human present" ? "green" :
+               this.presence === "human potentially present" ? "yellow" :
+               this.presence === "human not present" ? "red" :
+                                                       "grey"
+    }
+}
+
+
+async function render() {
     // setup 
     let min_ts = document.getElementById("from").value
     let max_ts = document.getElementById("to").value
@@ -100,16 +119,26 @@ async function createPlot() {
     
     // create arrays
     const points = []
+    const presencePoints = []
     const pointBackgroundColors = []
-    // const deviceclasss = []
+    const presencePointBackgroundColors = []
 
+    let ts
+    let entityID
+    let info
+    let state
+    let deviceclass
+    let area
+    let trigger
+    let presence
     
     query.forEach(line => {
-        const ts = line[0]
-        const entityID = line[1]
-        const info = line[2]
-        const state = line[3]
-        const deviceclass = line[4]
+        ts = line[0]
+        entityID = line[1]
+        info = line[2]
+        state = line[3]
+        deviceclass = line[4]
+        // TODO assign area trigger and stuff
 
         // if (!deviceclasss.includes(deviceclass)) 
         //     deviceclasss.push(deviceclass)
@@ -124,8 +153,24 @@ async function createPlot() {
             deviceclass
         })
         pointBackgroundColors.push(point.color)
+
+        // TODO create presencePoint
+
     });
 
+    
+    // create chart
+    renderChart(query, min_ts, max_ts, unit, points, pointBackgroundColors)
+
+    // create presence chart
+    renderPresenceChart(query, min_ts, max_ts, unit)
+
+    // create table
+    renderTable(query)
+}
+
+
+function renderChart(unit, points, pointBackgroundColors) {
     const data = {
         datasets: [{
             data: points,
@@ -190,11 +235,69 @@ async function createPlot() {
     if (chart)
         chart.destroy()
 
-    const canvas = document.getElementById("numberLine");
-    chart = new Chart(canvas, config);
+    const canvas = document.getElementById("numberLine")
+    chart = new Chart(canvas, config)
+}
 
-    // create table
-    renderTable(query)
+function renderPresenceChart(query, unit, presencePoints, presencePointBackgroundColors) {
+    // config
+    const config = {
+        type: "scatter",
+        data,
+        options: {
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit
+                    },
+                    min: tsMin,
+                    max: tsMax,
+                },
+                y: {
+                    type: "category",
+                    // labels: deviceclasss,
+                    ticks: {
+                        autoskip: false
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const point = context.raw;
+
+                            return [
+                                "Timestamp: " + point.x.toLocaleString(),
+                                "EntityID: " + point.y,
+                                "Info: " + point.info,
+                                "State: " + point.state,
+                                "Deviceclass: " + point.deviceclass,
+                            ];
+                        }
+                    }
+                },
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: document.getElementById("zoomBox").checked ? "x" : "xy",
+                    }
+                }
+            }
+        }
+    }
+
+    if (presenceChart)
+        presenceChart.destroy()
+    
+    const presenceCanvas = document.getElementById("presencePlot")
+    presenceChart = new Chart(canvas, config)
 }
 
 
@@ -202,8 +305,6 @@ function renderTable(query) {
     // make table visible
     const container = document.getElementById("tableContainer");
     container.style.display = "block";
-    // const queryTable = document.getElementById("queryTable")
-    // queryTable.style.display = "table"
 
     const tbody = document.querySelector("#queryTable tbody");
     tbody.innerHTML = ""; // clear previous data
@@ -221,6 +322,7 @@ function renderTable(query) {
     });
 }
 
+
 // render 
 document.getElementById("open").onclick = () => {
     window.api.openFile()
@@ -231,7 +333,7 @@ document.getElementById("unmount").onclick =  () => {
 }
 
 document.getElementById("plot").onclick = () => {
-    createPlot()
+    render()
 }
 
 document.getElementById("toggleConfig").onclick =  () => {
