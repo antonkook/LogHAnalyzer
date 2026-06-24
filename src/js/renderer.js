@@ -17,7 +17,7 @@ class Point {
         let color = "grey"
         switch(this.deviceclass) {
             case "occupancy":
-                  color = this.state === "on"  ? "yellow" :
+                  color = this.state === "on"  ? "green" :
                           this.state === "off" ? "red" :
                                                  "grey"
                 break;
@@ -33,7 +33,7 @@ class Point {
                 break;
             case "garage_door":
                 color = this.state === "on"  ? "green" :
-                        this.state === "off" ? "red" :
+                        this.state === "off" ? "green" :
                                                "grey"
                 break;
             case "lock":
@@ -47,21 +47,10 @@ class Point {
                                                "grey"
                 break;
             case "motion":
-                color = this.state === "on"  ? "yellow" :
+                color = this.state === "on"  ? "green" :
                         this.state === "off" ? "red" :
                                                "grey"
                 break;
-            // case "humidity":
-            //     if (this.state > 70) { // TODO get one of these or find out how it's stored in a different manner?
-            //         color = "green"
-            //     }
-            //     else {
-            //         color = "red"
-            //     }
-            //     break;
-            // case "absolute_humidity":
-
-            //     break;
             default:
         } 
         return color
@@ -132,7 +121,6 @@ async function render() {
     let state
     let deviceclass
     let area
-    // let trigger
     let presence
     
     query.forEach(line => {
@@ -143,7 +131,6 @@ async function render() {
         deviceclass = line[4]
         
         area = line[5]
-        // trigger = entityID
 
         if (!labels.includes(entityID)) 
             labels.push(entityID)
@@ -164,7 +151,6 @@ async function render() {
         }
     })
 
-    
     
     // create sensor chart
     renderSensorChart(unit, tsMin, tsMax, labels, points, pointBackgroundColors)
@@ -268,7 +254,8 @@ function renderPresenceChart(unit, tsMin, tsMax, presenceLabels, presencePoints,
             data: presencePoints,
             pointBackgroundColor: pointBackgroundColors,
             pointBorderColor: pointBackgroundColors,
-            pointBorderWidth: 2
+            pointBorderWidth: 2,
+            // showLine: true,
         }]
     }
 

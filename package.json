@@ -3,22 +3,22 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/js/main.js",
+  "type": "commonjs",
   "scripts": {
     "start": "electron .",
+    "setup:py": "python3 -m venv .venv && ./.venv/bin/python -m pip install --upgrade pip && ./.venv/bin/python -m pip install -r requirements.txt",
+    "postinstall": "npm run setup:py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
-    "electron": "^40.1.0",
-    "sudo-prompt": "^9.2.1"
+    "electron": "^40.10.5"
   },
   "dependencies": {
-    "@expo/sudo-prompt": "github:expo/sudo-prompt",
+    "@vscode/sudo-prompt": "^9.3.2",
     "chartjs-adapter-date-fns": "^3.0.0",
-    "chartjs-plugin-zoom": "^2.2.0",
-    "electron-sudo": "^4.0.12"
+    "chartjs-plugin-zoom": "^2.2.0"
   }
 }

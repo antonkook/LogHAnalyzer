@@ -3,7 +3,7 @@ const { app, BrowserWindow, dialog, ipcMain } = require("electron")
 const { spawn } = require("child_process")
 const path = require("path");
 const fs = require("fs");
-var sudo = require('sudo-prompt');
+var sudo = require("@vscode/sudo-prompt");
 
 // variables
 let backend = null
@@ -134,14 +134,6 @@ function assignSensor(query) {
       
       devices.forEach(device => {
         if (sensorName.includes(device.name)) {
-          // if (device.manufacturer != null) {
-          //   sensor += device.manufacturer
-          // }
-
-          // if (device.model != null) {
-          //   sensor += " " + device.model
-          // }
-
           if (device.area_id != null) {
             area = device.area_id
             row[1] += " (" + area + ")"

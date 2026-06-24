@@ -67,11 +67,6 @@ def use_image():
         AND entityID NOT LIKE '%backup_manager_state'
         AND entityID NOT LIKE '%connection_state'
     """ 
-    # AND entityID NOT LIKE '%ssid'
-    # AND entityID NOT LIKE '%bssid'
-    # AND entityID NOT LIKE '%sim_1'
-    # AND entityID NOT LIKE '%sim_2'
-    # AND entityID NOT LIKE '%audio_output'
 
     tail: str = ""
 
@@ -95,10 +90,9 @@ def use_image():
         case 5: tail += f" ORDER BY device_class;"
         case _: tail += f" ORDER BY ts;"
 
-    # debugging
-    # print(f"TAIL IS {tail}", flush=True)
 
-    db_path = "file:" + MOUNT_DIR + "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
+    db_path = "file:" + MOUNT_DIR + \
+    "/supervisor/homeassistant/home-assistant_v2.db?mode=ro"
     conn = sqlite3.connect(db_path, uri=True)
     cursor = conn.cursor()
 
@@ -115,13 +109,8 @@ def use_image():
 
         WHERE 1=1
      """ + tail)
-     # removed: , hex(states.context_id_bin) AS ctxID
-     #            states.state_id AS stateID,
     
     query = cursor.fetchall()
-
-    # debug
-    # print(query, flush=True)
 
     conn.close()
 
