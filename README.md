@@ -23,3 +23,8 @@ npm install @vscode/sudo-prompt
 npm install
 ```
 
+## Example 
+<img src="images/sensor-chart.jpg">
+<img src="images/sensor-table.jpg">
+<img src="images/presence-chart.jpg">
+<img src="images/presence-table.jpg">
